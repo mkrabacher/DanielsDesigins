@@ -1,0 +1,43 @@
+#marketplace-sidebar, #marketplace-display, .item-description, .item-title {
+    display: inline-block
+}
+
+#marketplace-sidebar {
+    padding: 5px 20px;
+    width: 15%;
+
+    div {
+        margin: 20px 0;
+    }
+}
+
+#marketplace-display {
+    width: 81%;
+    vertical-align: top;
+
+    
+    .item-display {
+        max-width: 75%;
+        margin: auto;
+        margin-top: 10px;
+        border: 3px solid black;
+        padding: 10px;
+        
+        img {
+            max-width: 200px;
+        }
+        
+        .item-title {
+            width: 200px;
+            h2 {
+                text-align: center;
+            }
+        }
+        .item-description {
+            width: 600px;
+            vertical-align: top;
+            text-align: justify;
+        }
+    }
+
+}

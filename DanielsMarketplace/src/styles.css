@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: AkuraPopo;
+    src: url(assets/fonts/AkuraPopo.ttf);
+}
+
+* {
+    vertical-align: baseline;
+    font-family: 'Rockwell', sans-serif;
+	font-style: inherit;
+	outline: 0;
+	padding: 0;
+	margin: 0;  
+}
