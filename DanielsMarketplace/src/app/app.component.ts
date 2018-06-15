@@ -18,8 +18,7 @@ export class AppComponent implements OnInit {
         this.logIn = false;
     }
 
-    ngOnInit(): void {
-        this.getLoggedUser();
+    ngOnInit() {
     }
 
     loggingIn() {
@@ -30,16 +29,5 @@ export class AppComponent implements OnInit {
         console.log(user);
         this.loggedInUser = user;
         this.logIn = false;
-    }
-
-    getLoggedUser() {
-        console.log('getting user now');
-        const observable = this._httpService.retrieveLogUser();
-        observable.subscribe(data => {
-            console.log(data);
-            if (data['loggedUser']) {
-                this.loggedInUser = data['loggedUser'];
-            }
-        });
     }
 }

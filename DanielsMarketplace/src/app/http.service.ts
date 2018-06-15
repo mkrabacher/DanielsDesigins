@@ -12,8 +12,6 @@ export class HttpService implements OnChanges {
     ) { }
 
     ngOnChanges() {
-        // this.setHeatmap(this.attacksToHeatData());
-        // this.setHeatmap(this.fullCompress(this.attacks));
     }
 
     login(loginUser) {
@@ -27,12 +25,13 @@ export class HttpService implements OnChanges {
     }
 
     setLogUser(loggedUser) {
+        console.log('setting logged user in service');
         this.loggedUser = loggedUser;
         this._router.navigate(['']);
     }
 
     retrieveLogUser() {
-        console.log(this.loggedUser);
+        console.log('getting logged user in service');
         return this.loggedUser;
     }
 }

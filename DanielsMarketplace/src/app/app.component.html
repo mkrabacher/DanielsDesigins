@@ -2,11 +2,11 @@
 <div id="nav-bar">
     <a [routerLink]="['']" id="title">SeamSmith</a>
     <div id="nav-buttons">
-        <h4 *ngIf="loggedInUser">Welcome {{loggedInUser.firstname}}</h4>
-        <a *ngIf="!loggedInUser" (click)="loggingIn()" class="button">Log In/Register</a>
-        <a *ngIf="loggedInUser" [routerLink]="['cart']" class="button">My Cart</a>
+        <h4 *ngIf="loggedInUser">Welcome <a [routerLink]="['profile/', loggedInUser._id]">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</a></h4>
         <a [routerLink]="['marketplace']" class="button">Browse</a>
         <a [routerLink]="['about']" class="button">About</a>
+        <a *ngIf="!loggedInUser" (click)="loggingIn()" class="button">Log In/Register</a>
+        <a *ngIf="loggedInUser" [routerLink]="['cart']" class="button">My Cart</a>
     </div>
 </div>
 

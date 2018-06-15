@@ -11,6 +11,7 @@ import { LogRegComponent } from './log-reg/log-reg.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LogRegComponent,
     PageNotFoundComponent,
     MarketplaceComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
