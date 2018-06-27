@@ -7,7 +7,12 @@ var session = require('express-session');
 var moment = require('moment');
 // create the express app
 var app = express();
-app.use(session({ secret: 'codingdojorocks' }));
+app.use(session({
+    secret: 'mattisking',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+  }));
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace' ));
@@ -39,6 +44,9 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         email: {
             type: String,
         },
+        orders: [{
+            type: Object,
+        }],
         password: String,
     }, { timestamps: true })
 
@@ -57,6 +65,9 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         },
         img_url: {
             type: String,
+        },        
+        _user: {
+            type: Schema.Types.ObjectId, ref: 'User'
         }
     }, { timestamps: true })
 
@@ -72,14 +83,15 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         app.post('/loginUser', function (req, res) {
             console.log('looking for user in DB')
             User.findOne({email:req.body.email},function(err, user) {
-                console.log('email: ', req.body.email)
-                console.log('password: ', req.body.password)
                 if(user != null) {
                     console.log('found user in server')
                     if(user.password != req.body.password) {
-                        console.log("e0rr0r",)
+                        console.log("e0rr0r, wrong pass",)
                         res.json({errorMsg:'Wrong password'})
                     } else {
+                        req.session.loggedUser = user;
+                        // console.log('user', user)
+                        // console.log('sesion', req.session)
                         res.json({message:'The Logged in one', loggedUser: user})
                     }
                 } else {
@@ -113,6 +125,12 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                     res.json({error: 'that email already exists in our DBs'});
                 }
             })
+        })
+        app.post('/retrieveUser', function(req, res) {
+            console.log('sessssssion', req.session.loggedUser)
+            if(req.session.loggedUser != null) {
+                res.json({message: 'User currently logged in', loggedUser: req.session.loggedUser})
+            }
         })
         // app.post('/updateUser', function (req, res) {
         //     console.log('upating users in server')
@@ -157,101 +175,113 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
     //end create-course routes
 
     //marketplace routes
-        app.get('/getAllItems', function (req, res) {
+        app.post('/getAllItems', function (req, res) {
             console.log('getting items in server')
             Item.find({},function(err, items) {
                 if(err){
                     console.log("e0rr0r",)
                 }else{
-                    res.json({message:'The AllItems', items: items})
+                    res.json({message:'All Items', items: items})
                 }
             })
         })
-        app.post('/contact', function (req, res) {
-            console.log('getting user in server')
-            User.find({_id: req.body.id},function(err, user) {
+
+        app.post('/addItem', function(req, res) {
+            console.log("creating new item in server", req.body)
+            newItem = new Item()
+            newItem.type = req.body.type
+            newItem.name = req.body.name
+            newItem.description = req.body.description
+            newItem.price = req.body.price
+            newItem.img_url = req.body.imgUrl
+            newItem._user = req.body.userID
+            console.log('newItem', newItem)
+            newItem.save(function(err) {
                 if(err){
-                    console.log("e0rr0r",)
+                    console.log('item creation error')
+                    res.json({err})
                 }else{
-                    res.json({message:'The User', user: user})
+                    res.json({message:`${newItem.name} item added`})
                 }
             })
         })
-        app.get('/allBikes', function (req, res) {
-            console.log('getting bikes in server')
-            Bike.find({},function(err, bikes) {
-                if(err){
-                    console.log("e0rr0r",)
-                }else{
-                    console.log(bikes)
-                    res.json({message:'The Bikes', bikes: bikes})
-                }
-            })
-        })
-        app.post('/userBikes', function (req, res) {
-            console.log('getting user bikes in server')
-            Bike.find({_user: req.body._id},function(err, bikes) {
-                if(err){
-                    console.log("e0rr0r",)
-                }else{
-                    console.log(bikes)
-                    res.json({message:'The user Bikes', bikes: bikes})
-                }
-            })
-        })
-        app.post('/updateBike', function (req, res) {
-            console.log('upating bike in server')
-            Bike.update({_id: req.body._id}, {
-                title: req.body.title,
-                description: req.body.description,
-                img_url: req.body.img_url,
-                price: req.body.price,
-                location: req.body.location,
-            }, function(err, user) {
-                if(err){
-                    console.log("update error",)
-                }else{
-                    res.json({message:`bike updated`})
-                }
-            })
-        })
-        app.post('/deleteBike', function (req, res) {
-            console.log('deleteing bike in server')
-            Bike.remove({_id: req.body._id}, function(err, user) {
+
+        app.post('/deleteItem', function(req, res) {
+            console.log('deleteing item in server', req.body)
+            Item.remove({_id: req.body._id}, function(err, user) {
                 if(err){
                     console.log("deleteing error",)
                 }else{
-                    res.json({message:`bike deleted`})
+                    res.json({message:`item deleted`})
                 }
-            })
+            })           
         })
-        app.post('/addBike', function(req, res) {
-            console.log('req.body.userID', req.body.userID)
-            User.findOne({_id: req.body.userID}, function(err, user) {
-                console.log("creating new bike in server", req.body)
-                newBike = new Bike()
-                newBike.title = req.body.title
-                newBike.description = req.body.description
-                newBike.location = req.body.location
-                newBike.price = req.body.price
-                newBike.img_url = req.body.imgUrl
-                newBike._user = req.body.userID
-                console.log('newBike', newBike)
-                newBike.save(function(err) {
-                    user.bikes.push(newBike);
-                    user.save(function(err) {
-                        if(err){
-                            console.log('saving user bike error')
-                            res.json({err})
-                        }else{
-                            res.json({message:`${newBike.title} bike added`})
-                            console.log('user added');
-                        }
-                    })
+
+        //old routes
+            app.post('/contact', function (req, res) {
+                console.log('getting user in server')
+                User.find({_id: req.body.id},function(err, user) {
+                    if(err){
+                        console.log("e0rr0r",)
+                    }else{
+                        res.json({message:'The User', user: user})
+                    }
                 })
             })
-        })
-    //end brain routes
+
+            app.get('/allBikes', function (req, res) {
+                console.log('getting bikes in server')
+                Bike.find({},function(err, bikes) {
+                    if(err){
+                        console.log("e0rr0r",)
+                    }else{
+                        console.log(bikes)
+                        res.json({message:'The Bikes', bikes: bikes})
+                    }
+                })
+            })
+
+            app.post('/userBikes', function (req, res) {
+                console.log('getting user bikes in server')
+                Bike.find({_user: req.body._id},function(err, bikes) {
+                    if(err){
+                        console.log("e0rr0r",)
+                    }else{
+                        console.log(bikes)
+                        res.json({message:'The user Bikes', bikes: bikes})
+                    }
+                })
+            })
+
+            app.post('/updateBike', function (req, res) {
+                console.log('upating bike in server')
+                Bike.update({_id: req.body._id}, {
+                    title: req.body.title,
+                    description: req.body.description,
+                    img_url: req.body.img_url,
+                    price: req.body.price,
+                    location: req.body.location,
+                }, function(err, user) {
+                    if(err){
+                        console.log("update error",)
+                    }else{
+                        res.json({message:`bike updated`})
+                    }
+                })
+            })
+
+            app.post('/deleteBike', function (req, res) {
+                console.log('deleteing bike in server')
+                Bike.remove({_id: req.body._id}, function(err, user) {
+                    if(err){
+                        console.log("deleteing error",)
+                    }else{
+                        res.json({message:`bike deleted`})
+                    }
+                })
+            })
+        //end old routes
+    //end marketplace routes
 
     app.all("*", (req,res,next) => {
         res.sendFile(path.resolve("./DanielsMarketplace/dist/DanielsMarketplace/index.html"))

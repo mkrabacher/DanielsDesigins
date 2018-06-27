@@ -17,14 +17,23 @@
     </div>
 </div>
 <div style="border:3px solid red" id="marketplace-display">
-    <div class="item-display">
-        <div class="item-title">
-            <h2>Sample Item</h2>
-            <a href="" (click)="showImg('https://www.bfgcdn.com/1500_1500_90/017-1099-0211/arcteryx-phasic-sun-hoody-hoodie.jpg')"><img src="https://www.bfgcdn.com/1500_1500_90/017-1099-0211/arcteryx-phasic-sun-hoody-hoodie.jpg" alt="sun hoodie"></a>
+    <div *ngFor="let item of allItems" class="item-display">
+        <div class="item-name">
+            <h2>{{item.name}}</h2>
+            <a href="" (click)="showImg(item.img_url)"><img src="{{item.img_url}}" alt="{{item.name}}"></a>
         </div>
         <div class="item-description">
             <h3>Description</h3>
-            <p>Some shitty Arc'tersux sun hottie.Some shitty Arc'tersux sun hottie.Some shitty Arc'tersux sun hottie.Some shitty Arc'tersux sun hottie.Some shitty Arc'tersux sun hottie.Some shitty Arc'tersux sun hottie.</p>
+            <p>{{item.description}}</p>
+            <div class="item-price">
+                <h3>Price</h3>
+                <p>{{item.price}}</p>
+            </div>
+            <div class="item-buttons">
+                <button>Add to cart</button>
+                <button *ngIf="checkUserLevel()" (click)="deleteItem(item)">Delete Item</button>
+                <button *ngIf="checkUserLevel()">Edit Item</button>
+            </div>
         </div>
     </div>
 </div>

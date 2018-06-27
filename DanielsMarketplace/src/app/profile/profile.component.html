@@ -1,3 +1,19 @@
-<p>
-  profile works! {{loggedInUser.firstName}}
-</p>
+<h2>{{loggedInUser.firstName}} {{loggedInUser.lastName}}'s Profile</h2>
+<table>
+    <tr>
+        <td>First Name:</td>
+        <td>{{loggedInUser.firstName}}</td>
+    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td>{{loggedInUser.lastName}}</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>{{loggedInUser.email}}</td>
+    </tr>
+    <tr *ngIf="loggedInUser.admin">
+        <td>User Level:</td>
+        <td>Admin</td>
+    </tr>
+</table>

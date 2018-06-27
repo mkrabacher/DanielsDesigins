@@ -17,6 +17,9 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.getLoggedUser();
+        if (this._httpService.retrieveLogUser() == null) {
+            this._router.navigate(['/log-reg']);
+        }
     }
 
     getLoggedUser() {

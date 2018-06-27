@@ -1,17 +1,16 @@
-import { Injectable, OnChanges } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
-export class HttpService implements OnChanges {
+export class HttpService {
     loggedUser;
     constructor(
         private _http: HttpClient,
         private _route: ActivatedRoute,
         private _router: Router
-    ) { }
-
-    ngOnChanges() {
+    ) {
+        this.loggedUser = {admin: false};
     }
 
     login(loginUser) {
@@ -31,7 +30,22 @@ export class HttpService implements OnChanges {
     }
 
     retrieveLogUser() {
-        console.log('getting logged user in service');
+        // console.log('getting logged user in service', this.loggedUser);
         return this.loggedUser;
+    }
+
+    getItems() {
+        console.log('getting all items in service');
+        const thing = null;
+        return this._http.post('/getAllItems', thing);
+    }
+
+    addItem(newItem) {
+        return this._http.post('/addItem', newItem);
+    }
+
+    deleteItem(item) {
+        console.log('deleting in service', item);
+        return this._http.post('/deleteItem', item);
     }
 }

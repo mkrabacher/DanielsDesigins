@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NewItemComponent } from './new-item/new-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
     PageNotFoundComponent,
     MarketplaceComponent,
     WelcomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    NewItemComponent
   ],
   imports: [
     BrowserModule,
