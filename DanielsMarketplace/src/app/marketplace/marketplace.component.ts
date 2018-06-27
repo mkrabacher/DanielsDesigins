@@ -34,6 +34,10 @@ export class MarketplaceComponent implements OnInit {
         }
     }
 
+    addToCart(item) {
+        this._httpService.addItemToCart(item);
+    }
+
     deleteItem(item) {
         console.log('sending delete request', item);
         const observable = this._httpService.deleteItem(item);

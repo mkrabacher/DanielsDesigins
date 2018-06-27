@@ -2,12 +2,12 @@
 <div id="nav-bar">
     <a [routerLink]="['']" id="title">SeamSmith</a>
     <div id="nav-buttons">
-        <h4 *ngIf="loggedInUser">Welcome <a [routerLink]="['profile/', loggedInUser._id]">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</a> <a click="logOut()"></a> </h4>
+        <h4 *ngIf="loggedIn()">Welcome <a [routerLink]="['profile/', loggedInUser._id]">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h4>
         <a [routerLink]="['marketplace']" (click)="notLoggingIn()" class="button">Browse</a>
+        <a [routerLink]="['cart', loggedInUser._id]" (click)="notLoggingIn()" class="button">View Cart</a>
         <a [routerLink]="['about']" (click)="notLoggingIn()" class="button">About</a>
-        <a *ngIf="!loggedInUser" (click)="loggingIn()" class="button">Log In/Register</a>
-        <a *ngIf="loggedInUser" [routerLink]="['cart']" (click)="notLoggingIn()" class="button">My Cart</a>
-        <a *ngIf="loggedInUser" [routerLink]="['new-item']" (click)="notLoggingIn()" class="button">Add New Item</a>
+        <a *ngIf="!loggedIn()" (click)="loggingIn()" class="button">Log In/Register</a>
+        <a *ngIf="loggedIn()" [routerLink]="['new-item']" (click)="notLoggingIn()" class="button">Add New Item</a>
     </div>
 </div>
 

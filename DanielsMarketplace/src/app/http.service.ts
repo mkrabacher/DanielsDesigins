@@ -10,7 +10,11 @@ export class HttpService {
         private _route: ActivatedRoute,
         private _router: Router
     ) {
-        this.loggedUser = {admin: false};
+        this.loggedUser = {
+            _id: 'guest',
+            admin: false,
+            orders: []
+        };
     }
 
     login(loginUser) {
@@ -27,6 +31,10 @@ export class HttpService {
         console.log('setting logged user in service');
         this.loggedUser = loggedUser;
         this._router.navigate(['']);
+    }
+
+    updateLoggedUser() {
+        // syncs user in front end with server.
     }
 
     retrieveLogUser() {
@@ -47,5 +55,10 @@ export class HttpService {
     deleteItem(item) {
         console.log('deleting in service', item);
         return this._http.post('/deleteItem', item);
+    }
+
+    addItemToCart(item) {
+        this.loggedUser.orders.push(item);
+        this.updateLoggedUser();
     }
 }

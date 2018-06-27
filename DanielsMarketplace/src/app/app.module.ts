@@ -13,6 +13,7 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NewItemComponent } from './new-item/new-item.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NewItemComponent } from './new-item/new-item.component';
     MarketplaceComponent,
     WelcomeComponent,
     ProfileComponent,
-    NewItemComponent
+    NewItemComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

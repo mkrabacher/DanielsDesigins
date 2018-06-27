@@ -30,7 +30,7 @@
                 <p>{{item.price}}</p>
             </div>
             <div class="item-buttons">
-                <button>Add to cart</button>
+                <button (click)="addToCart(item)">Add to cart</button>
                 <button *ngIf="checkUserLevel()" (click)="deleteItem(item)">Delete Item</button>
                 <button *ngIf="checkUserLevel()">Edit Item</button>
             </div>

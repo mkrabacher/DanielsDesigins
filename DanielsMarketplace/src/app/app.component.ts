@@ -10,15 +10,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent implements OnInit {
     loggedInUser;
     logIn;
+    showCart;
     constructor(
         private _httpService: HttpService,
         private _route: ActivatedRoute,
         private _router: Router
     ) {
         this.logIn = false;
+        this.showCart = false;
     }
 
     ngOnInit() {
+        this.loggedInUser = {
+            _id: 'guest',
+            admin: false,
+            orders: []
+        };
+    }
+
+    loggedIn() {
+        if (this.loggedInUser._id === 'guest') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     loggingIn() {
@@ -30,12 +45,20 @@ export class AppComponent implements OnInit {
     }
 
     logOut() {
-        this.loggedInUser = null;
+        this.loggedInUser = {
+            _id: 'guest',
+            admin: false,
+            orders: []
+        };
     }
 
     setLoggedUser(user: object) {
         console.log(user);
         this.loggedInUser = user;
         this.notLoggingIn();
+    }
+
+    viewCart() {
+        this.showCart = true;
     }
 }
