@@ -1,38 +1,41 @@
 <div style="border:3px solid blue" id="marketplace-sidebar">
     <div>
         <h3>Search by Name</h3>
-        <form action="">
-            <input type="text">
-            <input type="submit" value="Search">
-        </form>
+        <input placeholder="search.." type="text" name="searchBar" id="searchBar" [(ngModel)]="searchTerm">
     </div>
     <div>
         <h3>Filter by Type</h3>
         <form action="">
-            <input type="checkbox" name="sunshirt" id="checkbox-sunshirt">
-            <label for="checkbox-sunshirt">Sunshirt</label>
+            <!-- need to bind the checkboxes to some object in the .ts to filter the results by type -->
+            <div *ngFor="let item of allItems">
+                <input type="checkbox" name="{{item.type}}" id="checkbox-{{item.type}}">
+                <label for="checkbox-{{item.type}}">{{item.type}}</label>
+            </div>
 
             <br><input type="submit" value="Filter">
         </form>
     </div>
 </div>
 <div style="border:3px solid red" id="marketplace-display">
-    <div *ngFor="let item of allItems" class="item-display">
-        <div class="item-name">
-            <h2>{{item.name}}</h2>
-            <a href="" (click)="showImg(item.img_url)"><img src="{{item.img_url}}" alt="{{item.name}}"></a>
-        </div>
-        <div class="item-description">
-            <h3>Description</h3>
-            <p>{{item.description}}</p>
-            <div class="item-price">
-                <h3>Price</h3>
-                <p>{{item.price}}</p>
+    <div *ngFor="let item of allItems">
+        <div *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())" class="item-display">
+            <div class="item-name">
+                <h2>{{item.name}}</h2>
+                <a href="" (click)="showImg(item.img_url)"><img src="{{item.img_url}}" alt="{{item.name}}"></a>
             </div>
-            <div class="item-buttons">
-                <button (click)="addToCart(item)">Add to cart</button>
-                <button *ngIf="checkUserLevel()" (click)="deleteItem(item)">Delete Item</button>
-                <button *ngIf="checkUserLevel()">Edit Item</button>
+            <div class="item-description">
+                <h3>Description</h3>
+                <p>{{item.description}}</p>
+                <div class="item-price">
+                    <h3>Price</h3>
+                    <p>{{item.price}}</p>
+                </div>
+                <div class="item-buttons">
+                    <input class="quantity" value="1" type="number">
+                    <button (click)="addToCart(item, $event)">Add to cart</button><span hidden> added</span>
+                    <button *ngIf="checkUserLevel()" (click)="deleteItem(item)">Delete Item</button>
+                    <button *ngIf="checkUserLevel()">Edit Item</button>
+                </div>
             </div>
         </div>
     </div>

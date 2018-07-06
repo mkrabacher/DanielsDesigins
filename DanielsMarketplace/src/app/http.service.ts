@@ -58,7 +58,16 @@ export class HttpService {
     }
 
     addItemToCart(item) {
-        this.loggedUser.orders.push(item);
+        let alreadyAdded = false;
+        for (let i = 0; i < this.loggedUser.orders.length; i++) {
+            if (this.loggedUser.orders[i].name === item.name) {
+                this.loggedUser.orders[i].quantity++;
+                alreadyAdded = true;
+            }
+        }
+        if (!alreadyAdded) {
+            this.loggedUser.orders.push(item);
+        }
         this.updateLoggedUser();
     }
 }

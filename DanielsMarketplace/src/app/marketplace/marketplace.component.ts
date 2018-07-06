@@ -8,8 +8,9 @@ import { HttpService } from '../http.service';
 })
 export class MarketplaceComponent implements OnInit {
     allItems;
+    searchTerm;
     constructor(private _httpService: HttpService) {
-
+        this.searchTerm = '';
     }
 
     ngOnInit() {
@@ -34,8 +35,11 @@ export class MarketplaceComponent implements OnInit {
         }
     }
 
-    addToCart(item) {
+    addToCart(item, $event) {
+        console.log($event);
+        item.quantity = $event.path[1].childNodes[0].valueAsNumber;
         this._httpService.addItemToCart(item);
+        $event.path[1].children[2].hidden = false;
     }
 
     deleteItem(item) {

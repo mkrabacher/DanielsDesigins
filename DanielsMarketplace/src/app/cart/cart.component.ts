@@ -8,16 +8,33 @@ import { HttpService } from '../http.service';
 })
 export class CartComponent implements OnInit {
     loggedUser;
-    orders;
-    constructor(private _httpService: HttpService) {}
+    constructor(private _httpService: HttpService) {
+        this.getUsersOrders();
+    }
 
     ngOnInit() {
-        this.getUsersOrders();
     }
 
     getUsersOrders() {
         this.loggedUser = this._httpService.retrieveLogUser();
-        this.orders = this.loggedUser.orders;
     }
 
+    increaseQuantity(order) {
+        order.quantity++;
+    }
+
+    decreaseQuantity(order) {
+        order.quantity--;
+        if (order.quantity < 1) {
+            this.removeFromOrders(order);
+        }
+    }
+
+    removeFromOrders(order) {
+        for (let i = 0; i < this.loggedUser.orders.length; i ++) {
+            if (order._id === this.loggedUser.orders[i]._id) {
+                this.loggedUser.orders.splice(i, 1);
+            }
+        }
+    }
 }

@@ -1,1 +1,3 @@
 quantity control for admin users that can display out of stock info.
+\
+do i need 'descriptioon and 'price' in the browse items section
