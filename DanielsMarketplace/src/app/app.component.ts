@@ -26,6 +26,17 @@ export class AppComponent implements OnInit {
             admin: false,
             orders: []
         };
+        this.getCurrentUser();
+    }
+
+    getCurrentUser() {
+        const observable = this._httpService.retrieveLogUser();
+        observable.subscribe(data => {
+            console.log('dataaaaaaaaaaaaa', data);
+            if (data['loggedUser']) {
+                this.loggedInUser = data['loggedUser'];
+            }
+        });
     }
 
     loggedIn() {

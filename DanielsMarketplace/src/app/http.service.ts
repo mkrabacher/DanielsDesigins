@@ -34,12 +34,14 @@ export class HttpService {
     }
 
     updateLoggedUser() {
-        // syncs user in front end with server.
+        console.log('updating logged in user in service');
+        return this._http.post('/updateUser', this.loggedUser);
     }
 
     retrieveLogUser() {
-        // console.log('getting logged user in service', this.loggedUser);
-        return this.loggedUser;
+        console.log('getting logged user in service');
+        return this._http.post('/retrieveUser', this.loggedUser);
+        // return this.loggedUser;
     }
 
     getItems() {
@@ -53,7 +55,7 @@ export class HttpService {
     }
 
     deleteItem(item) {
-        console.log('deleting in service', item);
+        console.log('deleting in service');
         return this._http.post('/deleteItem', item);
     }
 
@@ -68,6 +70,8 @@ export class HttpService {
         if (!alreadyAdded) {
             this.loggedUser.orders.push(item);
         }
-        this.updateLoggedUser();
+        const loggedUser = this.loggedUser;
+        console.log('adding items to cart in service', loggedUser);
+        return this._http.post('/updateUser', loggedUser);
     }
 }

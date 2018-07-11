@@ -8,15 +8,25 @@ import { HttpService } from '../http.service';
 })
 export class CartComponent implements OnInit {
     loggedUser;
-    constructor(private _httpService: HttpService) {
+    constructor(private _httpService: HttpService) {}
+
+    ngOnInit() {
+        this.loggedUser = {
+            _id: 'guest',
+            admin: false,
+            orders: []
+        };
         this.getUsersOrders();
     }
 
-    ngOnInit() {
-    }
-
     getUsersOrders() {
-        this.loggedUser = this._httpService.retrieveLogUser();
+        const observable = this._httpService.retrieveLogUser();
+        observable.subscribe(data => {
+            console.log('dataaaaaaaaaaaaa', data);
+            if (data['loggedUser']) {
+                this.loggedUser = data['loggedUser'];
+            }
+        });
     }
 
     increaseQuantity(order) {

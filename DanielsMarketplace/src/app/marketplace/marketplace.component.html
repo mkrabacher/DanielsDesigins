@@ -6,18 +6,22 @@
     <div>
         <h3>Filter by Type</h3>
         <form action="">
-            <!-- need to bind the checkboxes to some object in the .ts to filter the results by type -->
-            <div *ngFor="let item of allItems">
-                <input type="checkbox" name="{{item.type}}" id="checkbox-{{item.type}}">
-                <label for="checkbox-{{item.type}}">{{item.type}}</label>
+            <!-- need to bind the checkboxes to some object in the .ts to filter the results by type     -->
+            <div>
+                <input type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat">
+                <label for="checkbox-Raincoat">Raincoat</label><br>
+                <input type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags">
+                <label for="checkbox-DryBags">Dry Bags</label><br>
+                <input type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection">
+                <label for="checkbox-SunProtection">Sun Protection</label>
             </div>
-
-            <br><input type="submit" value="Filter">
+            <input (click)="filter()" type="submit" value="Filter">
+            <input (click)="resetFilter()" type="submit" value="Reset">
         </form>
     </div>
 </div>
 <div style="border:3px solid red" id="marketplace-display">
-    <div *ngFor="let item of allItems">
+    <div *ngFor="let item of displayItems">
         <div *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())" class="item-display">
             <div class="item-name">
                 <h2>{{item.name}}</h2>
@@ -33,8 +37,8 @@
                 <div class="item-buttons">
                     <input class="quantity" value="1" type="number">
                     <button (click)="addToCart(item, $event)">Add to cart</button><span hidden> added</span>
-                    <button *ngIf="checkUserLevel()" (click)="deleteItem(item)">Delete Item</button>
-                    <button *ngIf="checkUserLevel()">Edit Item</button>
+                    <button *ngIf="adminPrivileges" (click)="deleteItem(item)">Delete Item</button>
+                    <button *ngIf="adminPrivileges">Edit Item</button>
                 </div>
             </div>
         </div>

@@ -90,8 +90,6 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                         res.json({errorMsg:'Wrong password'})
                     } else {
                         req.session.loggedUser = user;
-                        // console.log('user', user)
-                        // console.log('sesion', req.session)
                         res.json({message:'The Logged in one', loggedUser: user})
                     }
                 } else {
@@ -99,10 +97,11 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 }
             })
         })
+
         app.post('/registerUser', function(req, res) {
             User.find({email: req.body.email}, function(err, user) {
                 console.log('in server')
-                if(user.length == 0) {            
+                if(user.length == 0) {
                     console.log("creating new User in server")
                     newUser = new User();
                     newUser.admin = req.body.admin;
@@ -111,6 +110,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                     newUser.lastName = req.body.lastName;
                     newUser.email = req.body.email;
                     newUser.password = req.body.password;
+                    newUser.orders = [];
                     console.log(user)
                     newUser.save(function(err) {
                         if(err){
@@ -126,53 +126,42 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 }
             })
         })
+
         app.post('/retrieveUser', function(req, res) {
-            console.log('sessssssion', req.session.loggedUser)
+            // console.log('session user id', req.session)
             if(req.session.loggedUser != null) {
                 res.json({message: 'User currently logged in', loggedUser: req.session.loggedUser})
+            } else {
+                res.json({message: 'no user stored in server session'})
             }
         })
-        // app.post('/updateUser', function (req, res) {
-        //     console.log('upating users in server')
-        //     user.update({_id: req.body.user_id}, {status: req.body.status}, function(err, user) {
-        //         if(err){
-        //             console.log("update error",)
-        //         }else{
-        //             res.json({message:`${user.name} updated`})
-        //         }
-        //     })
-        // })
-    //end log-reg routes
 
-    //create-course routes
-        app.post('/createCourse', function(req, res) {
-            User.find({email: req.body.email}, function(err, user) {
-                console.log('in server')
-                if(user.length == 0) {            
-                    console.log("creating new User in server")
-                    newUser = new User()
-                    newUser.admin = true            // this will need updating after i implement courses.
-                    newUser.locked = false
-                    newUser.firstName = req.body.firstName
-                    newUser.lastName = req.body.lastName
-                    newUser.email = req.body.email
-                    newUser.password = req.body.password
-                    console.log(user)
-                    newUser.save(function(err) {
-                        if(err){
-                            console.log('new user error')
-                            res.json({err})
-                        }else{
-                            res.json({message:`${newUser.firstName} added to Users collection`})
-                            console.log('user added');
-                        }
-                    })
-                } else {
-                    res.json({error: 'that email already exists in our DBs'});
-                }
+        app.post('/updateUser', function (req, res) {
+            console.log('upating user in server')
+            console.log(req.body)
+            User.findOne({_id: req.body._id}, function(err, user) {
+                console.log('========================pre-change user==============', user, '=======================================')
+                user.admin = req.body.admin,
+                user.firstName = req.body.firstName,
+                user.lastName = req.body.lastName;
+                for (var i = 0; i < req.body.orders.length; i++) {
+                    user.orders[i] = req.body.orders[i];
+                };
+                user.email = req.body.email,
+                user.password = req.body.password,
+                console.log('========================post-change user==============', user, '=======================================')
+                // updatedAt = add a time stamp here
+                user.save(function(err) {
+                    if(err){
+                        console.log("========================update error==============", err, '=======================================')
+                    }else{
+                        console.log('========================post-update user==============', user, '=======================================')
+                        res.json({message:`${user.firstName} ${user.lastName} updated`})
+                    }
+                })
             })
         })
-    //end create-course routes
+    //end log-reg routes
 
     //marketplace routes
         app.post('/getAllItems', function (req, res) {
