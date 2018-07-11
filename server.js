@@ -45,13 +45,21 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             type: String,
         },
         orders: [{
-            type: Object,
+            _id: String,
+            itemType: String,
+            name: String,
+            description: String,
+            price: Number,
+            img_url: String,
+            createdAt: String,
+            updatedAt: String,
+            quantity: Number,
         }],
         password: String,
     }, { timestamps: true })
 
     var ItemSchema = new mongoose.Schema({
-        type: {
+        itemType: {
             type: String,
         },
         name: {
@@ -93,7 +101,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                         res.json({message:'The Logged in one', loggedUser: user})
                     }
                 } else {
-                    res.json({errorMsg: 'user don\'t exists'})
+                    res.json({errorMsg: 'user doesn\'t exist'})
                 }
             })
         })
@@ -138,25 +146,35 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/updateUser', function (req, res) {
             console.log('upating user in server')
-            console.log(req.body)
+            console.log('number of orders in user:', req.body.orders.length)
+            var orders = [];
+            for (var i = 0; i < req.body.orders.length; i++) {
+                orders.push(req.body.orders[i]);
+            }
             User.findOne({_id: req.body._id}, function(err, user) {
-                console.log('========================pre-change user==============', user, '=======================================')
+                // console.log('==================pre-change user=================');
+                // console.log(user);
+                // console.log('==================================================');
                 user.admin = req.body.admin,
-                user.firstName = req.body.firstName,
+                user.firstName = req.body.firstName;
                 user.lastName = req.body.lastName;
-                for (var i = 0; i < req.body.orders.length; i++) {
-                    user.orders[i] = req.body.orders[i];
-                };
+                user.orders = orders;
                 user.email = req.body.email,
                 user.password = req.body.password,
-                console.log('========================post-change user==============', user, '=======================================')
+                // console.log('==================post-change user================')
+                // console.log(user)
+                // console.log('==================================================')
                 // updatedAt = add a time stamp here
                 user.save(function(err) {
                     if(err){
-                        console.log("========================update error==============", err, '=======================================')
+                        // console.log("===================update error===================")
+                        // console.error(err)
+                        // console.log('==================================================')
                     }else{
-                        console.log('========================post-update user==============', user, '=======================================')
-                        res.json({message:`${user.firstName} ${user.lastName} updated`})
+                        // console.log('==================post-update user================')
+                        // console.log(user)
+                        // console.log('==================================================')
+                        res.json({message:`${user.firstName} ${user.lastName} updated`, user})
                     }
                 })
             })
@@ -178,7 +196,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         app.post('/addItem', function(req, res) {
             console.log("creating new item in server", req.body)
             newItem = new Item()
-            newItem.type = req.body.type
+            newItem.itemType = req.body.type
             newItem.name = req.body.name
             newItem.description = req.body.description
             newItem.price = req.body.price

@@ -73,11 +73,11 @@ export class MarketplaceComponent implements OnInit {
             this.displayItems = this.allItems;
         } else {
             for (let i = 0; i < this.allItems.length; i++) {
-                if (this.allItems[i].type === 'Raincoat' && this.typeFilter.Raincoat) {
+                if (this.allItems[i].itemType === 'Raincoat' && this.typeFilter.Raincoat) {
                     this.displayItems.push(this.allItems[i]);
-                } else if (this.allItems[i].type === 'Dry Bags' && this.typeFilter.DryBags) {
+                } else if (this.allItems[i].itemType === 'Dry Bag' && this.typeFilter.DryBags) {
                     this.displayItems.push(this.allItems[i]);
-                } else if (this.allItems[i].type === 'Sun Protection' && this.typeFilter.SunProtection) {
+                } else if (this.allItems[i].itemType === 'Sun Protection' && this.typeFilter.SunProtection) {
                     this.displayItems.push(this.allItems[i]);
                 }
             }

@@ -41,7 +41,6 @@ export class HttpService {
     retrieveLogUser() {
         console.log('getting logged user in service');
         return this._http.post('/retrieveUser', this.loggedUser);
-        // return this.loggedUser;
     }
 
     getItems() {
