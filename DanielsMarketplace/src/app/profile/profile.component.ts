@@ -17,14 +17,14 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.getLoggedUser();
-        if (this._httpService.retrieveLogUser() == null) {
+        if (this._httpService.retrieveLogUserInService() == null) {
             this._router.navigate(['/log-reg']);
         }
     }
 
     getLoggedUser() {
         console.log('getting user now');
-        this.loggedInUser = this._httpService.retrieveLogUser();
+        this.loggedInUser = this._httpService.retrieveLogUserInService();
     }
 
 }

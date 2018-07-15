@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../http.service';
 
 @Component({
@@ -7,20 +7,18 @@ import { HttpService } from '../http.service';
     styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-    loggedUser;
+    @Input() loggedUser;
     constructor(private _httpService: HttpService) {}
 
-    ngOnInit() {
-        this.loggedUser = {
-            _id: 'guest',
-            admin: false,
-            orders: []
-        };
-        this.getUsersOrders();
+    ngOnInit() {}
+
+    updateLoggedUser() {
+        const observable = this._httpService.updateLoggedUserInService(this.loggedUser);
+        observable.subscribe();
     }
 
-    getUsersOrders() {
-        const observable = this._httpService.retrieveLogUser();
+    getLoggedUser() {
+        const observable = this._httpService.retrieveLogUserInService();
         observable.subscribe(data => {
             console.log('dataaaaaaaaaaaaa', data);
             if (data['loggedUser']) {
@@ -30,7 +28,10 @@ export class CartComponent implements OnInit {
     }
 
     increaseQuantity(order) {
-        order.quantity++;
+        const index = this.loggedUser.orders.indexOf(order);
+
+        this.loggedUser.orders[index].quantity++;
+        this.updateLoggedUser();
     }
 
     decreaseQuantity(order) {
@@ -38,6 +39,7 @@ export class CartComponent implements OnInit {
         if (order.quantity < 1) {
             this.removeFromOrders(order);
         }
+        this.updateLoggedUser();
     }
 
     removeFromOrders(order) {

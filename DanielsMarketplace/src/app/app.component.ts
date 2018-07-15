@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     }
 
     getCurrentUser() {
-        const observable = this._httpService.retrieveLogUser();
+        const observable = this._httpService.retrieveLogUserInService();
         observable.subscribe(data => {
             console.log('dataaaaaaaaaaaaa', data);
             if (data['loggedUser']) {
@@ -69,7 +69,16 @@ export class AppComponent implements OnInit {
         this.notLoggingIn();
     }
 
-    viewCart() {
-        this.showCart = true;
+    toggleCart() {
+        this.notLoggingIn();
+        if (this.showCart) {
+            this.showCart = false;
+        } else {
+            this.showCart = true;
+        }
+    }
+
+    loggedUserFromChild(eventData) {
+        console.log(eventData);
     }
 }

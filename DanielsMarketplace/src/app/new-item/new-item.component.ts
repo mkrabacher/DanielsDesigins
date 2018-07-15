@@ -11,7 +11,7 @@ export class NewItemComponent implements OnInit {
     userItems;
     loggedUser;
     constructor(private _httpService: HttpService) {
-        this.loggedUser = this._httpService.retrieveLogUser();
+        this.loggedUser = this._httpService.retrieveLogUserInService();
     }
 
     ngOnInit() {
@@ -27,7 +27,7 @@ export class NewItemComponent implements OnInit {
 
     addItemThroughService() {
         this.newItem.userID = this.loggedUser['_id'];
-        const observable = this._httpService.addItem(this.newItem);
+        const observable = this._httpService.addItemInService(this.newItem);
         observable.subscribe(data => {
             console.log(data);
         });

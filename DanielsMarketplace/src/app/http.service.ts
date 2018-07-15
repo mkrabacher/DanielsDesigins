@@ -17,48 +17,49 @@ export class HttpService {
         };
     }
 
-    login(loginUser) {
+    loginInService(loginUser) {
         console.log('logging in through service');
         return this._http.post('/loginUser', loginUser);
     }
 
-    register(registerUser) {
+    registerInService(registerUser) {
         console.log('registering through service');
         return this._http.post('/registerUser', registerUser);
     }
 
-    setLogUser(loggedUser) {
+    setLogUserInService(loggedUser) {
         console.log('setting logged user in service');
         this.loggedUser = loggedUser;
         this._router.navigate(['']);
     }
 
-    updateLoggedUser() {
-        console.log('updating logged in user in service');
+    updateLoggedUserInService(loggedUser) {
+        console.log('updating logged in user in service with:', loggedUser.firstName);
+        this.loggedUser = loggedUser;
         return this._http.post('/updateUser', this.loggedUser);
     }
 
-    retrieveLogUser() {
+    retrieveLogUserInService() {
         console.log('getting logged user in service');
         return this._http.post('/retrieveUser', this.loggedUser);
     }
 
-    getItems() {
+    getItemsInService() {
         console.log('getting all items in service');
         const thing = null;
         return this._http.post('/getAllItems', thing);
     }
 
-    addItem(newItem) {
+    addItemInService(newItem) {
         return this._http.post('/addItem', newItem);
     }
 
-    deleteItem(item) {
+    deleteItemInService(item) {
         console.log('deleting in service');
         return this._http.post('/deleteItem', item);
     }
 
-    addItemToCart(item) {
+    addItemToCartInService(item) {
         let alreadyAdded = false;
         for (let i = 0; i < this.loggedUser.orders.length; i++) {
             if (this.loggedUser.orders[i].name === item.name) {

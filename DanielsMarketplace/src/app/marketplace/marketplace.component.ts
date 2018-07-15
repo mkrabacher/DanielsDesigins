@@ -29,7 +29,7 @@ export class MarketplaceComponent implements OnInit {
     }
 
     getAllItemsThroughService() {
-        const observable = this._httpService.getItems();
+        const observable = this._httpService.getItemsInService();
         observable.subscribe(data => {
             console.log('got back: ', data);
             this.allItems = data['items'];
@@ -38,7 +38,7 @@ export class MarketplaceComponent implements OnInit {
     }
 
     getCurrentUserLevel() {
-        const observable = this._httpService.retrieveLogUser();
+        const observable = this._httpService.retrieveLogUserInService();
         observable.subscribe(data => {
             if (data['loggedUser']) {
                 this.adminPrivileges = true;
@@ -50,7 +50,7 @@ export class MarketplaceComponent implements OnInit {
         console.log($event);
         // gets desired quanitity from number selector
         item.quantity = $event.path[1].childNodes[0].valueAsNumber;
-        const observable = this._httpService.addItemToCart(item);
+        const observable = this._httpService.addItemToCartInService(item);
         observable.subscribe(data => {
             console.log('got back: ', data);
             // unhides 'added' note
@@ -60,7 +60,7 @@ export class MarketplaceComponent implements OnInit {
 
     deleteItem(item) {
         console.log('sending delete request');
-        const observable = this._httpService.deleteItem(item);
+        const observable = this._httpService.deleteItemInService(item);
         observable.subscribe(data => {
             console.log('got back: ', data);
             this.getAllItemsThroughService();

@@ -36,13 +36,13 @@ export class LogRegComponent implements OnInit {
 
     loginThroughService() {
         console.log('logging in now');
-        const observable = this._httpService.login(this.login);
+        const observable = this._httpService.loginInService(this.login);
         observable.subscribe(data => {
             if (data['loggedUser']) {
                 this.loggedInUser = data['loggedUser'];
                 console.log(data);
                 this.emitUser.emit(this.loggedInUser);
-                this._httpService.setLogUser(this.loggedInUser);
+                this._httpService.setLogUserInService(this.loggedInUser);
             } else {
                 this.errorMsg = data['errorMsg'];
             }
@@ -53,7 +53,7 @@ export class LogRegComponent implements OnInit {
     registerThroughService() {
         if (this.registerUser.password === this.registerUser.passwordConf) {
             console.log('registering now');
-            const observable = this._httpService.register(this.registerUser);
+            const observable = this._httpService.registerInService(this.registerUser);
             observable.subscribe(data => {
                 console.log(data);
                 if (data['message']) {
