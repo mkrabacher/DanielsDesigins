@@ -14,6 +14,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { CartComponent } from './cart/cart.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CartComponent } from './cart/cart.component';
     WelcomeComponent,
     ProfileComponent,
     NewItemComponent,
-    CartComponent
+    CartComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

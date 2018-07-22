@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    loggedInUser;
+    currentUser;
     logIn;
     showCart;
     constructor(
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     ) {
         this.logIn = false;
         this.showCart = false;
-        this.loggedInUser = {
+        this.currentUser = {
             _id: 'guest',
             admin: false,
             orders: []
@@ -33,14 +33,14 @@ export class AppComponent implements OnInit {
         const observable = this._httpService.retrieveLogUserInService();
         observable.subscribe(data => {
             console.log('dataaaaaaaaaaaaa', data);
-            if (data['loggedUser']) {
-                this.loggedInUser = data['loggedUser'];
+            if (data['currentUser']) {
+                this.currentUser = data['currentUser'];
             }
         });
     }
 
-    loggedIn() {
-        if (this.loggedInUser._id === 'guest') {
+    currentIn() {
+        if (this.currentUser._id === 'guest') {
             return false;
         } else {
             return true;
@@ -56,16 +56,16 @@ export class AppComponent implements OnInit {
     }
 
     logOut() {
-        this.loggedInUser = {
+        this.currentUser = {
             _id: 'guest',
             admin: false,
             orders: []
         };
     }
 
-    setLoggedUser(user: object) {
+    setCurrentUser(user: object) {
         console.log(user);
-        this.loggedInUser = user;
+        this.currentUser = user;
         this.notLoggingIn();
     }
 
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
         }
     }
 
-    loggedUserFromChild(eventData) {
+    currentUserFromChild(eventData) {
         console.log(eventData);
     }
 }
