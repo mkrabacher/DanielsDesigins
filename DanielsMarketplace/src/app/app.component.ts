@@ -18,14 +18,14 @@ export class AppComponent implements OnInit {
     ) {
         this.logIn = false;
         this.showCart = false;
-    }
-
-    ngOnInit() {
         this.loggedInUser = {
             _id: 'guest',
             admin: false,
             orders: []
         };
+    }
+
+    ngOnInit() {
         this.getCurrentUser();
     }
 

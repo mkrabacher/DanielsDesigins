@@ -145,7 +145,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         })
 
         app.post('/updateUser', function (req, res) {
-            console.log('upating user in server')
+            console.log('upating user in server with id:', req.body._id)
             console.log('number of orders in user:', req.body.orders.length)
             var orders = [];
             for (var i = 0; i < req.body.orders.length; i++) {
@@ -168,7 +168,8 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 user.save(function(err) {
                     if(err){
                         // console.log("===================update error===================")
-                        // console.error(err)
+                        console.error(err)
+                        res.json({message: 'error while updating'})
                         // console.log('==================================================')
                     }else{
                         // console.log('==================post-update user================')

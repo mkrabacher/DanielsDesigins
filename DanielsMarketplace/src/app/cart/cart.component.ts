@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { HttpService } from '../http.service';
 
 @Component({
@@ -6,15 +6,20 @@ import { HttpService } from '../http.service';
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnChanges {
     @Input() loggedUser;
+    totalPrice;
+
     constructor(private _httpService: HttpService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.updateTotalPrice();
+    }
 
-    updateLoggedUser() {
-        const observable = this._httpService.updateLoggedUserInService(this.loggedUser);
-        observable.subscribe();
+    ngOnChanges() {
+        console.log('changes in cart');
+        // this.updateLoggedUser();
+        this.updateTotalPrice();
     }
 
     getLoggedUser() {
@@ -27,10 +32,24 @@ export class CartComponent implements OnInit {
         });
     }
 
+    updateLoggedUser() {
+        const observable = this._httpService.updateLoggedUserInService(this.loggedUser);
+        observable.subscribe();
+    }
+
+    updateTotalPrice() {
+        let total = 0;
+        for (let i = 0; i < this.loggedUser.orders.length; i++) {
+            total += this.loggedUser.orders[i].price * this.loggedUser.orders[i].quantity;
+        }
+        this.totalPrice = total;
+    }
+
     increaseQuantity(order) {
         const index = this.loggedUser.orders.indexOf(order);
 
         this.loggedUser.orders[index].quantity++;
+        this.updateTotalPrice();
         this.updateLoggedUser();
     }
 
@@ -39,6 +58,7 @@ export class CartComponent implements OnInit {
         if (order.quantity < 1) {
             this.removeFromOrders(order);
         }
+        this.updateTotalPrice();
         this.updateLoggedUser();
     }
 

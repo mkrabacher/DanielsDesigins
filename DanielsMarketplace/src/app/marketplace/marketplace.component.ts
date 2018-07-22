@@ -40,14 +40,14 @@ export class MarketplaceComponent implements OnInit {
     getCurrentUserLevel() {
         const observable = this._httpService.retrieveLogUserInService();
         observable.subscribe(data => {
-            if (data['loggedUser']) {
+            console.log(data);
+            if (data['loggedUser'].admin) {
                 this.adminPrivileges = true;
             }
         });
     }
 
     addToCart(item, $event) {
-        console.log($event);
         // gets desired quanitity from number selector
         item.quantity = $event.path[1].childNodes[0].valueAsNumber;
         const observable = this._httpService.addItemToCartInService(item);

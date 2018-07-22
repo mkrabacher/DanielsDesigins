@@ -19,7 +19,9 @@ export class HttpService {
 
     loginInService(loginUser) {
         console.log('logging in through service');
-        return this._http.post('/loginUser', loginUser);
+        const data = this._http.post('/loginUser', loginUser);
+        console.log('data from login: ', data);
+        return data;
     }
 
     registerInService(registerUser) {
@@ -41,7 +43,9 @@ export class HttpService {
 
     retrieveLogUserInService() {
         console.log('getting logged user in service');
-        return this._http.post('/retrieveUser', this.loggedUser);
+        if (this.loggedUser._id !== 'guest') {
+            return this._http.post('/retrieveUser', this.loggedUser);
+        }
     }
 
     getItemsInService() {
@@ -62,8 +66,10 @@ export class HttpService {
     addItemToCartInService(item) {
         let alreadyAdded = false;
         for (let i = 0; i < this.loggedUser.orders.length; i++) {
+            console.log(item.name, ':', item.quantity);
             if (this.loggedUser.orders[i].name === item.name) {
-                this.loggedUser.orders[i].quantity++;
+                console.log('adding:', item.quantity);
+                this.loggedUser.orders[i].quantity += item.quantity;
                 alreadyAdded = true;
             }
         }
@@ -71,7 +77,7 @@ export class HttpService {
             this.loggedUser.orders.push(item);
         }
         const loggedUser = this.loggedUser;
-        console.log('adding items to cart in service', loggedUser);
+        console.log('adding items to cart in service', item);
         return this._http.post('/updateUser', loggedUser);
     }
 }
