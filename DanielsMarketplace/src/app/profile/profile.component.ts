@@ -8,7 +8,7 @@ import { HttpService } from '../http.service';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    loggedInUser;
+    currentUser;
     constructor(
         private _httpService: HttpService,
         private _route: ActivatedRoute,
@@ -16,15 +16,15 @@ export class ProfileComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getLoggedUser();
-        if (this._httpService.retrieveLogUserInService() == null) {
+        this.getCurrentUser();
+        if (this._httpService.retrieveCurrentUserInService() == null) {
             this._router.navigate(['/log-reg']);
         }
     }
 
-    getLoggedUser() {
+    getCurrentUser() {
         console.log('getting user now');
-        this.loggedInUser = this._httpService.retrieveLogUserInService();
+        this.currentUser = this._httpService.retrieveCurrentUserInService();
     }
 
 }

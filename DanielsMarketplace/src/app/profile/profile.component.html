@@ -1,18 +1,18 @@
-<h2>{{loggedInUser.firstName}} {{loggedInUser.lastName}}'s Profile</h2>
+<h2>{{currentUser.firstName}} {{currentUser.lastName}}'s Profile</h2>
 <table>
     <tr>
         <td>First Name:</td>
-        <td>{{loggedInUser.firstName}}</td>
+        <td>{{currentUser.firstName}}</td>
     </tr>
     <tr>
         <td>Last Name:</td>
-        <td>{{loggedInUser.lastName}}</td>
+        <td>{{currentUser.lastName}}</td>
     </tr>
     <tr>
         <td>Email:</td>
-        <td>{{loggedInUser.email}}</td>
+        <td>{{currentUser.email}}</td>
     </tr>
-    <tr *ngIf="loggedInUser.admin">
+    <tr *ngIf="currentUser.admin">
         <td>User Level:</td>
         <td>Admin</td>
     </tr>

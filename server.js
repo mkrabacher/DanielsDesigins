@@ -97,8 +97,8 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                         console.log("e0rr0r, wrong pass",)
                         res.json({errorMsg:'Wrong password'})
                     } else {
-                        req.session.loggedUser = user;
-                        res.json({message:'The Logged in one', loggedUser: user})
+                        req.session.currentUser = user;
+                        res.json({message:'The Logged in one', currentUser: user})
                     }
                 } else {
                     res.json({errorMsg: 'user doesn\'t exist'})
@@ -137,8 +137,8 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/retrieveUser', function(req, res) {
             // console.log('session user id', req.session)
-            if(req.session.loggedUser != null) {
-                res.json({message: 'User currently logged in', loggedUser: req.session.loggedUser})
+            if(req.session.currentUser != null) {
+                res.json({message: 'User currently logged in', currentUser: req.session.currentUser})
             } else {
                 res.json({message: 'no user stored in server session'})
             }

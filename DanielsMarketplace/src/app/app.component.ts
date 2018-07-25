@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { HttpService } from './http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,7 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+
+export class AppComponent implements OnInit, OnChanges {
     currentUser;
     logIn;
     showCart;
@@ -29,22 +30,19 @@ export class AppComponent implements OnInit {
         this.getCurrentUser();
     }
 
-    getCurrentUser() {
-        const observable = this._httpService.retrieveLogUserInService();
-        observable.subscribe(data => {
-            console.log('dataaaaaaaaaaaaa', data);
-            if (data['currentUser']) {
-                this.currentUser = data['currentUser'];
-            }
-        });
+    ngOnChanges() {
+        this.updateCurrentUserInServer();
     }
 
-    currentIn() {
-        if (this.currentUser._id === 'guest') {
-            return false;
-        } else {
-            return true;
-        }
+    getCurrentUser() {
+        const observable = this._httpService.retrieveCurrentUserInService();
+        // observable.subscribe(data => {
+        //     console.log('dataaaaaaaaaaaaa', data);
+        //     if (data['currentUser']) {
+        //         this.currentUser = data['currentUser'];
+        //     }
+        // });
+        console.log('oberservable in app.component', observable);
     }
 
     loggingIn() {
@@ -55,27 +53,14 @@ export class AppComponent implements OnInit {
         this.logIn = false;
     }
 
-    logOut() {
-        this.currentUser = {
-            _id: 'guest',
-            admin: false,
-            orders: []
-        };
+    updateCurrentUserInServer() {
+        console.log('updating user in server.');
     }
 
     setCurrentUser(user: object) {
         console.log(user);
         this.currentUser = user;
         this.notLoggingIn();
-    }
-
-    toggleCart() {
-        this.notLoggingIn();
-        if (this.showCart) {
-            this.showCart = false;
-        } else {
-            this.showCart = true;
-        }
     }
 
     currentUserFromChild(eventData) {

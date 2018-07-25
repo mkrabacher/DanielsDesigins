@@ -7,50 +7,44 @@ import { HttpService } from '../http.service';
     styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit, OnChanges {
-    @Input() loggedUser;
+    currentUser;
     totalPrice;
 
     constructor(private _httpService: HttpService) {}
 
     ngOnInit() {
+        this.getcurrentUser();
         this.updateTotalPrice();
     }
 
     ngOnChanges() {
         console.log('changes in cart');
-        // this.updateLoggedUser();
+        // this.updateCurrentUser();
         this.updateTotalPrice();
     }
 
-    getLoggedUser() {
-        const observable = this._httpService.retrieveLogUserInService();
-        observable.subscribe(data => {
-            console.log('dataaaaaaaaaaaaa', data);
-            if (data['loggedUser']) {
-                this.loggedUser = data['loggedUser'];
-            }
-        });
+    getcurrentUser() {
+        this.currentUser = this._httpService.retrieveCurrentUserInService();
     }
 
-    updateLoggedUser() {
-        const observable = this._httpService.updateLoggedUserInService(this.loggedUser);
-        observable.subscribe();
+    updateCurrentUser() {
+        this._httpService.updateCurrentUserInService(this.currentUser);
     }
 
     updateTotalPrice() {
         let total = 0;
-        for (let i = 0; i < this.loggedUser.orders.length; i++) {
-            total += this.loggedUser.orders[i].price * this.loggedUser.orders[i].quantity;
+        for (let i = 0; i < this.currentUser.orders.length; i++) {
+            total += this.currentUser.orders[i].price * this.currentUser.orders[i].quantity;
         }
         this.totalPrice = total;
     }
 
     increaseQuantity(order) {
-        const index = this.loggedUser.orders.indexOf(order);
+        const index = this.currentUser.orders.indexOf(order);
 
-        this.loggedUser.orders[index].quantity++;
+        this.currentUser.orders[index].quantity++;
         this.updateTotalPrice();
-        this.updateLoggedUser();
+        this.updateCurrentUser();
     }
 
     decreaseQuantity(order) {
@@ -59,13 +53,13 @@ export class CartComponent implements OnInit, OnChanges {
             this.removeFromOrders(order);
         }
         this.updateTotalPrice();
-        this.updateLoggedUser();
+        this.updateCurrentUser();
     }
 
     removeFromOrders(order) {
-        for (let i = 0; i < this.loggedUser.orders.length; i ++) {
-            if (order._id === this.loggedUser.orders[i]._id) {
-                this.loggedUser.orders.splice(i, 1);
+        for (let i = 0; i < this.currentUser.orders.length; i ++) {
+            if (order._id === this.currentUser.orders[i]._id) {
+                this.currentUser.orders.splice(i, 1);
             }
         }
     }

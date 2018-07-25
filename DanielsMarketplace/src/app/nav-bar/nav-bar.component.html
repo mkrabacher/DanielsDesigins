@@ -5,7 +5,10 @@
         <a [routerLink]="['marketplace']" (click)="notLoggingIn()" class="button">Browse</a>
         <a (click)="toggleCart()" class="button">View Cart</a>
         <a [routerLink]="['about']" (click)="notLoggingIn()" class="button">About</a>
-        <a *ngIf="!loggedIn()" (click)="loggingIn()" class="button">Log In/Register</a>
-        <a *ngIf="currentUser && currentUser.admin" [routerLink]="['new-item']" (click)="notLoggingIn()" class="button">Add New Item</a>
+        <a [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
+        <a *ngIf="currentUser.admin" [routerLink]="['new-item']" (click)="notLoggingIn()" class="button">Add New Item</a>
     </div>
+</div>
+<div id="popup-frame">
+    <router-outlet name='popup'></router-outlet>
 </div>

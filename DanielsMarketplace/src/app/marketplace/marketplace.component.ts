@@ -25,7 +25,7 @@ export class MarketplaceComponent implements OnInit {
         this.allItems = [];
         this.displayItems = [];
         this.getAllItemsThroughService();
-        this.getCurrentUserLevel();
+        this.retrieveCurrentUserLevel();
     }
 
     getAllItemsThroughService() {
@@ -37,25 +37,23 @@ export class MarketplaceComponent implements OnInit {
         });
     }
 
-    getCurrentUserLevel() {
-        const observable = this._httpService.retrieveLogUserInService();
-        observable.subscribe(data => {
-            console.log(data);
-            if (data['loggedUser'].admin) {
-                this.adminPrivileges = true;
-            }
-        });
-    }
-
     addToCart(item, $event) {
         // gets desired quanitity from number selector
-        item.quantity = $event.path[1].childNodes[0].valueAsNumber;
-        const observable = this._httpService.addItemToCartInService(item);
-        observable.subscribe(data => {
-            console.log('got back: ', data);
-            // unhides 'added' note
-            $event.path[1].children[2].hidden = false;
-        });
+        const quantity = $event.path[1].childNodes[0].valueAsNumber;
+        this._httpService.addItemToCartInService(item, quantity);
+
+        // observable.subscribe(data => {
+        //     console.log('got back: ', data);
+        //     // unhides 'added' note
+        //     $event.path[1].children[2].hidden = false;
+        // });
+
+        // unhides 'added' note
+        $event.path[1].children[2].hidden = false;
+    }
+
+    retrieveCurrentUserLevel() {
+        this.adminPrivileges = this._httpService.retrieveCurrentUserLevelInService();
     }
 
     deleteItem(item) {

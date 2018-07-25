@@ -1,4 +1,5 @@
-<table *ngIf="loggedUser.orders.length > 0" style="border:3px solid red" id="marketplace-display">
+<h2><u>Cart:</u></h2>
+<table *ngIf="currentUser.orders.length > 0" style="border:3px solid red" id="marketplace-display">
     <thead>
         <td>Item Name</td>
         <td>Quantity</td>
@@ -7,7 +8,7 @@
         <td></td>
     </thead>
     <tbody>
-        <tr *ngFor="let order of loggedUser.orders" class="order-display">
+        <tr *ngFor="let order of currentUser.orders" class="order-display">
             <td>{{order.name}}</td>
             <td><button (click)="decreaseQuantity(order)">&#x2796;</button>{{order.quantity}}<button (click)="increaseQuantity(order)">&#x2795;</button></td>
             <td>{{order.price}}</td>
@@ -16,7 +17,7 @@
         </tr>
         
     </tbody>
-    <h3>Total Cost: {{totalPrice}}$</h3>
+    <h3>Total Cost: {{_httpService.currentUser._id}}$</h3>
     <button>Purchase</button>
 </table>
-<h2 *ngIf="loggedUser.orders.length == 0">You have no items in your cart</h2>
+<h3 *ngIf="currentUser.orders.length == 0">You have no items in your cart</h3>

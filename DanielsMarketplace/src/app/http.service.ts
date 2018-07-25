@@ -4,16 +4,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class HttpService {
-    loggedUser;
+    currentUser;
     constructor(
         private _http: HttpClient,
         private _route: ActivatedRoute,
         private _router: Router
     ) {
-        this.loggedUser = {
+        this.currentUser = {
             _id: 'guest',
             admin: false,
-            orders: []
+            orders: {
+                cart: {
+                    totalPrice: null,
+                    pending: [],
+                }
+            }
         };
     }
 
@@ -29,23 +34,35 @@ export class HttpService {
         return this._http.post('/registerUser', registerUser);
     }
 
-    setLogUserInService(loggedUser) {
-        console.log('setting logged user in service');
-        this.loggedUser = loggedUser;
+    setLogUserInService(currentUser) {
+        console.log('setting current user in service');
+        this.currentUser = currentUser;
         this._router.navigate(['']);
     }
 
-    updateLoggedUserInService(loggedUser) {
-        console.log('updating logged in user in service with:', loggedUser.firstName);
-        this.loggedUser = loggedUser;
-        return this._http.post('/updateUser', this.loggedUser);
+    updateCurrentUserInService(currentUser) {
+        console.log('updating current in user with id in service:', currentUser._id);
+        if (this.currentUser._id === 'guest') {
+            this.currentUser = currentUser;
+        } else {
+            // this is untested and will presumable return a different object containing the current user object.
+            this.currentUser = currentUser;
+            this._http.post('/updateUser', this.currentUser).subscribe();
+        }
     }
 
-    retrieveLogUserInService() {
-        console.log('getting logged user in service');
-        if (this.loggedUser._id !== 'guest') {
-            return this._http.post('/retrieveUser', this.loggedUser);
+    retrieveCurrentUserInService() {
+        console.log('getting current user in service');
+        if (this.currentUser._id === 'guest') {
+            return this.currentUser;
+        } else {
+            // this is untested and will presumable return a different object containing the current user object.
+            return this._http.post('/retrieveUser', this.currentUser).subscribe();
         }
+    }
+
+    retrieveCurrentUserLevelInService() {
+        return this.currentUser.admin;
     }
 
     getItemsInService() {
@@ -63,21 +80,32 @@ export class HttpService {
         return this._http.post('/deleteItem', item);
     }
 
-    addItemToCartInService(item) {
+    addItemToCartInService(item, quantity) {
         let alreadyAdded = false;
-        for (let i = 0; i < this.loggedUser.orders.length; i++) {
-            console.log(item.name, ':', item.quantity);
-            if (this.loggedUser.orders[i].name === item.name) {
-                console.log('adding:', item.quantity);
-                this.loggedUser.orders[i].quantity += item.quantity;
+        for (let i = 0; i < this.currentUser.orders.length; i++) {
+            console.log(item.name, ':', quantity);
+            if (this.currentUser.orders[i].name === item.name) {
+                // tslint:disable-next-line:max-line-length
+                console.log('adding:', quantity, item.name, 'to', this.currentUser.orders[i].quantity, this.currentUser.orders[i].name);
+                this.currentUser.orders[i].quantity += quantity;
                 alreadyAdded = true;
+                console.log('so now its at', this.currentUser.orders[i].quantity);
             }
         }
+
         if (!alreadyAdded) {
-            this.loggedUser.orders.push(item);
+            item.quantity = quantity;
+            this.currentUser.orders.push(item);
         }
-        const loggedUser = this.loggedUser;
+
+        const currentUser = this.currentUser;
         console.log('adding items to cart in service', item);
-        return this._http.post('/updateUser', loggedUser);
+        if (currentUser._id !== 'guest') {
+            // this is untested and needs to be addressed when rebuilding the logged in user adding to cart user story.
+            // return may be uneccessary.
+            return this._http.post('/updateUser', currentUser).subscribe();
+        } else {
+            return currentUser;
+        }
     }
 }
