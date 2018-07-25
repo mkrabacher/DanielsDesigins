@@ -13,11 +13,6 @@ export class NavBarComponent implements OnInit {
     constructor(private _router: Router, private _httpService: HttpService) {
         this.showCart = false;
         this.currentUser = _httpService.currentUser;
-        // this.currentUser = {
-        //     _id: 'guest',
-        //     admin: false,
-        //     orders: []
-        // };
     }
 
     ngOnInit() {
@@ -32,10 +27,12 @@ export class NavBarComponent implements OnInit {
     }
 
     logOut() {
-        this.currentUser = {
+        this._httpService.currentUser = {
             _id: 'guest',
             admin: false,
-            orders: []
+            cart: {
+                current: [],
+            },
         };
     }
 

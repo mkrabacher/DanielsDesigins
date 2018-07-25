@@ -16,10 +16,6 @@ export class HttpService {
             cart: {
                 current: [],
             },
-            orders: {
-                completed: [],
-                current: []
-            }
         };
     }
 
