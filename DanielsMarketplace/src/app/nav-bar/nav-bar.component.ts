@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '../../../node_modules/@angular/router';
+import { HttpService } from '../http.service';
 
 @Component({
     selector: 'app-nav-bar',
@@ -9,13 +10,14 @@ import { Router } from '../../../node_modules/@angular/router';
 export class NavBarComponent implements OnInit {
     currentUser;
     showCart;
-    constructor(private _router: Router) {
+    constructor(private _router: Router, private _httpService: HttpService) {
         this.showCart = false;
-        this.currentUser = {
-            _id: 'guest',
-            admin: false,
-            orders: []
-        };
+        this.currentUser = _httpService.currentUser;
+        // this.currentUser = {
+        //     _id: 'guest',
+        //     admin: false,
+        //     orders: []
+        // };
     }
 
     ngOnInit() {

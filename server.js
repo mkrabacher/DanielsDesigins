@@ -44,17 +44,43 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         email: {
             type: String,
         },
-        orders: [{
-            _id: String,
-            itemType: String,
-            name: String,
-            description: String,
-            price: Number,
-            img_url: String,
-            createdAt: String,
-            updatedAt: String,
-            quantity: Number,
-        }],
+        cart: {
+            current: [{
+                _id: String,
+                itemType: String,
+                name: String,
+                description: String,
+                price: Number,
+                img_url: String,
+                createdAt: String,
+                updatedAt: String,
+                quantity: Number,
+            }]
+        },
+        orders: {
+            current: [{
+                _id: String,
+                itemType: String,
+                name: String,
+                description: String,
+                price: Number,
+                img_url: String,
+                createdAt: String,
+                updatedAt: String,
+                quantity: Number,
+            }],
+            past: [{
+                _id: String,
+                itemType: String,
+                name: String,
+                description: String,
+                price: Number,
+                img_url: String,
+                createdAt: String,
+                updatedAt: String,
+                quantity: Number,
+            }]
+        },
         password: String,
     }, { timestamps: true })
 
@@ -118,7 +144,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                     newUser.lastName = req.body.lastName;
                     newUser.email = req.body.email;
                     newUser.password = req.body.password;
-                    newUser.orders = [];
+                    // newUser.orders = [];
                     console.log(user)
                     newUser.save(function(err) {
                         if(err){
@@ -146,10 +172,10 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/updateUser', function (req, res) {
             console.log('upating user in server with id:', req.body._id)
-            console.log('number of orders in user:', req.body.orders.length)
-            var orders = [];
-            for (var i = 0; i < req.body.orders.length; i++) {
-                orders.push(req.body.orders[i]);
+            console.log('number of orders in user:', req.body.cart.current.length)
+            var currentCart = [];
+            for (var i = 0; i < req.body.cart.current.length; i++) {
+                currentCart.push(req.body.cart.current[i]);
             }
             User.findOne({_id: req.body._id}, function(err, user) {
                 // console.log('==================pre-change user=================');
@@ -158,7 +184,8 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 user.admin = req.body.admin,
                 user.firstName = req.body.firstName;
                 user.lastName = req.body.lastName;
-                user.orders = orders;
+                user.cart.current = currentCart;
+                user.orders = req.body.orders;
                 user.email = req.body.email,
                 user.password = req.body.password,
                 // console.log('==================post-change user================')

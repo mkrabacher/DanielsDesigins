@@ -3,4 +3,5 @@ quantity control for admin users that can display out of stock info.
 do i need 'descriptioon and 'price' in the browse items section
 \
 see angular docs routing & navigation (search 'popup') for cart component structure
-
+\
+httpService is getting big. create separate service for loggged in user.

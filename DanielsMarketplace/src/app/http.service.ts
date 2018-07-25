@@ -13,19 +13,12 @@ export class HttpService {
         this.currentUser = {
             _id: 'guest',
             admin: false,
+            cart: {
+                current: [],
+            },
             orders: {
-                cart: {
-                    totalPrice: function() {
-                        let total = 0;
-                        for (let i = 0; i < this.current.length; i++) {
-                            total += this.current[i].price * this.current[i].quantity;
-                        }
-                        return total;
-                    },
-                    current: [],
-                },
-                completedOrders: [],
-                currentOrders: []
+                completed: [],
+                current: []
             }
         };
     }
@@ -48,25 +41,16 @@ export class HttpService {
         this._router.navigate(['']);
     }
 
-    updateCurrentUserInService(currentUser) {
-        console.log('updating current in user with id in service:', currentUser._id);
-        if (this.currentUser._id === 'guest') {
-            this.currentUser = currentUser;
-        } else {
-            // this is untested and will presumable return a different object containing the current user object.
-            this.currentUser = currentUser;
+    updateCurrentUserInServer() {
+        console.log('updating current in user with id in service:', this.currentUser._id);
+        if (this.currentUser._id !== 'guest') {
+            console.log('dudnt eql guest', this.currentUser);
             this._http.post('/updateUser', this.currentUser).subscribe();
         }
     }
 
     retrieveCurrentUserInService() {
-        console.log('getting current user in service');
-        if (this.currentUser._id === 'guest') {
-            return this.currentUser;
-        } else {
-            // this is untested and will presumable return a different object containing the current user object.
-            return this._http.post('/retrieveUser', this.currentUser).subscribe();
-        }
+        return this._http.post('/retrieveUser', this.currentUser);
     }
 
     retrieveCurrentUserLevelInService() {
@@ -90,30 +74,29 @@ export class HttpService {
 
     addItemToCartInService(item, quantity) {
         let alreadyAdded = false;
-        for (let i = 0; i < this.currentUser.orders.cart.current.length; i++) {
+        for (let i = 0; i < this.currentUser.cart.current.length; i++) {
             console.log(item.name, ':', quantity);
-            if (this.currentUser.orders.cart.current[i].name === item.name) {
+            if (this.currentUser.cart.current[i].name === item.name) {
                 // tslint:disable-next-line:max-line-length
-                console.log('adding:', quantity, item.name, 'to', this.currentUser.orders.cart.current[i].quantity, this.currentUser.orders.cart.current[i].name);
-                this.currentUser.orders.cart.current[i].quantity += quantity;
+                console.log('adding:', quantity, item.name, 'to', this.currentUser.cart.current[i].quantity, this.currentUser.cart.current[i].name);
+                this.currentUser.cart.current[i].quantity += quantity;
                 alreadyAdded = true;
-                console.log('so now its at', this.currentUser.orders.cart.current[i].quantity);
+                console.log('so now its at', this.currentUser.cart.current[i].quantity);
             }
         }
 
         if (!alreadyAdded) {
             item.quantity = quantity;
-            this.currentUser.orders.cart.current.push(item);
+            this.currentUser.cart.current.push(item);
         }
 
-        const currentUser = this.currentUser;
         console.log('adding items to cart in service', item);
-        if (currentUser._id !== 'guest') {
+        if (this.currentUser._id !== 'guest') {
             // this is untested and needs to be addressed when rebuilding the logged in user adding to cart user story.
             // return may be uneccessary.
-            return this._http.post('/updateUser', currentUser).subscribe();
+            return this._http.post('/updateUser', this.currentUser).subscribe();
         } else {
-            return currentUser;
+            return this.currentUser;
         }
     }
 }

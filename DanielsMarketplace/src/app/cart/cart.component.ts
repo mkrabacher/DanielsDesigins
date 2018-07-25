@@ -7,43 +7,29 @@ import { HttpService } from '../http.service';
     styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnChanges {
-    currentUser;
-    totalPrice;
 
     constructor(private _httpService: HttpService) {}
 
     ngOnInit() {
-        this.getcurrentUser();
-        this.updateTotalPrice();
+        this._httpService.currentUser.cart.totalPrice = function() {
+            let total = 0;
+            for (let i = 0; i < this.current.length; i++) {
+                total += this.current[i].price * this.current[i].quantity;
+            }
+            return total;
+        };
     }
 
-    ngOnChanges() {
-        console.log('changes in cart');
-        // this.updateCurrentUser();
-        this.updateTotalPrice();
-    }
-
-    getcurrentUser() {
-        this.currentUser = this._httpService.retrieveCurrentUserInService();
-    }
+    ngOnChanges() { }
 
     updateCurrentUser() {
-        this._httpService.updateCurrentUserInService(this.currentUser);
-    }
-
-    updateTotalPrice() {
-        let total = 0;
-        for (let i = 0; i < this.currentUser.orders.cart.current.length; i++) {
-            total += this.currentUser.orders.cart.current[i].price * this.currentUser.orders.cart.current[i].quantity;
-        }
-        this.totalPrice = total;
+        this._httpService.updateCurrentUserInServer();
     }
 
     increaseQuantity(order) {
-        const index = this.currentUser.orders.cart.current.indexOf(order);
+        const index = this._httpService.currentUser.cart.current.indexOf(order);
 
-        this.currentUser.orders.cart.current[index].quantity++;
-        this.updateTotalPrice();
+        this._httpService.currentUser.cart.current[index].quantity++;
         this.updateCurrentUser();
     }
 
@@ -52,15 +38,17 @@ export class CartComponent implements OnInit, OnChanges {
         if (order.quantity < 1) {
             this.removeFromOrders(order);
         }
-        this.updateTotalPrice();
         this.updateCurrentUser();
     }
 
     removeFromOrders(order) {
-        for (let i = 0; i < this.currentUser.orders.cart.current.length; i ++) {
-            if (order._id === this.currentUser.orders.cart.current[i]._id) {
-                this.currentUser.orders.cart.current.splice(i, 1);
+        for (let i = 0; i < this._httpService.currentUser.cart.current.length; i ++) {
+            if (order._id === this._httpService.currentUser.cart.current[i]._id) {
+                this._httpService.currentUser.cart.current.splice(i, 1);
             }
+        }
+        if (this._httpService.currentUser._id !== 'guest') {
+            this.updateCurrentUser();
         }
     }
 }

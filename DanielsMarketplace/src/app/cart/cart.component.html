@@ -1,6 +1,6 @@
 <div id="cart-frame">
     <h2><u>Cart:</u></h2>
-    <table *ngIf="currentUser.orders.cart.current.length > 0" id="marketplace-display">
+    <table *ngIf="_httpService.currentUser.cart.current.length > 0" id="marketplace-display">
         <thead>
             <td>Item Name</td>
             <td>Quantity</td>
@@ -9,7 +9,7 @@
             <td></td>
         </thead>
         <tbody>
-            <tr *ngFor="let order of currentUser.orders.cart.current" class="order-display">
+            <tr *ngFor="let order of _httpService.currentUser.cart.current" class="order-display">
                 <td>{{order.name}}</td>
                 <td><button (click)="decreaseQuantity(order)">&#x2796;</button>{{order.quantity}}<button (click)="increaseQuantity(order)">&#x2795;</button></td>
                 <td>{{order.price}}</td>
@@ -18,8 +18,8 @@
             </tr>
             
         </tbody>
-        <h3>Total Cost: {{_httpService.currentUser.orders.cart.totalPrice()}}$</h3>
+        <h3>Total Cost: {{_httpService.currentUser.cart.totalPrice()}}$</h3>
         <button>Purchase</button>
     </table>
-    <h3 *ngIf="currentUser.orders.cart.current.length == 0">You have no items in your cart</h3>
+    <h3 *ngIf="_httpService.currentUser.cart.current.length == 0">You have no items in your cart</h3>
 </div>
