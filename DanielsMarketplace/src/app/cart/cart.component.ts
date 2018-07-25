@@ -4,7 +4,7 @@ import { HttpService } from '../http.service';
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
-    styleUrls: ['./cart.component.css']
+    styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnChanges {
     currentUser;
@@ -33,16 +33,16 @@ export class CartComponent implements OnInit, OnChanges {
 
     updateTotalPrice() {
         let total = 0;
-        for (let i = 0; i < this.currentUser.orders.length; i++) {
-            total += this.currentUser.orders[i].price * this.currentUser.orders[i].quantity;
+        for (let i = 0; i < this.currentUser.orders.cart.current.length; i++) {
+            total += this.currentUser.orders.cart.current[i].price * this.currentUser.orders.cart.current[i].quantity;
         }
         this.totalPrice = total;
     }
 
     increaseQuantity(order) {
-        const index = this.currentUser.orders.indexOf(order);
+        const index = this.currentUser.orders.cart.current.indexOf(order);
 
-        this.currentUser.orders[index].quantity++;
+        this.currentUser.orders.cart.current[index].quantity++;
         this.updateTotalPrice();
         this.updateCurrentUser();
     }
@@ -57,9 +57,9 @@ export class CartComponent implements OnInit, OnChanges {
     }
 
     removeFromOrders(order) {
-        for (let i = 0; i < this.currentUser.orders.length; i ++) {
-            if (order._id === this.currentUser.orders[i]._id) {
-                this.currentUser.orders.splice(i, 1);
+        for (let i = 0; i < this.currentUser.orders.cart.current.length; i ++) {
+            if (order._id === this.currentUser.orders.cart.current[i]._id) {
+                this.currentUser.orders.cart.current.splice(i, 1);
             }
         }
     }

@@ -15,9 +15,17 @@ export class HttpService {
             admin: false,
             orders: {
                 cart: {
-                    totalPrice: null,
-                    pending: [],
-                }
+                    totalPrice: function() {
+                        let total = 0;
+                        for (let i = 0; i < this.current.length; i++) {
+                            total += this.current[i].price * this.current[i].quantity;
+                        }
+                        return total;
+                    },
+                    current: [],
+                },
+                completedOrders: [],
+                currentOrders: []
             }
         };
     }
@@ -82,20 +90,20 @@ export class HttpService {
 
     addItemToCartInService(item, quantity) {
         let alreadyAdded = false;
-        for (let i = 0; i < this.currentUser.orders.length; i++) {
+        for (let i = 0; i < this.currentUser.orders.cart.current.length; i++) {
             console.log(item.name, ':', quantity);
-            if (this.currentUser.orders[i].name === item.name) {
+            if (this.currentUser.orders.cart.current[i].name === item.name) {
                 // tslint:disable-next-line:max-line-length
-                console.log('adding:', quantity, item.name, 'to', this.currentUser.orders[i].quantity, this.currentUser.orders[i].name);
-                this.currentUser.orders[i].quantity += quantity;
+                console.log('adding:', quantity, item.name, 'to', this.currentUser.orders.cart.current[i].quantity, this.currentUser.orders.cart.current[i].name);
+                this.currentUser.orders.cart.current[i].quantity += quantity;
                 alreadyAdded = true;
-                console.log('so now its at', this.currentUser.orders[i].quantity);
+                console.log('so now its at', this.currentUser.orders.cart.current[i].quantity);
             }
         }
 
         if (!alreadyAdded) {
             item.quantity = quantity;
-            this.currentUser.orders.push(item);
+            this.currentUser.orders.cart.current.push(item);
         }
 
         const currentUser = this.currentUser;
