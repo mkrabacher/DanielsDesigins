@@ -1,0 +1,14 @@
+<div id="nav-bar">
+    <a [routerLink]="['']" id="title">SeamSmith</a>
+    <div id="nav-buttons">
+        <h4 *ngIf="_httpService.currentUser._id != 'guest'">Welcome <a [routerLink]="['profile/', _httpService.currentUser._id]">{{_httpService.currentUser.firstName}} {{_httpService.currentUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h4>
+        <a [routerLink]="['marketplace']" class="button">Browse</a>
+        <a (click)="toggleCart()" class="button">View Cart</a>
+        <a [routerLink]="['about']" class="button">About</a>
+        <a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
+        <a *ngIf="_httpService.currentUser.admin" [routerLink]="['new-item']" class="button">Add New Item</a>
+    </div>
+</div>
+<div id="popup-frame">
+    <router-outlet name='popup'></router-outlet>
+</div>

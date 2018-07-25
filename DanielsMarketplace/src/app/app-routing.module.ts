@@ -10,11 +10,11 @@ import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
-    { path: 'log-reg', component: LogRegComponent },
+    { path: 'log-reg', component: LogRegComponent, outlet: 'popup' },
     { path: 'marketplace', component: MarketplaceComponent},
     { path: 'new-item', component: NewItemComponent},
     { path: 'profile/:id', component: ProfileComponent},
-    { path: 'cart/:id', component: CartComponent},
+    { path: 'cart', component: CartComponent, outlet: 'popup'},
     { path: '', pathMatch: 'full', redirectTo: 'welcome' },
     { path: '**', component: PageNotFoundComponent }
 ];

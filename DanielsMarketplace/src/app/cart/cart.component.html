@@ -1,22 +1,25 @@
-<table *ngIf="loggedUser.orders.length > 0" style="border:3px solid red" id="marketplace-display">
-    <thead>
-        <td>Item Name</td>
-        <td>Quantity</td>
-        <td>Item Price</td>
-        <td>Total Price</td>
-        <td></td>
-    </thead>
-    <tbody>
-        <tr *ngFor="let order of loggedUser.orders" class="order-display">
-            <td>{{order.name}}</td>
-            <td><button (click)="decreaseQuantity(order)">&#x2796;</button>{{order.quantity}}<button (click)="increaseQuantity(order)">&#x2795;</button></td>
-            <td>{{order.price}}</td>
-            <td>{{order.price * order.quantity}}</td>
-            <td><button (click)="removeFromOrders(order)">Remove All Item(s)</button></td>
-        </tr>
-        
-    </tbody>
-    <h3>Total Cost: {{totalPrice}}$</h3>
-    <button>Purchase</button>
-</table>
-<h2 *ngIf="loggedUser.orders.length == 0">You have no items in your cart</h2>
+<div id="cart-frame">
+    <h2><u>Cart:</u></h2>
+    <table *ngIf="_httpService.currentUser.cart.current.length > 0" id="marketplace-display">
+        <thead>
+            <td>Item Name</td>
+            <td>Quantity</td>
+            <td>Item Price</td>
+            <td>Total Price</td>
+            <td></td>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of _httpService.currentUser.cart.current" class="order-display">
+                <td>{{order.name}}</td>
+                <td><button (click)="decreaseQuantity(order)">&#x2796;</button>{{order.quantity}}<button (click)="increaseQuantity(order)">&#x2795;</button></td>
+                <td>{{order.price}}</td>
+                <td>{{order.price * order.quantity}}</td>
+                <td><button (click)="removeFromOrders(order)">Remove All Item(s)</button></td>
+            </tr>
+            
+        </tbody>
+        <h3>Total Cost: {{_httpService.currentUser.cart.totalPrice()}}$</h3>
+        <button>Purchase</button>
+    </table>
+    <h3 *ngIf="_httpService.currentUser.cart.current.length == 0">You have no items in your cart</h3>
+</div>

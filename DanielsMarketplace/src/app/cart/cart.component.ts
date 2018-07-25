@@ -4,53 +4,33 @@ import { HttpService } from '../http.service';
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
-    styleUrls: ['./cart.component.css']
+    styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnChanges {
-    @Input() loggedUser;
-    totalPrice;
 
     constructor(private _httpService: HttpService) {}
 
     ngOnInit() {
-        this.updateTotalPrice();
-    }
-
-    ngOnChanges() {
-        console.log('changes in cart');
-        // this.updateLoggedUser();
-        this.updateTotalPrice();
-    }
-
-    getLoggedUser() {
-        const observable = this._httpService.retrieveLogUserInService();
-        observable.subscribe(data => {
-            console.log('dataaaaaaaaaaaaa', data);
-            if (data['loggedUser']) {
-                this.loggedUser = data['loggedUser'];
+        this._httpService.currentUser.cart.totalPrice = function() {
+            let total = 0;
+            for (let i = 0; i < this.current.length; i++) {
+                total += this.current[i].price * this.current[i].quantity;
             }
-        });
+            return total;
+        };
     }
 
-    updateLoggedUser() {
-        const observable = this._httpService.updateLoggedUserInService(this.loggedUser);
-        observable.subscribe();
-    }
+    ngOnChanges() { }
 
-    updateTotalPrice() {
-        let total = 0;
-        for (let i = 0; i < this.loggedUser.orders.length; i++) {
-            total += this.loggedUser.orders[i].price * this.loggedUser.orders[i].quantity;
-        }
-        this.totalPrice = total;
+    updateCurrentUser() {
+        this._httpService.updateCurrentUserInServer();
     }
 
     increaseQuantity(order) {
-        const index = this.loggedUser.orders.indexOf(order);
+        const index = this._httpService.currentUser.cart.current.indexOf(order);
 
-        this.loggedUser.orders[index].quantity++;
-        this.updateTotalPrice();
-        this.updateLoggedUser();
+        this._httpService.currentUser.cart.current[index].quantity++;
+        this.updateCurrentUser();
     }
 
     decreaseQuantity(order) {
@@ -58,15 +38,17 @@ export class CartComponent implements OnInit, OnChanges {
         if (order.quantity < 1) {
             this.removeFromOrders(order);
         }
-        this.updateTotalPrice();
-        this.updateLoggedUser();
+        this.updateCurrentUser();
     }
 
     removeFromOrders(order) {
-        for (let i = 0; i < this.loggedUser.orders.length; i ++) {
-            if (order._id === this.loggedUser.orders[i]._id) {
-                this.loggedUser.orders.splice(i, 1);
+        for (let i = 0; i < this._httpService.currentUser.cart.current.length; i ++) {
+            if (order._id === this._httpService.currentUser.cart.current[i]._id) {
+                this._httpService.currentUser.cart.current.splice(i, 1);
             }
+        }
+        if (this._httpService.currentUser._id !== 'guest') {
+            this.updateCurrentUser();
         }
     }
 }

@@ -5,12 +5,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-log-reg',
     templateUrl: './log-reg.component.html',
-    styleUrls: ['./log-reg.component.css']
+    styleUrls: ['./log-reg.component.scss']
 })
 export class LogRegComponent implements OnInit {
     login;
     registerUser;
-    loggedInUser;
+    currentUser;
     responseMsg;
     errorMsg;
     @Output() emitUser = new EventEmitter<object>();
@@ -38,11 +38,11 @@ export class LogRegComponent implements OnInit {
         console.log('logging in now');
         const observable = this._httpService.loginInService(this.login);
         observable.subscribe(data => {
-            if (data['loggedUser']) {
-                this.loggedInUser = data['loggedUser'];
+            if (data['currentUser']) {
+                this.currentUser = data['currentUser'];
                 console.log(data);
-                this.emitUser.emit(this.loggedInUser);
-                this._httpService.setLogUserInService(this.loggedInUser);
+                this.emitUser.emit(this.currentUser);
+                this._httpService.setLogUserInService(this.currentUser);
             } else {
                 this.errorMsg = data['errorMsg'];
             }
@@ -68,4 +68,7 @@ export class LogRegComponent implements OnInit {
         }
     }
 
+    closePopup() {
+        this._router.navigate([{ outlets: { popup: null }}]);
+    }
 }

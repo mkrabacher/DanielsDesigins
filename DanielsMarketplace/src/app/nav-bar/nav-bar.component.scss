@@ -1,0 +1,39 @@
+
+#nav-bar {
+    border:3px solid orange;
+    overflow: auto;
+
+    h1, a {
+        display: inline-block;
+    }
+
+    #title {
+        margin: 5px 20px 10px;
+        font-family: 'AkuraPopo', sans-serif;
+        font-size: 60px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    #cart {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 79%;
+        height: 79%;
+    }
+
+    #nav-buttons {
+        float: right;
+    }
+    
+    .button {
+        margin: 29px 10px;
+        font-size: 20px;
+    }
+
+    .button:hover {
+        color: red;
+    }
+}

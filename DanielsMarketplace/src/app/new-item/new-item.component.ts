@@ -9,9 +9,9 @@ import { HttpService } from '../http.service';
 export class NewItemComponent implements OnInit {
     newItem;
     userItems;
-    loggedUser;
+    currentUser;
     constructor(private _httpService: HttpService) {
-        this.loggedUser = this._httpService.retrieveLogUserInService();
+        this.currentUser = this._httpService.retrieveCurrentUserInService();
     }
 
     ngOnInit() {
@@ -21,12 +21,12 @@ export class NewItemComponent implements OnInit {
             description: '',
             price: '',
             imgUrl: '',
-            userID: this.loggedUser['_id'],
+            userID: this.currentUser['_id'],
         };
     }
 
     addItemThroughService() {
-        this.newItem.userID = this.loggedUser['_id'];
+        this.newItem.userID = this.currentUser['_id'];
         const observable = this._httpService.addItemInService(this.newItem);
         observable.subscribe(data => {
             console.log(data);
@@ -37,7 +37,7 @@ export class NewItemComponent implements OnInit {
             description: '',
             price: '',
             imgUrl: '',
-            userID: this.loggedUser['_id'],
+            userID: this.currentUser['_id'],
         };
     }
 
