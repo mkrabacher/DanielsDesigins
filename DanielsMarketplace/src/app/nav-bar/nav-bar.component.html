@@ -2,11 +2,11 @@
     <a [routerLink]="['']" id="title">SeamSmith</a>
     <div id="nav-buttons">
         <h4 *ngIf="loggedIn()">Welcome <a [routerLink]="['profile/', currentUser._id]">{{currentUser.firstName}} {{currentUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h4>
-        <a [routerLink]="['marketplace']" (click)="notLoggingIn()" class="button">Browse</a>
+        <a [routerLink]="['marketplace']" class="button">Browse</a>
         <a (click)="toggleCart()" class="button">View Cart</a>
-        <a [routerLink]="['about']" (click)="notLoggingIn()" class="button">About</a>
+        <a [routerLink]="['about']" class="button">About</a>
         <a [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
-        <a *ngIf="currentUser.admin" [routerLink]="['new-item']" (click)="notLoggingIn()" class="button">Add New Item</a>
+        <a *ngIf="currentUser.admin" [routerLink]="['new-item']" class="button">Add New Item</a>
     </div>
 </div>
 <div id="popup-frame">
