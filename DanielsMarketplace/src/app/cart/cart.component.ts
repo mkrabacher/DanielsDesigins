@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { HttpService } from '../http.service';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
     selector: 'app-cart',
@@ -8,7 +9,7 @@ import { HttpService } from '../http.service';
 })
 export class CartComponent implements OnInit, OnChanges {
 
-    constructor(private _httpService: HttpService) {}
+    constructor(private _router: Router, private _httpService: HttpService) {}
 
     ngOnInit() {
         this._httpService.currentUser.cart.totalPrice = function() {
@@ -65,5 +66,9 @@ export class CartComponent implements OnInit, OnChanges {
 
         summary += '\n\nGrand Total: ' + this._httpService.currentUser.cart.totalPrice() + '$';
         alert(summary);
+    }
+
+    closeCart() {
+        this._router.navigate([{ outlets: { popup: null }}]);
     }
 }

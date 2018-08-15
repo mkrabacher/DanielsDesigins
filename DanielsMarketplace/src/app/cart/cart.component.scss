@@ -1,6 +1,9 @@
 #cart-frame {
+    z-index: 10;
     border:3px solid red;
     position: absolute;
     background-color: white;
     right: 0px;
+    width: 516px;
+    padding: 5px;
 }
