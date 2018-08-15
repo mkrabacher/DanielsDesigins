@@ -19,7 +19,8 @@
             
         </tbody>
         <h3>Total Cost: {{_httpService.currentUser.cart.totalPrice()}}$</h3>
-        <button>Purchase</button>
+        <button (click)='buySomething();'>Purchase</button>
     </table>
     <h3 *ngIf="_httpService.currentUser.cart.current.length == 0">You have no items in your cart</h3>
+    <button (click)="closeCart()">Close Cart</button>
 </div>

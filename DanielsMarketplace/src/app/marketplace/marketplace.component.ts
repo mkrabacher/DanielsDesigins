@@ -42,27 +42,12 @@ export class MarketplaceComponent implements OnInit {
         const quantity = $event.path[1].childNodes[0].valueAsNumber;
         this._httpService.addItemToCartInService(item, quantity);
 
-        // observable.subscribe(data => {
-        //     console.log('got back: ', data);
-        //     // unhides 'added' note
-        //     $event.path[1].children[2].hidden = false;
-        // });
-
         // unhides 'added' note
         $event.path[1].children[2].hidden = false;
     }
 
     retrieveCurrentUserLevel() {
         this.adminPrivileges = this._httpService.retrieveCurrentUserLevelInService();
-    }
-
-    deleteItem(item) {
-        console.log('sending delete request');
-        const observable = this._httpService.deleteItemInService(item);
-        observable.subscribe(data => {
-            console.log('got back: ', data);
-            this.getAllItemsThroughService();
-        });
     }
 
     filter() {
