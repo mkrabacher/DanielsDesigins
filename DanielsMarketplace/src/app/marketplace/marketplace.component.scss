@@ -1,10 +1,13 @@
-#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons {
+@import "../scss/variables";
+
+#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons, .item-display {
     display: inline-block
 }
 
 #marketplace-sidebar {
     padding: 5px 20px;
-    width: 15%;
+    width: $sidebar-width;
+    min-height: calc(100vh - #{$navbar-height});
 
     div {
         margin: 20px 0;
@@ -12,15 +15,14 @@
 }
 
 #marketplace-display {
-    width: 81%;
+    width: $marketplace-width;
     vertical-align: top;
 
     
     .item-display {
-        display: inline-block;
         width: 250px;
         height: 300px;
-        margin-top: 10px;
+        margin: 5px;
         border: 3px solid black;
         padding: 10px;
         vertical-align: top;

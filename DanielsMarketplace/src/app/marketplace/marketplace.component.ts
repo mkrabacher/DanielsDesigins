@@ -76,4 +76,9 @@ export class MarketplaceComponent implements OnInit {
         this.filter();
     }
 
+    // $('#anotherDiv').hover(function() {
+    //     $('#myDiv').stop(true, true).fadeIn({ duration: slideDuration, queue: false }).css('display', 'none').slideDown(slideDuration);
+    // }, function() {
+    //         $('#myDiv').stop(true, true).fadeOut({ duration: slideDuration, queue: false }).slideUp(slideDuration);
+    // });
 }
