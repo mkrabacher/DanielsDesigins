@@ -31,8 +31,8 @@
 
 
         .item-hover-buttons {
-            visibility: hidden;
-            position: absolute;
+            opacity: 0;
+            position: relative;
             margin-top: 10px;
             z-index: 1;
         }
@@ -48,9 +48,15 @@
         .item-image-frame:hover {
             img {
                 opacity: 0.3;
+                -webkit-transition: all .5s; /* Safari, Chrome */
+                transition: all .5s;
             }
             .item-hover-buttons {
-                visibility: visible;                
+                opacity: 1;
+                top: 90px;
+                left: 50px;
+                -webkit-transition: all .5s; /* Safari, Chrome */
+                transition: all .5s;
             }            
         }
 

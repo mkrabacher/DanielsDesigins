@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-marketplace',
@@ -26,7 +27,16 @@ export class MarketplaceComponent implements OnInit {
         this.displayItems = [];
         this.getAllItemsThroughService();
         this.retrieveCurrentUserLevel();
+        $(document).ready(function () {
+            $('.item-image-frame').hover(function () {
+                $('.item-hover-buttons').fadeIn('slow');
+            });
+        });
     }
+
+    slideFadeToggle = function (HTMLele, speed, easing, callback) {
+        return HTMLele.animate({ opacity: 'toggle', height: 'toggle' }, speed, easing, callback);
+    };
 
     getAllItemsThroughService() {
         const observable = this._httpService.getItemsInService();
@@ -75,10 +85,4 @@ export class MarketplaceComponent implements OnInit {
         };
         this.filter();
     }
-
-    // $('#anotherDiv').hover(function() {
-    //     $('#myDiv').stop(true, true).fadeIn({ duration: slideDuration, queue: false }).css('display', 'none').slideDown(slideDuration);
-    // }, function() {
-    //         $('#myDiv').stop(true, true).fadeOut({ duration: slideDuration, queue: false }).slideUp(slideDuration);
-    // });
 }
