@@ -1,7 +1,7 @@
 <div id="nav-bar">
     <a [routerLink]="['']" id="title">SeamSmith</a>
     <div id="nav-buttons">
-        <h4 *ngIf="_httpService.currentUser._id != 'guest'">Welcome <a [routerLink]="['profile/', _httpService.currentUser._id]">{{_httpService.currentUser.firstName}} {{_httpService.currentUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h4>
+        <h6 *ngIf="_httpService.currentUser._id != 'guest'">Welcome <a [routerLink]="['profile/', _httpService.currentUser._id]">{{_httpService.currentUser.firstName}} {{_httpService.currentUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h6>
         <a [routerLink]="['marketplace']" class="button">Browse</a>
         <a (click)="toggleCart()" class="button">View Cart</a>
         <a [routerLink]="['about']" class="button">About</a>

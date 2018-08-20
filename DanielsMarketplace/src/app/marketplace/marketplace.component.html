@@ -37,7 +37,7 @@
             <div class="item-image-frame">
                 <div class="item-hover-buttons">
                     <button class="cart-btn btn" (click)="addToCart(item, $event)"><img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart"></button><span hidden> added</span>
-                    <button class="view-btn btn">View item</button>
+                    <a [routerLink]="[{ outlets: { product: ['product-page', item._id] } }]" class="view-btn btn">View item</a>
                 </div>
                 <img src="{{item.img_url}}" alt="{{item.name}}">
             </div>  
@@ -46,4 +46,7 @@
             <h6 class="item-subheader">${{item.price}}</h6>
         </div>
     </div>
+</div>
+<div id="product-frame">
+    <router-outlet name='product'></router-outlet>
 </div>
