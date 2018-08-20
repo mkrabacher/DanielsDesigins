@@ -1,3 +1,4 @@
+@import "../../scss/variables";
 
 #nav-bar {
     border:3px solid orange;
@@ -9,7 +10,7 @@
 
     #title {
         margin: 5px 20px 10px;
-        font-family: 'AkuraPopo', sans-serif;
+        font-family: $title-font;
         font-size: 60px;
         text-decoration: none;
         color: black;
@@ -36,4 +37,8 @@
     .button:hover {
         color: red;
     }
+}
+
+#popup-frame {
+    z-index: 10;
 }

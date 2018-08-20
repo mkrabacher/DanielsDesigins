@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProfileComponent } from './profile/profile.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { CartComponent } from './cart/cart.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'marketplace', component: MarketplaceComponent},
     { path: 'new-item', component: NewItemComponent},
     { path: 'profile/:id', component: ProfileComponent},
+    { path: 'product-page/:id', component: ProductPageComponent, outlet: 'product'},
     { path: 'cart', component: CartComponent, outlet: 'popup'},
     { path: '', pathMatch: 'full', redirectTo: 'welcome' },
     { path: '**', component: PageNotFoundComponent }

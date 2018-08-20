@@ -1,10 +1,13 @@
-#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons {
+@import "../../scss/variables";
+
+#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons, .item-display, .item-display-frame {
     display: inline-block
 }
 
 #marketplace-sidebar {
     padding: 5px 20px;
-    width: 15%;
+    width: $sidebar-width;
+    min-height: calc(100vh - #{$navbar-height});
 
     div {
         margin: 20px 0;
@@ -12,49 +15,89 @@
 }
 
 #marketplace-display {
-    width: 81%;
+    width: $marketplace-width;
     vertical-align: top;
 
-    
-    .item-display {
-        display: inline-block;
+    .item-display-frame {
         width: 250px;
         height: 300px;
-        margin-top: 10px;
-        border: 3px solid black;
+        margin: 5px;
         padding: 10px;
-        vertical-align: top;
+    }
+    
+    .item-display {
         
-        
+        .item-subheader, h6 {
+            margin: 0;
+        }
 
+        .item-subheader {
+            font-size: 15px;
+            color: darkgray
+        }
 
         .item-hover-buttons {
-            visibility: hidden;
-            position: absolute;
+            opacity: 0;
+            position: relative;
             margin-top: 10px;
             z-index: 1;
+
+            .cart-btn {
+                .cart-btn-icon {
+                    width: 20px;
+                }
+            }
+
+            .expand-btn {
+                .expand-btn-icon {
+                    width: 20px;
+                }
+            }
+
+            .view-btn {
+                color: darkslategrey;
+            }
+        
         }
 
         .item-image-frame {
             img {
                 width: 200px;
                 display: flex;
-                align-items: center;
+                margin: auto;
             }
-        }
-
-        .item-image-frame:hover {
-            img {
-                opacity: 0.3;
-            }
-            .item-hover-buttons {
-                visibility: visible;                
-            }            
-        }
-
-        .item-price {
-            margin-top: 10px;
+            border-bottom: 3px solid darkslategray;
         }
     }
 
+    .item-display:hover {
+
+        .item-hover-buttons {
+            opacity: 0;
+            position: relative;
+            margin-top: 10px;
+            z-index: 1;
+        }
+
+        .item-image-frame {
+            img {
+                opacity: 0.3;
+                -webkit-transition: all .5s; /* Safari, Chrome */
+                transition: all .5s;
+            }
+            border-bottom: 3px solid darkslateblue;
+            .item-hover-buttons {
+                opacity: 1;
+                top: 90px;
+                left: 20px;
+                -webkit-transition: all .5s; /* Safari, Chrome */
+                transition: all .5s;
+            }            
+        }
+    }
+
+}
+
+#product-frame {
+    z-index: 10;
 }

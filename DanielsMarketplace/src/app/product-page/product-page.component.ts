@@ -33,8 +33,6 @@ export class ProductPageComponent implements OnInit {
         const observable = this._httpService.deleteItemInService(item);
         observable.subscribe(data => {
             console.log('got back: ', data);
-            // no need to get all items anymore
-            // this.getAllItemsThroughService();
         });
     }
 }

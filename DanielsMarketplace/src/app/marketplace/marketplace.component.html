@@ -1,36 +1,52 @@
-<div style="border:3px solid blue" id="marketplace-sidebar">
+<div id="marketplace-sidebar">
     <div>
-        <h3>Search by Name</h3>
+        <h6>Search by Name</h6>
         <input placeholder="search.." type="text" name="searchBar" id="searchBar" [(ngModel)]="searchTerm">
     </div>
     <div>
-        <h3>Filter by Type</h3>
+        <h6>Filter by Type</h6>
         <form action="">
-            <!-- need to bind the checkboxes to some object in the .ts to filter the results by type     -->
             <div>
-                <input type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat">
-                <label for="checkbox-Raincoat">Raincoat</label><br>
-                <input type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags">
-                <label for="checkbox-DryBags">Dry Bags</label><br>
-                <input type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection">
-                <label for="checkbox-SunProtection">Sun Protection</label>
+                <p>
+                    <label for="checkbox-Raincoat">
+                        <input class="filled-in" type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat" />
+                        <span>Raincoat</span>
+                    </label>
+                </p>
+                <p>
+                    <label for="checkbox-DryBags">
+                        <input class="filled-in" type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags" />
+                        <span>Dry Bags</span>
+                    </label>
+                </p>
+                <p>
+                    <label for="checkbox-SunProtection">
+                        <input class="filled-in" type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection" />
+                        <span>Sun Protection</span>
+                    </label>
+                </p>
             </div>
-            <input (click)="filter()" type="submit" value="Filter">
-            <input (click)="resetFilter()" type="submit" value="Reset">
+            <input class="btn" (click)="filter()" type="submit" value="Filter">
+            <input class="btn" (click)="resetFilter()" type="submit" value="Reset">
         </form>
     </div>
 </div>
-<div style="border:3px solid red" id="marketplace-display">
-    <div *ngFor="let item of displayItems" class="item-display">
-        <div *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())">
+<div id="marketplace-display">
+    <div *ngFor="let item of displayItems" class="item-display-frame">
+        <div class="item-display" *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())">
             <div class="item-image-frame">
                 <div class="item-hover-buttons">
-                    <button (click)="addToCart(item, $event)">Cart</button><span hidden> added</span>
-                    <button>View item</button>
+                    <button class="cart-btn btn" (click)="addToCart(item, $event)"><img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart"></button><span hidden> added</span>
+                    <a [routerLink]="[{ outlets: { product: ['product-page', item._id] } }]" class="view-btn btn">View item</a>
                 </div>
                 <img src="{{item.img_url}}" alt="{{item.name}}">
-            </div>
-            <h2>{{item.name}}</h2>
+            </div>  
+            <h6 class="item-subheader">{{item.itemType}}</h6>
+            <h6>{{item.name}}</h6>
+            <h6 class="item-subheader">${{item.price}}</h6>
         </div>
     </div>
+</div>
+<div id="product-frame">
+    <router-outlet name='product'></router-outlet>
 </div>

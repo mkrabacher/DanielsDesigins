@@ -36,12 +36,6 @@ export class AppComponent implements OnInit, OnChanges {
 
     getCurrentUser() {
         const observable = this._httpService.retrieveCurrentUserInService();
-        // observable.subscribe(data => {
-        //     console.log('dataaaaaaaaaaaaa', data);
-        //     if (data['currentUser']) {
-        //         this.currentUser = data['currentUser'];
-        //     }
-        // });
         console.log('oberservable in app.component', observable);
     }
 

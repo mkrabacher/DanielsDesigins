@@ -1,5 +1,5 @@
 <p>
-  product-page works!
+    product-page works!
 </p>
 <ul>
     <li>has admin options like delete and edit</li>
@@ -10,26 +10,29 @@
 </ul>
 
 <div style="border:3px solid red" id="marketplace-display">
-        <div *ngFor="let item of displayItems">
-            <div *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())" class="item-display">
-                <div class="item-name">
-                    <h2>{{item.name}}</h2>
-                    <a href="" (click)="showImg(item.img_url)"><img src="{{item.img_url}}" alt="{{item.name}}"></a>
+    <div *ngFor="let item of displayItems">
+        <div *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())" class="item-display">
+            <div class="item-name">
+                <h2>{{item.name}}</h2>
+                <a href="" (click)="showImg(item.img_url)">
+                    <img src="{{item.img_url}}" alt="{{item.name}}">
+                </a>
+            </div>
+            <div class="item-description">
+                <h3>Description</h3>
+                <p>{{item.description}}</p>
+                <div class="item-price">
+                    <h3>Price</h3>
+                    <p>{{item.price}}</p>
                 </div>
-                <div class="item-description">
-                    <h3>Description</h3>
-                    <p>{{item.description}}</p>
-                    <div class="item-price">
-                        <h3>Price</h3>
-                        <p>{{item.price}}</p>
-                    </div>
-                    <div class="item-buttons">
-                        <input class="quantity" value="1" type="number">
-                        <button (click)="addToCart(item, $event)">Add to cart</button><span hidden> added</span>
-                        <button *ngIf="adminPrivileges" (click)="deleteItem(item)">Delete Item</button>
-                        <button *ngIf="adminPrivileges">Edit Item</button>
-                    </div>
+                <div class="item-buttons">
+                    <input class="quantity" value="1" type="number">
+                    <button (click)="addToCart(item, $event)">Add to cart</button>
+                    <span hidden> added</span>
+                    <button *ngIf="adminPrivileges" (click)="deleteItem(item)">Delete Item</button>
+                    <button *ngIf="adminPrivileges">Edit Item</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
