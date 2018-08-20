@@ -1,4 +1,4 @@
-@import "../scss/variables";
+@import "../../scss/variables";
 
 #nav-bar {
     border:3px solid orange;
@@ -37,4 +37,8 @@
     .button:hover {
         color: red;
     }
+}
+
+#popup-frame {
+    z-index: 10;
 }

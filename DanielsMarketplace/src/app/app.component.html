@@ -3,7 +3,7 @@
     <app-nav-bar></app-nav-bar>
 </div>
 
-<div *ngIf="logIn" style="border:3px solid green" id="content">
+<div *ngIf="logIn" style="border:3px solid green" id="log-reg-app">
     <app-log-reg (emitUser)="setCurrentUser($event)"></app-log-reg>
 </div>
 

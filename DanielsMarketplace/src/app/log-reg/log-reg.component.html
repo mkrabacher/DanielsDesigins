@@ -14,13 +14,13 @@
                     minlength="3" #firstName="ngModel">
             </label>
             <br>
-            <p style="color:red" *ngIf="firstName.errors && firstName.errors.minlength">First Name needs to be longer</p>
+            <p class="error" *ngIf="firstName.errors && firstName.errors.minlength">First Name needs to be longer</p>
             <label for="registerUser.lastName">Last Name:
                 <input type="text" name="registerUser.lastName" id="registerUser-lastName" [(ngModel)]="registerUser.lastName" required minlength="3"
                     #lastName="ngModel">
             </label>
             <br>
-            <p style="color:red" *ngIf="lastName.errors && lastName.errors.minlength">Last Name needs to be longer</p>
+            <p class="error" *ngIf="lastName.errors && lastName.errors.minlength">Last Name needs to be longer</p>
             <label for="registerUser.email">Email:
                 <input type="email" name="registerUser.email" id="registerUser-email" [(ngModel)]="registerUser.email" required #email="ngModel"
                     pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b">
@@ -33,21 +33,21 @@
                 </select>
             </label>
             <br>
-            <div style="color:red" *ngIf="email.errors && email.errors.pattern">That's not a valid email</div>
+            <div class="error" *ngIf="email.errors && email.errors.pattern">That's not a valid email</div>
             <label for="registerUser.password">Password:
                 <input type="password" name="registerUser.password" id="registerUser-password" [(ngModel)]="registerUser.password" required
                     minlength="8" #password="ngModel" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,64}$">
                 <p *ngIf="password-err">Password must be at least 8 characters long.</p>
             </label>
             <br>
-            <p style="color:red" *ngIf="password.errors && password.errors.minlength">Password needs to be longer</p>
-            <p style="color:red" *ngIf="password.errors && password.errors.pattern">Password must have upper, lower and number</p>
+            <p class="error" *ngIf="password.errors && password.errors.minlength">Password needs to be longer</p>
+            <p class="error" *ngIf="password.errors && password.errors.pattern">Password must have upper, lower and number</p>
             <label for="registerUser.passwordConf">Password Confirmation:
                 <input type="password" name="registerUser.passwordConf" id="registerUser-passwordConf" [(ngModel)]="registerUser.passwordConf"
                     required #passwordConf="ngModel">
             </label>
             <br>
-            <p style="color:red" *ngIf="registerUser.password != registerUser.passwordConf">Password doesn't match confirmation.</p>
+            <p class="error" *ngIf="registerUser.password != registerUser.passwordConf">Password doesn't match confirmation.</p>
             <input *ngIf="firstName.valid && lastName.valid && email.valid && password.valid && passwordConf.valid" type="submit" value="registerUser"
                 id="registerUser-btn">
         </form>

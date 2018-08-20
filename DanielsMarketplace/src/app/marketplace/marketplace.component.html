@@ -1,4 +1,4 @@
-<div style="border:3px solid blue" id="marketplace-sidebar">
+<div id="marketplace-sidebar">
     <div>
         <h6>Search by Name</h6>
         <input placeholder="search.." type="text" name="searchBar" id="searchBar" [(ngModel)]="searchTerm">
@@ -31,17 +31,19 @@
         </form>
     </div>
 </div>
-<div style="border:3px solid red" id="marketplace-display">
-    <div *ngFor="let item of displayItems" style="display: inline-block">
+<div id="marketplace-display">
+    <div *ngFor="let item of displayItems" class="item-display-frame">
         <div class="item-display" *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())">
             <div class="item-image-frame">
                 <div class="item-hover-buttons">
-                    <button class="cart-btn" (click)="addToCart(item, $event)">Cart</button><span hidden> added</span>
-                    <button class="view-btn">View item</button>
+                    <button class="cart-btn btn" (click)="addToCart(item, $event)"><img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart"></button><span hidden> added</span>
+                    <button class="view-btn btn">View item</button>
                 </div>
                 <img src="{{item.img_url}}" alt="{{item.name}}">
-            </div>
-            <h5>{{item.name}}</h5>
+            </div>  
+            <h6 class="item-subheader">{{item.itemType}}</h6>
+            <h6>{{item.name}}</h6>
+            <h6 class="item-subheader">${{item.price}}</h6>
         </div>
     </div>
 </div>

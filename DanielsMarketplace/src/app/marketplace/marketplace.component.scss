@@ -1,6 +1,6 @@
-@import "../scss/variables";
+@import "../../scss/variables";
 
-#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons, .item-display {
+#marketplace-sidebar, #marketplace-display, .item-description, .item-name, .item-price, .item-buttons, .item-display, .item-display-frame {
     display: inline-block
 }
 
@@ -18,17 +18,59 @@
     width: $marketplace-width;
     vertical-align: top;
 
-    
-    .item-display {
+    .item-display-frame {
         width: 250px;
         height: 300px;
         margin: 5px;
-        border: 3px solid black;
         padding: 10px;
-        vertical-align: top;
+    }
+    
+    .item-display {
         
-        
+        .item-subheader, h6 {
+            margin: 0;
+        }
 
+        .item-subheader {
+            font-size: 15px;
+            color: darkgray
+        }
+
+        .item-hover-buttons {
+            opacity: 0;
+            position: relative;
+            margin-top: 10px;
+            z-index: 1;
+
+            .cart-btn {
+                .cart-btn-icon {
+                    width: 20px;
+                }
+            }
+
+            .expand-btn {
+                .expand-btn-icon {
+                    width: 20px;
+                }
+            }
+
+            .view-btn {
+                color: darkslategrey;
+            }
+        
+        }
+
+        .item-image-frame {
+            img {
+                width: 200px;
+                display: flex;
+                margin: auto;
+            }
+            border-bottom: 3px solid darkslategray;
+        }
+    }
+
+    .item-display:hover {
 
         .item-hover-buttons {
             opacity: 0;
@@ -39,29 +81,18 @@
 
         .item-image-frame {
             img {
-                width: 200px;
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .item-image-frame:hover {
-            img {
                 opacity: 0.3;
                 -webkit-transition: all .5s; /* Safari, Chrome */
                 transition: all .5s;
             }
+            border-bottom: 3px solid darkslateblue;
             .item-hover-buttons {
                 opacity: 1;
                 top: 90px;
-                left: 50px;
+                left: 20px;
                 -webkit-transition: all .5s; /* Safari, Chrome */
                 transition: all .5s;
             }            
-        }
-
-        .item-price {
-            margin-top: 10px;
         }
     }
 
