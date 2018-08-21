@@ -53,10 +53,14 @@ export class HttpService {
         return this.currentUser.admin;
     }
 
+    getItemInService(id) {
+        console.log('getting item in service with id:', id);
+        return this._http.post('/getItem', {id: id});
+    }
+
     getItemsInService() {
         console.log('getting all items in service');
-        const thing = null;
-        return this._http.post('/getAllItems', thing);
+        return this._http.post('/getAllItems', null);
     }
 
     addItemInService(newItem) {

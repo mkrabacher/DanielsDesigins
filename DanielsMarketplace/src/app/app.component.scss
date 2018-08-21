@@ -5,12 +5,6 @@
     min-height: calc(100vh - #{$navbar-height});
 }
 
-#log-reg-app {
-    margin: 0 $marketplace-margin;
-    min-height: calc(100vh - #{$navbar-height});
-    z-index: 10;
-}
-
-#nav-bar {
+#nav-bar-frame {
     height: $navbar-height;
 }

@@ -1,12 +1,12 @@
 
-<div id="nav-bar">
+<div id="nav-bar-frame">
     <app-nav-bar></app-nav-bar>
 </div>
 
-<div *ngIf="logIn" style="border:3px solid green" id="log-reg-app">
-    <app-log-reg (emitUser)="setCurrentUser($event)"></app-log-reg>
+<div id="popup-frame">
+    <router-outlet name='popup'></router-outlet>
 </div>
 
-<div *ngIf="!logIn" id="content">
+<div id="content">
     <router-outlet></router-outlet>
 </div>
