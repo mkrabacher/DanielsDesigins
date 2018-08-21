@@ -46,7 +46,15 @@
                 .cart-btn-icon {
                     width: 20px;
                 }
+
+                span {
+                    color: red;
+                    position: absolute;
+                    left: -1px;
+                    top: -1px;
+                }
             }
+            
 
             .expand-btn {
                 .expand-btn-icon {
@@ -96,8 +104,4 @@
         }
     }
 
-}
-
-#product-frame {
-    z-index: 10;
 }

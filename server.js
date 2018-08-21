@@ -221,6 +221,17 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             })
         })
 
+        app.post('/getItem', function (req, res) {
+            console.log('getting item in server with id:', req.body.id)
+            Item.findOne({_id:req.body.id},function(err, item) {
+                if(err){
+                    console.log("e0rr0r:", err)
+                }else{
+                    res.json({message:'Item', item: item})
+                }
+            })
+        })
+
         app.post('/addItem', function(req, res) {
             console.log("creating new item in server", req.body)
             newItem = new Item()

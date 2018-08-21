@@ -9,3 +9,5 @@ need ta be able to upload photos n shit in product creation
 item types need to be standardized so that filter can work properly
 \
 item adding feature needs design touch up.
+\
+cart not functioning properly unless logged in

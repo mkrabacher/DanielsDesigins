@@ -15,7 +15,7 @@ const routes: Routes = [
     { path: 'marketplace', component: MarketplaceComponent},
     { path: 'new-item', component: NewItemComponent},
     { path: 'profile/:id', component: ProfileComponent},
-    { path: 'product-page/:id', component: ProductPageComponent, outlet: 'product'},
+    { path: 'product-page/:id', component: ProductPageComponent, outlet: 'popup'},
     { path: 'cart', component: CartComponent, outlet: 'popup'},
     { path: '', pathMatch: 'full', redirectTo: 'welcome' },
     { path: '**', component: PageNotFoundComponent }

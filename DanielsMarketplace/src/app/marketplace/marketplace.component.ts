@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import * as $ from 'jquery';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
     selector: 'app-marketplace',
@@ -13,7 +14,7 @@ export class MarketplaceComponent implements OnInit {
     searchTerm;
     typeFilter;
     adminPrivileges;
-    constructor(private _httpService: HttpService) {
+    constructor(private _httpService: HttpService, private _router: Router) {
         this.searchTerm = '';
         this.typeFilter = {
             Raincoat: false,
@@ -27,11 +28,6 @@ export class MarketplaceComponent implements OnInit {
         this.displayItems = [];
         this.getAllItemsThroughService();
         this.retrieveCurrentUserLevel();
-        $(document).ready(function () {
-            $('.item-image-frame').hover(function () {
-                $('.item-hover-buttons').fadeIn('slow');
-            });
-        });
     }
 
     slideFadeToggle = function (HTMLele, speed, easing, callback) {
@@ -49,11 +45,12 @@ export class MarketplaceComponent implements OnInit {
 
     addToCart(item, $event) {
         // gets desired quanitity from number selector
-        const quantity = $event.path[1].childNodes[0].valueAsNumber;
+        const quantity = 1;
         this._httpService.addItemToCartInService(item, quantity);
 
         // unhides 'added' note
-        $event.path[1].children[2].hidden = false;
+        console.log($event);
+        $event.path[1].children[1].hidden = false;
     }
 
     retrieveCurrentUserLevel() {
@@ -84,5 +81,9 @@ export class MarketplaceComponent implements OnInit {
             SunProtection: false,
         };
         this.filter();
+    }
+
+    showProduct(id) {
+        this._router.navigate([{ outlets: { popup: 'product-page/' + id }}]);
     }
 }
