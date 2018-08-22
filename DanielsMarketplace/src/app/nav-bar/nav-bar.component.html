@@ -1,11 +1,17 @@
-<div id="nav-bar">
-    <a [routerLink]="['']" id="title">SeamSmith</a>
-    <div id="nav-buttons">
-        <h6 *ngIf="_httpService.currentUser._id != 'guest'">Welcome <a [routerLink]="['profile/', _httpService.currentUser._id]">{{_httpService.currentUser.firstName}} {{_httpService.currentUser.lastName}}</a><a (click)="logOut()">(logout)</a> </h6>
-        <a [routerLink]="['marketplace']" class="button">Browse</a>
-        <a (click)="toggleCart()" class="button">View Cart</a>
-        <a [routerLink]="['about']" class="button">About</a>
-        <a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
-        <a *ngIf="_httpService.currentUser.admin" [routerLink]="['new-item']" class="button">Add New Item</a>
+<nav>
+    <div id="nav-bar" class="nav-wrapper">
+        <a [routerLink]="['']" id="title" class="brand-logo">SeamSmith</a>
+        <ul id="" class="nav-buttons left">
+            <li><a [routerLink]="['marketplace']" class="button">Browse</a></li>
+            <li><a [routerLink]="['about']" class="button">About</a></li>
+            <li><a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a></li>
+        </ul>
+        <ul id="" class="nav-buttons right">
+            <li class="icon"><a *ngIf="_httpService.currentUser._id != 'guest'"><img src="../../assets/img/user-icon.png"></a></li>
+            <!-- <li><a [routerLink]="['profile/', _httpService.currentUser._id]" class="button">profile</a></li> -->
+            <!-- <li *ngIf="_httpService.currentUser.admin"><a [routerLink]="['new-item']" class="button">Add New Item</a></li> -->
+            <!-- <li><a (click)="logOut()" class="button">(logout)</a></li> -->
+            <li class="icon"><a (click)="toggleCart()"><img src="../../assets/img/shopping-cart-solid.svg"></a></li>
+        </ul>
     </div>
-</div>
+</nav>

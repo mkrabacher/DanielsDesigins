@@ -5,7 +5,7 @@ import { HttpService } from '../http.service';
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.css']
+    styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
     currentUser;
@@ -17,14 +17,18 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.getCurrentUser();
-        if (this._httpService.retrieveCurrentUserInService() == null) {
-            this._router.navigate(['/log-reg']);
-        }
     }
 
     getCurrentUser() {
         console.log('getting user now');
-        this.currentUser = this._httpService.retrieveCurrentUserInService();
+        const observable = this._httpService.retrieveCurrentUserInService();
+        observable.subscribe(data => {
+            console.log(data);
+            this.currentUser = data['currentUser'];
+            if (this.currentUser == null) {
+                this._router.navigate(['welcome']);
+            }
+        });
     }
 
 }

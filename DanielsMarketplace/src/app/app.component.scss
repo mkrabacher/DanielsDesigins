@@ -7,4 +7,9 @@
 
 #nav-bar-frame {
     height: $navbar-height;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom:3px solid lightgrey;
 }

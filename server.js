@@ -162,7 +162,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         })
 
         app.post('/retrieveUser', function(req, res) {
-            // console.log('session user id', req.session)
+            console.log('session user id', req.session)
             if(req.session.currentUser != null) {
                 res.json({message: 'User currently logged in', currentUser: req.session.currentUser})
             } else {
@@ -178,9 +178,6 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 currentCart.push(req.body.cart.current[i]);
             }
             User.findOne({_id: req.body._id}, function(err, user) {
-                // console.log('==================pre-change user=================');
-                // console.log(user);
-                // console.log('==================================================');
                 user.admin = req.body.admin,
                 user.firstName = req.body.firstName;
                 user.lastName = req.body.lastName;
@@ -188,20 +185,12 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 user.orders = req.body.orders;
                 user.email = req.body.email,
                 user.password = req.body.password,
-                // console.log('==================post-change user================')
-                // console.log(user)
-                // console.log('==================================================')
                 // updatedAt = add a time stamp here
                 user.save(function(err) {
                     if(err){
-                        // console.log("===================update error===================")
                         console.error(err)
                         res.json({message: 'error while updating'})
-                        // console.log('==================================================')
                     }else{
-                        // console.log('==================post-update user================')
-                        // console.log(user)
-                        // console.log('==================================================')
                         res.json({message:`${user.firstName} ${user.lastName} updated`, user})
                     }
                 })
