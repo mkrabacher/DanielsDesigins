@@ -51,6 +51,17 @@ nav {
                 .cart-img {
                     width: 30px;
                 }
+
+                .cart-badge {
+                    position: relative;
+                    top: -84px;
+                    left: 19px;
+                    background-color: red;
+                    color: black;
+                    border-radius: 50%;
+                    padding: 0 4px;
+                    font-weight: bold;
+                }
                 
                 .user-img {
                     position: relative;
