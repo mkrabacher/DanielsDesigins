@@ -21,9 +21,7 @@ export class HttpService {
 
     loginInService(loginUser) {
         console.log('logging in through service');
-        const data = this._http.post('/loginUser', loginUser);
-        console.log('data from login: ', data);
-        return data;
+        return this._http.post('/loginUser', loginUser);
     }
 
     registerInService(registerUser) {

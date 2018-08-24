@@ -22,6 +22,8 @@ export class NavBarComponent implements OnInit {
         if (this.currentUser._id === 'guest') {
             return false;
         } else {
+            console.log('huhhuhauahsdfa alogged in A?a shahahhaahah');
+            this.currentUser = this._httpService.currentUser;
             return true;
         }
     }
