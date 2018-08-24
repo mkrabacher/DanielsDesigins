@@ -39,8 +39,12 @@
         .item-hover-buttons {
             opacity: 0;
             position: relative;
+            top: 90px;
+            left: 20px;
             margin-top: 10px;
             z-index: 1;
+            -webkit-transition: all .5s; /* Safari, Chrome */
+            transition: all .5s;
 
             .cart-btn {
                 .cart-btn-icon {
@@ -69,37 +73,28 @@
         }
 
         .item-image-frame {
+            border-bottom: 3px solid darkslategray;
+
             img {
                 width: 200px;
                 display: flex;
                 margin: auto;
+                -webkit-transition: all .5s; /* Safari, Chrome */
+                transition: all .5s;
             }
-            border-bottom: 3px solid darkslategray;
         }
     }
 
     .item-display:hover {
 
-        .item-hover-buttons {
-            opacity: 0;
-            position: relative;
-            margin-top: 10px;
-            z-index: 1;
-        }
-
         .item-image-frame {
+            border-bottom: 3px solid darkslateblue;
+
             img {
                 opacity: 0.3;
-                -webkit-transition: all .5s; /* Safari, Chrome */
-                transition: all .5s;
             }
-            border-bottom: 3px solid darkslateblue;
             .item-hover-buttons {
                 opacity: 1;
-                top: 90px;
-                left: 20px;
-                -webkit-transition: all .5s; /* Safari, Chrome */
-                transition: all .5s;
             }            
         }
     }

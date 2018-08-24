@@ -1,17 +1,41 @@
 <nav>
     <div id="nav-bar" class="nav-wrapper">
         <a [routerLink]="['']" id="title" class="brand-logo">SeamSmith</a>
+
         <ul id="" class="nav-buttons left">
-            <li><a [routerLink]="['marketplace']" class="button">Browse</a></li>
-            <li><a [routerLink]="['about']" class="button">About</a></li>
-            <li><a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a></li>
+            <li>
+                <a [routerLink]="['marketplace']" class="button">Browse</a>
+            </li>
+            <li>
+                <a [routerLink]="['about']" class="button">About</a>
+            </li>
+            <li>
+                <a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
+            </li>
         </ul>
+
         <ul id="" class="nav-buttons right">
-            <li class="icon"><a *ngIf="_httpService.currentUser._id != 'guest'"><img src="../../assets/img/user-icon.png"></a></li>
-            <!-- <li><a [routerLink]="['profile/', _httpService.currentUser._id]" class="button">profile</a></li> -->
-            <!-- <li *ngIf="_httpService.currentUser.admin"><a [routerLink]="['new-item']" class="button">Add New Item</a></li> -->
-            <!-- <li><a (click)="logOut()" class="button">(logout)</a></li> -->
-            <li class="icon"><a (click)="toggleCart()"><img src="../../assets/img/shopping-cart-solid.svg"></a></li>
+            <li class="icon">
+                <a class="icon-link" (click)="toggleCart()">
+                    <img class="cart-img" src="../../assets/img/shopping-cart-solid.svg">
+                </a>
+            </li>
+            <li class="icon" *ngIf="_httpService.currentUser._id != 'guest'">
+                <a class="icon-link dropdown-trigger" materialize="dropdown" [materializeParams]="[{coverTrigger: false, constrainWidth: false}]" href="#!" data-target="dropdown">
+                    <img class="user-img" src="../../assets/img/user-icon.png">
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
+<ul id="dropdown" class="dropdown-content" style="top: 90px">
+    <li>
+        <a [routerLink]="['profile/', _httpService.currentUser._id]" class="button">Profile</a>
+    </li>
+    <li *ngIf="_httpService.currentUser.admin">
+        <a [routerLink]="['new-item']" class="button">Add New Item</a>
+    </li>
+    <li>
+        <a (click)="logOut()" class="button">Logout</a>
+    </li>
+</ul>

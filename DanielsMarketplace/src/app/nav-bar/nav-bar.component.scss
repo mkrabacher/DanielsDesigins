@@ -40,16 +40,23 @@ nav {
             padding: 0 15px;
             margin: 15px;
 
-            a {
-                height: 50px;
+            .icon-link {
+                height: 45px;
                 color: black;
-                width: 50px;
-                border: 5px solid black;
+                width: 45px;
+                border: 3px solid black;
                 border-radius: 50%;
                 padding: 0px;
                 
-                img {
+                .cart-img {
                     width: 30px;
+                }
+                
+                .user-img {
+                    position: relative;
+                    width: 43px;
+                    top: 2px;
+                    left: -2px;
                 }
             }
         }
@@ -63,6 +70,10 @@ nav {
         .button:hover {
             color: red;
         }
+    }
+
+    #dropdown {
+        z-index: 10;
     }
 
 }
