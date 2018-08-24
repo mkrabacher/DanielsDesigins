@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import * as $ from 'jquery';
 import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
@@ -47,7 +46,6 @@ export class MarketplaceComponent implements OnInit {
         // gets desired quanitity from number selector
         const quantity = 1;
         this._httpService.addItemToCartInService(item, quantity);
-
         // unhides 'added' note
         console.log($event);
         $event.path[1].children[1].hidden = false;

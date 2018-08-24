@@ -40,10 +40,10 @@ export class NavBarComponent implements OnInit {
 
     toggleCart() {
         if (this.showCart) {
-            this._router.navigate([{ outlets: { popup: null }}]);
+            this._router.navigate([{ outlets: { cart: null }}]);
             this.showCart = false;
         } else {
-            this._router.navigate([{ outlets: { popup: 'cart' }}]);
+            this._router.navigate([{ outlets: { cart: 'cart' }}]);
             this.showCart = true;
         }
     }

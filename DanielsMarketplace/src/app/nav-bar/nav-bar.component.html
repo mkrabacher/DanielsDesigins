@@ -4,10 +4,10 @@
 
         <ul id="" class="nav-buttons left">
             <li>
-                <a [routerLink]="['marketplace']" class="button">Browse</a>
+                <a routerLinkActive="active" [routerLink]="['marketplace']" class="button">Browse</a>
             </li>
             <li>
-                <a [routerLink]="['about']" class="button">About</a>
+                <a routerLinkActive="active" [routerLink]="['about']" class="button">About</a>
             </li>
             <li>
                 <a *ngIf="_httpService.currentUser._id == 'guest'" [routerLink]="[{ outlets: { popup: ['log-reg'] } }]" class="button">Log In/Register</a>
@@ -16,7 +16,7 @@
 
         <ul id="" class="nav-buttons right">
             <li class="icon">
-                <a class="icon-link" (click)="toggleCart()">
+                <a id="cart-button" class="icon-link" (click)="toggleCart()">
                     <img class="cart-img" src="../../assets/img/shopping-cart-solid.svg"><span *ngIf="_httpService.currentUser.cart.current.length != 0" class="cart-badge">{{_httpService.currentUser.cart.current.length}}</span>
                 </a>
             </li>
@@ -40,3 +40,7 @@
         <a (click)="logOut()" class="button">Logout</a>
     </li>
 </ul>
+
+<div>
+    <router-outlet id="cart-frame" name='cart'></router-outlet>
+</div>

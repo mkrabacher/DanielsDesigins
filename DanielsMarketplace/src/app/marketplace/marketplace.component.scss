@@ -4,6 +4,12 @@
     display: inline-block
 }
 
+.toast {
+    position: relative;
+    left: 50px;
+    top: 500px;
+}
+
 #marketplace-sidebar {
     padding: 5px 20px;
     width: $sidebar-width;

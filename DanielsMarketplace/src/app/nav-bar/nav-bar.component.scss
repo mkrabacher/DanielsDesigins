@@ -29,6 +29,10 @@ nav {
         .nav-buttons {
             display: inline-block;
 
+            .active {
+                background-color: #83868d;
+            }
+
             #user-buttons {
                 display: inline-block;
                 margin-left: 20%;
@@ -93,4 +97,8 @@ nav {
         }
     }
 
+}
+
+#cart-button:hover ~ #cart-frame {
+    background-color: red;
 }
