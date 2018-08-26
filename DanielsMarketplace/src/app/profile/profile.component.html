@@ -1,13 +1,5 @@
-<h2>{{currentUser.firstName}} {{currentUser.lastName}}'s Profile</h2>
+<h2>{{currentUser.firstName}} {{currentUser.lastName}}</h2>
 <table>
-    <tr>
-        <td>First Name:</td>
-        <td>{{currentUser.firstName}}</td>
-    </tr>
-    <tr>
-        <td>Last Name:</td>
-        <td>{{currentUser.lastName}}</td>
-    </tr>
     <tr>
         <td>Email:</td>
         <td>{{currentUser.email}}</td>
@@ -17,3 +9,37 @@
         <td>Admin</td>
     </tr>
 </table>
+<ul materialize="collapsible" class="collapsible">
+    <li>
+        <div class="collapsible-header">Orders</div>
+        <div id="order-history" class="collapsible-body">
+            <h6 *ngIf="_httpService.currentUser.orders.current.length == 0 && _httpService.currentUser.orders.past.length == 0">You haven't ordered anything. Ever.</h6>
+            <ul *ngIf="_httpService.currentUser.orders.current.length != 0 && _httpService.currentUser.orders.past.length != 0" materialize="collapsible" class="collapsible">
+                <li>
+                    <div class="collapsible-header">Active Orders</div>
+                    <div class="collapsible-body">
+                        <span>Lorem ipsum dolor sit amet.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">Order History</div>
+                    <div class="collapsible-body">
+                        <span>Lorem ipsum dolor sit amet.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <div class="collapsible-header">Shipping Address</div>
+        <div id="order-history" class="collapsible-body">
+            <span>Lorem ipsum dolor sit amet.</span>
+        </div>
+    </li>
+    <li>
+        <div class="collapsible-header">Payment Info</div>
+        <div id="order-history" class="collapsible-body">
+            <span>Lorem ipsum dolor sit amet.</span>
+        </div>
+    </li>
+</ul>

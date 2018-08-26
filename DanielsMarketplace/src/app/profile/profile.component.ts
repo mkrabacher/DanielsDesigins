@@ -13,10 +13,12 @@ export class ProfileComponent implements OnInit {
         private _httpService: HttpService,
         private _route: ActivatedRoute,
         private _router: Router
-    ) {}
+    ) {
+        this.getCurrentUser();
+
+    }
 
     ngOnInit() {
-        this.getCurrentUser();
     }
 
     getCurrentUser() {
