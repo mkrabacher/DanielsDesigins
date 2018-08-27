@@ -29,6 +29,10 @@ nav {
         .nav-buttons {
             display: inline-block;
 
+            .active {
+                background-color: #83868d;
+            }
+
             #user-buttons {
                 display: inline-block;
                 margin-left: 20%;
@@ -40,16 +44,34 @@ nav {
             padding: 0 15px;
             margin: 15px;
 
-            a {
-                height: 50px;
+            .icon-link {
+                height: 45px;
                 color: black;
-                width: 50px;
-                border: 5px solid black;
+                width: 45px;
+                border: 3px solid black;
                 border-radius: 50%;
                 padding: 0px;
                 
-                img {
+                .cart-img {
                     width: 30px;
+                }
+
+                .cart-badge {
+                    position: relative;
+                    top: -84px;
+                    left: 19px;
+                    background-color: red;
+                    color: black;
+                    border-radius: 50%;
+                    padding: 0 4px;
+                    font-weight: bold;
+                }
+                
+                .user-img {
+                    position: relative;
+                    width: 43px;
+                    top: 2px;
+                    left: -2px;
                 }
             }
         }
@@ -65,4 +87,18 @@ nav {
         }
     }
 
+    #dropdown {
+        z-index: 10;
+
+        h5 {
+            color: black;
+            float: right;
+            margin-right: 10px;
+        }
+    }
+
+}
+
+#cart-button:hover ~ #cart-frame {
+    background-color: red;
 }

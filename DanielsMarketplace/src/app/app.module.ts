@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
+import 'materialize-css';
+import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { LogRegComponent } from './log-reg/log-reg.component';
@@ -34,6 +36,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MaterializeModule,
     FormsModule
   ],
   providers: [HttpService],

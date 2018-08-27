@@ -22,6 +22,8 @@ export class NavBarComponent implements OnInit {
         if (this.currentUser._id === 'guest') {
             return false;
         } else {
+            console.log('huhhuhauahsdfa alogged in A?a shahahhaahah');
+            this.currentUser = this._httpService.currentUser;
             return true;
         }
     }
@@ -38,10 +40,10 @@ export class NavBarComponent implements OnInit {
 
     toggleCart() {
         if (this.showCart) {
-            this._router.navigate([{ outlets: { popup: null }}]);
+            this._router.navigate([{ outlets: { cart: null }}]);
             this.showCart = false;
         } else {
-            this._router.navigate([{ outlets: { popup: 'cart' }}]);
+            this._router.navigate([{ outlets: { cart: 'cart' }}]);
             this.showCart = true;
         }
     }

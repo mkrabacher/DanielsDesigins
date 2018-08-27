@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: 'new-item', component: NewItemComponent},
     { path: 'profile/:id', component: ProfileComponent},
     { path: 'product-page/:id', component: ProductPageComponent, outlet: 'popup'},
-    { path: 'cart', component: CartComponent, outlet: 'popup'},
+    { path: 'cart', component: CartComponent, outlet: 'cart'},
     { path: '', pathMatch: 'full', redirectTo: 'welcome' },
     { path: '**', component: PageNotFoundComponent }
 ];
