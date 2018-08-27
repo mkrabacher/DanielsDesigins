@@ -14,17 +14,24 @@
         <div class="collapsible-header">Orders</div>
         <div id="order-history" class="collapsible-body">
             <h6 *ngIf="_httpService.currentUser.orders.current.length == 0 && _httpService.currentUser.orders.past.length == 0">You haven't ordered anything. Ever.</h6>
-            <ul *ngIf="_httpService.currentUser.orders.current.length != 0 && _httpService.currentUser.orders.past.length != 0" materialize="collapsible" class="collapsible">
+            <ul *ngIf="_httpService.currentUser.orders.current.length != 0 || _httpService.currentUser.orders.past.length != 0" materialize="collapsible" class="collapsible">
                 <li>
                     <div class="collapsible-header">Active Orders</div>
                     <div class="collapsible-body">
-                        <span>Lorem ipsum dolor sit amet.</span>
+                        <h6 *ngIf="_httpService.currentUser.orders.current.length == 0">You don't have any current orders</h6>
+                        <span *ngIf="_httpService.currentUser.orders.current.length != 0">
+                            {{_httpService.currentUser.orders.current.length}} current orders
+                            <div *ngFor="let order of _httpService.currentUser.orders.current">
+                                {{ order._id }}
+                            </div>
+                        </span>
                     </div>
                 </li>
                 <li>
                     <div class="collapsible-header">Order History</div>
                     <div class="collapsible-body">
-                        <span>Lorem ipsum dolor sit amet.</span>
+                        <h6 *ngIf="_httpService.currentUser.orders.past.length == 0">You don't have any previous orders.</h6>
+                        <span *ngIf="_httpService.currentUser.orders.past.length != 0">Lorem ipsum dolor sit amet.</span>
                     </div>
                 </li>
             </ul>

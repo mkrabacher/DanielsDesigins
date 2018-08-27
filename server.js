@@ -59,15 +59,18 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         },
         orders: {
             current: [{
-                _id: String,
-                itemType: String,
-                name: String,
-                description: String,
-                price: Number,
-                img_url: String,
-                createdAt: String,
-                updatedAt: String,
-                quantity: Number,
+                order: [{
+                    _id: String,
+                    itemType: String,
+                    name: String,
+                    description: String,
+                    price: Number,
+                    img_url: String,
+                    createdAt: String,
+                    updatedAt: String,
+                    quantity: Number,
+                }],
+                dateOrdered: Date
             }],
             past: [{
                 _id: String,
@@ -106,9 +109,9 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
     }, { timestamps: true })
 
     mongoose.model('User', UserSchema);
-    mongoose.model('Item', ItemSchema);
-
     var User = mongoose.model('User');
+    
+    mongoose.model('Item', ItemSchema);
     var Item = mongoose.model('Item');
 //end DB stuff
 
@@ -196,6 +199,28 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 })
             })
         })
+
+        app.post('/placeOrder', function(req, res) {
+            User.findOne({_id: req.body._id}, function(err, user) {
+                console.log('error:', err);
+                console.log('cart:', user.cart.current);
+                let newOrder = {
+                    order: user.cart.current,
+                    dateOrdered: new Date(),
+                }
+                user.cart.current = [];
+                user.orders.current.push(newOrder);
+                user.save(function(err){
+                    if(err){
+                        console.log('err0r err0r does not compute', err);
+                    }else{
+                        console.log('user after purchase', user);
+                        res.json({message:`${user.firstName} ${user.lastName} updated`, user})
+                    }
+                })
+            })
+            
+        })
     //end log-reg routes
 
     //marketplace routes
@@ -252,70 +277,6 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             })           
         })
 
-        //old routes
-            app.post('/contact', function (req, res) {
-                console.log('getting user in server')
-                User.find({_id: req.body.id},function(err, user) {
-                    if(err){
-                        console.log("e0rr0r",)
-                    }else{
-                        res.json({message:'The User', user: user})
-                    }
-                })
-            })
-
-            app.get('/allBikes', function (req, res) {
-                console.log('getting bikes in server')
-                Bike.find({},function(err, bikes) {
-                    if(err){
-                        console.log("e0rr0r",)
-                    }else{
-                        console.log(bikes)
-                        res.json({message:'The Bikes', bikes: bikes})
-                    }
-                })
-            })
-
-            app.post('/userBikes', function (req, res) {
-                console.log('getting user bikes in server')
-                Bike.find({_user: req.body._id},function(err, bikes) {
-                    if(err){
-                        console.log("e0rr0r",)
-                    }else{
-                        console.log(bikes)
-                        res.json({message:'The user Bikes', bikes: bikes})
-                    }
-                })
-            })
-
-            app.post('/updateBike', function (req, res) {
-                console.log('upating bike in server')
-                Bike.update({_id: req.body._id}, {
-                    title: req.body.title,
-                    description: req.body.description,
-                    img_url: req.body.img_url,
-                    price: req.body.price,
-                    location: req.body.location,
-                }, function(err, user) {
-                    if(err){
-                        console.log("update error",)
-                    }else{
-                        res.json({message:`bike updated`})
-                    }
-                })
-            })
-
-            app.post('/deleteBike', function (req, res) {
-                console.log('deleteing bike in server')
-                Bike.remove({_id: req.body._id}, function(err, user) {
-                    if(err){
-                        console.log("deleteing error",)
-                    }else{
-                        res.json({message:`bike deleted`})
-                    }
-                })
-            })
-        //end old routes
     //end marketplace routes
 
     app.all("*", (req,res,next) => {

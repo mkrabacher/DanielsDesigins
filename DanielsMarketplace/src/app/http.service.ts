@@ -97,4 +97,9 @@ export class HttpService {
             return this.currentUser;
         }
     }
+
+    placeOrderInService() {
+        console.log('placeing order in service');
+        return this._http.post('/placeOrder', this.currentUser);
+    }
 }

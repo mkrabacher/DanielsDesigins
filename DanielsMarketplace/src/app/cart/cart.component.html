@@ -1,26 +1,28 @@
 <div id="cart-frame">
-    <h4><u>Cart:</u></h4>
-    <table *ngIf="_httpService.currentUser.cart.current.length > 0" id="marketplace-display">
-        <thead>
-            <td>Item Name</td>
-            <td>Quantity</td>
-            <td>Item Price</td>
-            <td>Total Price</td>
-            <td></td>
-        </thead>
-        <tbody>
-            <tr *ngFor="let order of _httpService.currentUser.cart.current" class="order-display">
-                <td>{{order.name}}</td>
-                <td><button (click)="decreaseQuantity(order)">&#x2796;</button>{{order.quantity}}<button (click)="increaseQuantity(order)">&#x2795;</button></td>
-                <td>{{order.price}}</td>
-                <td>{{order.price * order.quantity}}</td>
-                <td><button (click)="removeFromOrders(order)">Remove Item(s)</button></td>
-            </tr>
-            
-        </tbody>
-        <h6>Total Cost: {{_httpService.currentUser.cart.totalPrice()}}$</h6>
-        <button (click)='buySomething();'>Purchase</button>
-    </table>
+    <div id="cart-header">
+        <h4 id="cart-title"><u>Cart:</u></h4>
+        <img id="close-cart" (click)="closeCart()" src="../../assets/img/close.png" alt="closeCart">
+    </div>
+    <div *ngIf="_httpService.currentUser.cart.current.length > 0">
+        <div class="cart-item" *ngFor="let item of _httpService.currentUser.cart.current">
+            <div class="item-image">
+                <img src="{{item.img_url}}" alt="item.name">
+            </div>
+            <div class="item-details">
+                <div class="item-header">
+                    <h6><b>{{item.name}}</b></h6>
+                    <img class="icon" (click)="removeFromOrders(item)" src="../../assets/img/close.png" alt="remove">
+                </div>
+                
+                <p>Quantity: <img class="quantity-adjust" (click)="decreaseQuantity(item)" src="../../assets/img/minus.png" alt="minus">   {{item.quantity}}   <img class="quantity-adjust" (click)="increaseQuantity(item)" src="../../assets/img/plus.png" alt="add"></p>
+                
+                {{item.price * item.quantity}}.00$
+            </div>
+        </div>
+        <div class="cart-footer">
+            <h6>Total Cost: {{_httpService.currentUser.cart.totalPrice()}}$</h6>
+            <button class="btn" (click)='buySomething();'>Purchase</button>
+        </div>
+    </div>
     <h6 *ngIf="_httpService.currentUser.cart.current.length == 0">You have no items in your cart</h6>
-    <button (click)="closeCart()">Close Cart</button>
 </div>
