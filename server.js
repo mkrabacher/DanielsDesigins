@@ -59,7 +59,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
         },
         orders: {
             current: [{
-                order: [{
+                items: [{
                     _id: String,
                     itemType: String,
                     name: String,
@@ -70,9 +70,11 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                     updatedAt: String,
                     quantity: Number,
                 }],
+                status: String,
+                targetAddress: String,
                 dateOrdered: Date
             }],
-            past: [{
+            past: [{ //copy the above current schema here when doing past but add date delieverd
                 _id: String,
                 itemType: String,
                 name: String,
@@ -205,7 +207,9 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 console.log('error:', err);
                 console.log('cart:', user.cart.current);
                 let newOrder = {
-                    order: user.cart.current,
+                    items: user.cart.current,
+                    // targetAddress: // insert address fucntion here
+                    status: 'Processing',
                     dateOrdered: new Date(),
                 }
                 user.cart.current = [];

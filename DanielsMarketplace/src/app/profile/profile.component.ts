@@ -33,4 +33,12 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    getOrderPrice(order) {
+        console.log('order', order);
+        let total = 0;
+        order.items.forEach(item => {
+            total += item.price;
+        });
+        return total;
+    }
 }

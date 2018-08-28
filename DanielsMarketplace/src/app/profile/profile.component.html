@@ -20,9 +20,26 @@
                     <div class="collapsible-body">
                         <h6 *ngIf="_httpService.currentUser.orders.current.length == 0">You don't have any current orders</h6>
                         <span *ngIf="_httpService.currentUser.orders.current.length != 0">
-                            {{_httpService.currentUser.orders.current.length}} current orders
-                            <div *ngFor="let order of _httpService.currentUser.orders.current">
-                                {{ order._id }}
+                            <div class="order-frame" *ngFor="let order of _httpService.currentUser.orders.current">
+                                <h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0] }}</u></h5>
+                                <h6><u>Status:</u><span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span></h6>
+                                <table>
+                                    <thead>
+                                        <td><h6><strong>Item Name</strong></h6></td>
+                                        <td><h6><strong>Item Price</strong></h6></td>
+                                        <td><h6><strong>Quantity</strong></h6></td>
+                                        <td><h6><strong>Lump Price</strong></h6></td>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of order.items">
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.price }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>{{ item.quantity * item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h6>Total Order Cost: {{ getOrderPrice(order) }}</h6>
                             </div>
                         </span>
                     </div>
