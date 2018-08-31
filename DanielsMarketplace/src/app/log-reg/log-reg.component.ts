@@ -44,6 +44,7 @@ export class LogRegComponent implements OnInit {
                 console.log('login data: ', data);
                 this.emitUser.emit(this.currentUser);
                 this._httpService.setLogUserInService(this.currentUser);
+                this._router.navigate(['/marketplace']);
             } else {
                 this.errorMsg = data['errorMsg'];
             }

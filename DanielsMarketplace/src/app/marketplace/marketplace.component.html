@@ -1,53 +1,55 @@
-<div id="marketplace-sidebar">
-    <div>
-        <h6>Search by Name</h6>
-        <input placeholder="search.." type="text" name="searchBar" id="searchBar" [(ngModel)]="searchTerm">
-    </div>
-    <div>
-        <h6>Filter by Type</h6>
-        <form action="">
-            <div>
-                <p>
-                    <label for="checkbox-Raincoat">
-                        <input class="filled-in" type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat" />
-                        <span>Raincoat</span>
-                    </label>
-                </p>
-                <p>
-                    <label for="checkbox-DryBags">
-                        <input class="filled-in" type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags" />
-                        <span>Dry Bags</span>
-                    </label>
-                </p>
-                <p>
-                    <label for="checkbox-SunProtection">
-                        <input class="filled-in" type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection"
-                        />
-                        <span>Sun Protection</span>
-                    </label>
-                </p>
-            </div>
-            <input class="btn" (click)="filter()" type="submit" value="Filter">
-            <input class="btn" (click)="resetFilter()" type="submit" value="Reset">
-        </form>
-    </div>
-</div>
-<div id="marketplace-display">
-    <div *ngFor="let item of displayItems" class="item-display-frame">
-        <div class="item-display" *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())">
-            <div class="item-image-frame">
-                <div class="item-hover-buttons">
-                    <button class="cart-btn btn" onclick="M.toast({html: 'Item added'})" (click)="addToCart(item, $event)">
-                        <img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart">
-                        <span class="added" hidden>added</span>
-                    </button>
-                    <a (click)="showProduct(item._id)" class="view-btn btn">View item</a>
+<div id="marketplace-wrapper">
+    <div id="marketplace-sidebar">
+        <div>
+            <h6>Search by Name</h6>
+            <input placeholder="search.." type="text" name="searchBar" id="searchBar" [(ngModel)]="searchTerm">
+        </div>
+        <div>
+            <h6>Filter by Type</h6>
+            <form action="">
+                <div>
+                    <p>
+                        <label for="checkbox-Raincoat">
+                            <input class="filled-in" type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat" />
+                            <span>Raincoat</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label for="checkbox-DryBags">
+                            <input class="filled-in" type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags" />
+                            <span>Dry Bags</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label for="checkbox-SunProtection">
+                            <input class="filled-in" type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection"
+                            />
+                            <span>Sun Protection</span>
+                        </label>
+                    </p>
                 </div>
-                <img src="{{item.img_url}}" alt="{{item.name}}">
+                <input class="btn" (click)="filter()" type="submit" value="Filter">
+                <input class="btn" (click)="resetFilter()" type="submit" value="Reset">
+            </form>
+        </div>
+    </div>
+    <div id="marketplace-display">
+        <div *ngFor="let item of displayItems" class="item-display-frame">
+            <div class="item-display" *ngIf="item.name.toLowerCase().includes(searchTerm.toLowerCase())">
+                <div class="item-image-frame">
+                    <div class="item-hover-buttons">
+                        <button class="cart-btn btn" onclick="M.toast({html: 'Item added'})" (click)="addToCart(item, $event)">
+                            <img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart">
+                            <span class="added" hidden>added</span>
+                        </button>
+                        <a (click)="showProduct(item._id)" class="view-btn btn">View item</a>
+                    </div>
+                    <img src="{{item.img_url}}" alt="{{item.name}}">
+                </div>
+                <h6 class="item-subheader">{{item.itemType}}</h6>
+                <h6>{{item.name}}</h6>
+                <h6 class="item-subheader">${{item.price}}</h6>
             </div>
-            <h6 class="item-subheader">{{item.itemType}}</h6>
-            <h6>{{item.name}}</h6>
-            <h6 class="item-subheader">${{item.price}}</h6>
         </div>
     </div>
 </div>

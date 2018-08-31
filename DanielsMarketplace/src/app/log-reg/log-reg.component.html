@@ -73,9 +73,9 @@
             <br>
             <br>
             <p *ngIf="login-err">Invalid Credentials</p>
-            <input type="submit" value="Login" id="login-btn">
+            <input class="btn" type="submit" value="Login" id="login-btn">
             <p *ngIf="errorMsg">{{errorMsg}}</p>
         </form>
-        <a (click)="closePopup()">or continue as a guest</a>
+        <a [routerLink]="['/marketplace']">or continue as a guest</a>
     </div>
 </div>

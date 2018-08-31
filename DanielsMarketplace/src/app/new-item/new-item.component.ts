@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-new-item',
     templateUrl: './new-item.component.html',
-    styleUrls: ['./new-item.component.css']
+    styleUrls: ['./new-item.component.scss']
 })
 export class NewItemComponent implements OnInit {
     newItem;
     userItems;
     currentUser;
-    constructor(private _httpService: HttpService) {
-        this.currentUser = this._httpService.retrieveCurrentUserInService();
+    constructor(
+        private _httpService: HttpService,
+        private _router: Router
+    ) {
+        this.currentUser = this._httpService.currentUser;
+        if (this.currentUser._id === 'guest') {
+            _router.navigate(['/welcome']);
+        }
     }
 
     ngOnInit() {
