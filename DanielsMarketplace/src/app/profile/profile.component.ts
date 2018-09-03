@@ -14,8 +14,10 @@ export class ProfileComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router
     ) {
-        this.getCurrentUser();
-
+        this.currentUser = this._httpService.currentUser;
+        if (this.currentUser._id === 'guest') {
+            _router.navigate(['/welcome']);
+        }
     }
 
     ngOnInit() {

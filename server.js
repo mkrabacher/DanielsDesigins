@@ -118,7 +118,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 //end DB stuff
 
 //routes
-    //log-reg routes
+    //user routes
         app.post('/loginUser', function (req, res) {
             console.log('looking for user in DB')
             User.findOne({email:req.body.email},function(err, user) {
@@ -225,7 +225,12 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             })
             
         })
-    //end log-reg routes
+
+        app.post('/logoutUser', function(req, res) {
+            req.session.currentUser = null;
+            res.json({message: 'user logged out.'})
+        });
+    //end user routes
 
     //marketplace routes
         app.post('/getAllItems', function (req, res) {

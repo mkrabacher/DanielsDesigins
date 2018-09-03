@@ -24,6 +24,18 @@ export class HttpService {
         return this._http.post('/loginUser', loginUser);
     }
 
+    logOutInService() {
+        console.log('logging out through service');
+        this.currentUser = {
+            _id: 'guest',
+            admin: false,
+            cart: {
+                current: [],
+            },
+        };
+        return this._http.post('/logoutUser', null);
+    }
+
     registerInService(registerUser) {
         console.log('registering through service');
         return this._http.post('/registerUser', registerUser);

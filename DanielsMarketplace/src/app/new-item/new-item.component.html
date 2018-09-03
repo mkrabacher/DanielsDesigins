@@ -8,7 +8,7 @@
             <input id="new-item-name" placeholder="Write item name here" type="text" name="newItem.name" [(ngModel)]="newItem.name">
             <input id="new-item-type" placeholder="Item type" type="text" name="newItem.type" [(ngModel)]="newItem.type">
             <input id="new-item-price" placeholder="Price" type="number" name="newItem.price" [(ngModel)]="newItem.price">
-            <input id="new-item-imgUrl" placeholder="Paste item image here" type="text" name="newItem.imgUrl" [(ngModel)]="newItem.imgUrl">
+            <input id="new-item-imgUrl" placeholder="Paste item image url here" type="text" name="newItem.imgUrl" [(ngModel)]="newItem.imgUrl">
             <textarea id="new-item-description" type="text" placeholder="Write the item description here. " name="newItem.description" [(ngModel)]="newItem.description" cols="50" rows="8"></textarea>
         </div>
         <a class="btn" (click)="addItemThroughService()">Create New Item</a>
