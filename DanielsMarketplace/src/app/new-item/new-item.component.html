@@ -1,23 +1,16 @@
-<h1>Create Listing</h1>
-{{newItem | json}}
-<div id="create">
-    <form style="display:inline-block" (submit)="addItemThroughService()">
-        <label for="newItem.type">Type:
-            <input type="text" name="newItem.type" id="newItem.type" [(ngModel)]="newItem.type">
-        </label><br><br>
-        <label for="newItem.name">Name:
-            <input type="text" name="newItem.name" id="newItem.name" [(ngModel)]="newItem.name">
-        </label><br><br>
-        <label for="newItem.description">Description: <br>
-            <textarea type="text" name="newItem.description" id="newItem.description" [(ngModel)]="newItem.description" cols="50" rows="8"></textarea>
-        </label><br><br>
-        <label for="newItem.price">Price:
-            <input type="text" name="newItem.price" id="newItem.price" [(ngModel)]="newItem.price">
-        </label><br><br>
-        <label for="newItem.imgUrl">Image Url:
-            <input type="text" name="newItem.imgUrl" id="newItem.imgUrl" [(ngModel)]="newItem.imgUrl">
-        </label><br><br>
-        <input type="submit" value="Create">
-    </form>
-    <img style="display:inline-block; width: 200px;" src="{{newItem.imgUrl}}" alt="img">
+<div id="new-item-wrapper">
+    <h4>Create Listing</h4>
+    <div id="new-item-details-frame">
+        <div id="new-item-image-frame">
+            <img src="{{newItem.imgUrl}}" alt="{{newItem.name}}">
+        </div>  
+        <div id="new-item-details">
+            <input id="new-item-name" placeholder="Write item name here" type="text" name="newItem.name" [(ngModel)]="newItem.name">
+            <input id="new-item-type" placeholder="Item type" type="text" name="newItem.type" [(ngModel)]="newItem.type">
+            <input id="new-item-price" placeholder="Price" type="number" name="newItem.price" [(ngModel)]="newItem.price">
+            <input id="new-item-imgUrl" placeholder="Paste item image here" type="text" name="newItem.imgUrl" [(ngModel)]="newItem.imgUrl">
+            <textarea id="new-item-description" type="text" placeholder="Write the item description here. " name="newItem.description" [(ngModel)]="newItem.description" cols="50" rows="8"></textarea>
+        </div>
+        <a class="btn" (click)="addItemThroughService()">Create New Item</a>
+    </div>
 </div>

@@ -1,9 +1,5 @@
 @import "../scss/variables";
 
-#content {
-    margin: 0 $marketplace-margin;
-    min-height: calc(100vh - #{$navbar-height});
-}
 
 #nav-bar-frame {
     height: $navbar-height;

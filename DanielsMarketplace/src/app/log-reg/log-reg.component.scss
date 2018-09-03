@@ -1,5 +1,24 @@
 .error {
     color: red;
+    font-size: 11px;
+    position: absolute;
+    width: 250px;
+    left: 110px;
+    top: -15px;
+}
+
+.name {
+    left: -87px;
+    top: -1px;
+}
+
+.admin-checkbox {
+    text-align-last: left;
+}
+
+#responseMsg {
+    color: red;
+    font-size: 16px;
 }
 
 #log-reg-frame {

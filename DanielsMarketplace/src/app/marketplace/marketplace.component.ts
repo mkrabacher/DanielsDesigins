@@ -23,6 +23,7 @@ export class MarketplaceComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._router.navigate([{ outlets: { popup: null }}]);
         this.allItems = [];
         this.displayItems = [];
         this.getAllItemsThroughService();

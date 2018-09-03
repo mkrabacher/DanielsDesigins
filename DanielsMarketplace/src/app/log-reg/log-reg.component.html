@@ -2,61 +2,65 @@
 
 <div id="log-reg-frame">
     <div style="text-align:center">
-    <h1>Login or register if you haven't already.</h1>
+        <h3>Login or register if you haven't already.</h3>
     </div>
 
     <div id="register">
-        <h3>Register Here</h3>
         {{registerUser | json}}
-        <form (submit)="registerThroughService()">
-            <label for="registerUser.firstName">First Name:
-                <input type="text" name="registerUser.firstName" id="registerUser-firstName" [(ngModel)]="registerUser.firstName" required
-                    minlength="3" #firstName="ngModel">
-            </label>
-            <br>
-            <p class="error" *ngIf="firstName.errors && firstName.errors.minlength">First Name needs to be longer</p>
-            <label for="registerUser.lastName">Last Name:
-                <input type="text" name="registerUser.lastName" id="registerUser-lastName" [(ngModel)]="registerUser.lastName" required minlength="3"
-                    #lastName="ngModel">
-            </label>
-            <br>
-            <p class="error" *ngIf="lastName.errors && lastName.errors.minlength">Last Name needs to be longer</p>
-            <label for="registerUser.email">Email:
-                <input type="email" name="registerUser.email" id="registerUser-email" [(ngModel)]="registerUser.email" required #email="ngModel"
-                    pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b">
-            </label>
-            <br>
-            <label for="registerUser.admin">User Level:
-                <select style="width: 153px;" type="email" name="registerUser.admin" id="registerUser-admin" [(ngModel)]="registerUser.admin" required>
-                    <option value="true">admin</option>
-                    <option value="false">user</option>
-                </select>
-            </label>
-            <br>
-            <div class="error" *ngIf="email.errors && email.errors.pattern">That's not a valid email</div>
-            <label for="registerUser.password">Password:
-                <input type="password" name="registerUser.password" id="registerUser-password" [(ngModel)]="registerUser.password" required
-                    minlength="8" #password="ngModel" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,64}$">
-                <p *ngIf="password-err">Password must be at least 8 characters long.</p>
-            </label>
-            <br>
-            <p class="error" *ngIf="password.errors && password.errors.minlength">Password needs to be longer</p>
-            <p class="error" *ngIf="password.errors && password.errors.pattern">Password must have upper, lower and number</p>
-            <label for="registerUser.passwordConf">Password Confirmation:
-                <input type="password" name="registerUser.passwordConf" id="registerUser-passwordConf" [(ngModel)]="registerUser.passwordConf"
-                    required #passwordConf="ngModel">
-            </label>
-            <br>
-            <p class="error" *ngIf="registerUser.password != registerUser.passwordConf">Password doesn't match confirmation.</p>
-            <input *ngIf="firstName.valid && lastName.valid && email.valid && password.valid && passwordConf.valid" type="submit" value="registerUser"
-                id="registerUser-btn">
-        </form>
-        <h3 *ngIf="responseMsg" style="color: red">{{responseMsg}}</h3>
+        <h4>Register Here</h4>
+        <div class="row">
+            <form class="col s12" materialize (submit)="registerThroughService()">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" name="registerUser.firstName" id="registerUser-firstName" class="validate" [(ngModel)]="registerUser.firstName" required minlength="3" #firstName="ngModel" >
+                        <label for="registerUser.firstName">First Name</label>
+                        <span class="error name" *ngIf="firstName.errors && firstName.errors.minlength">First Name needs to be longer</span>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="registerUser-lastName" type="text" class="validate" name="registerUser.lastName" [(ngModel)]="registerUser.lastName" required minlength="3" #lastName="ngModel">
+                        <label for="registerUser.lastName">Last Name</label>
+                        <span class="error name" *ngIf="lastName.errors && lastName.errors.minlength">Last Name needs to be longer</span>
+                    </div>
+                </div>
+                <p class="admin-checkbox">
+                    <label>
+                        <input class="filled-in" type="checkbox" name="registerUser.admin" id="registerUser-admin" [(ngModel)]="registerUser.admin"
+                            required/>
+                        <span>Admin</span>
+                    </label>
+                </p>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="registerUser-email" type="email" class="validate" name="registerUser.email" [(ngModel)]="registerUser.email" required #email="ngModel" pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b">
+                        <label for="registerUser.email">Email</label>
+                        <span class="error" *ngIf="email.errors && email.errors.pattern">That's not a valid email</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="registerUser-password" type="password" class="validate" name="registerUser.password" [(ngModel)]="registerUser.password" required minlength="8" #password="ngModel" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,64}$">
+                        <label for="registerUser.password">Password</label>
+                        <span class="error" *ngIf="password-err">Password must be at least 8 characters long.</span>
+                        <span class="error" *ngIf="password.errors && password.errors.minlength">Password needs to be longer</span>
+                        <span class="error" *ngIf="password.errors && password.errors.pattern"><br>Password must have upper, lower and number</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="registerUser-passwordConf" type="password" class="validate" name="registerUser.passwordConf" [(ngModel)]="registerUser.passwordConf" required minlength="8" #passwordConf="ngModel" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,64}$">
+                        <label for="registerUser.passwordConf">Password Confirmation</label>
+                        <span class="error" *ngIf="registerUser.password != registerUser.passwordConf">Password doesn't match confirmation.</span>
+                    </div>
+                </div>
+                <input class="btn" *ngIf="firstName.valid && lastName.valid && email.valid && password.valid && passwordConf.valid" type="submit" value="Sign Up" id="registerUser-btn">
+            </form>
+        </div>
+        <h6 id="responseMsg" *ngIf="responseMsg">{{responseMsg}}</h6>
     </div>
 
     <div id="login">
-        <h3>Login Here</h3>
         {{login | json}}
+        <h4>Login Here</h4>
         <form (submit)="loginThroughService()">
             <label for="login.email">Email:
                 <input type="email" name="login.email" id="login-email" [(ngModel)]="login.email" autofocus="autofocus" required>
@@ -69,9 +73,9 @@
             <br>
             <br>
             <p *ngIf="login-err">Invalid Credentials</p>
-            <input type="submit" value="Login" id="login-btn">
+            <input class="btn" type="submit" value="Login" id="login-btn">
             <p *ngIf="errorMsg">{{errorMsg}}</p>
         </form>
-        <a (click)="closePopup()">or continue as a guest</a>
+        <a [routerLink]="['/marketplace']">or continue as a guest</a>
     </div>
 </div>

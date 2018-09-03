@@ -34,7 +34,7 @@
         <a [routerLink]="['profile/', _httpService.currentUser._id]" class="button">Profile</a>
     </li>
     <li *ngIf="_httpService.currentUser.admin">
-        <a [routerLink]="['new-item']" class="button">Add New Item</a>
+        <a [routerLink]="['/new-item']" class="button">Add New Item</a>
     </li>
     <li>
         <a (click)="logOut()" class="button">Logout</a>

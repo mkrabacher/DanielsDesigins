@@ -156,7 +156,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                             console.log('new user error')
                             res.json({err})
                         }else{
-                            res.json({message:`${newUser.firstName} added to Users collection`})
+                            res.json({message:`${newUser.firstName} added to Users collection. Please log in.`})
                             console.log('user added');
                         }
                     })

@@ -31,6 +31,7 @@ export class LogRegComponent implements OnInit {
             email: '',
             password: '',
             passwordConf: '',
+            admin: false,
         };
     }
 
@@ -40,9 +41,10 @@ export class LogRegComponent implements OnInit {
         observable.subscribe(data => {
             if (data['currentUser']) {
                 this.currentUser = data['currentUser'];
-                console.log(data);
+                console.log('login data: ', data);
                 this.emitUser.emit(this.currentUser);
                 this._httpService.setLogUserInService(this.currentUser);
+                this._router.navigate(['/marketplace']);
             } else {
                 this.errorMsg = data['errorMsg'];
             }
@@ -55,10 +57,11 @@ export class LogRegComponent implements OnInit {
             console.log('registering now');
             const observable = this._httpService.registerInService(this.registerUser);
             observable.subscribe(data => {
-                console.log(data);
+                console.log('data from register:', data);
                 if (data['message']) {
                     this.responseMsg = data['message'];
                     console.log('reg success');
+                    this._router.navigate([]);
                 } else if (data['error']) {
                     this.responseMsg = data['error'];
                     console.log('reg failed');
