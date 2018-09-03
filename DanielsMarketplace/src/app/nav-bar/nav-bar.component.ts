@@ -30,9 +30,7 @@ export class NavBarComponent implements OnInit {
     logOut() {
         const observable = this._httpService.logOutInService();
         const _router = this._router;
-        console.log('this outside:::::::::::::', this);
         observable.subscribe(function(data) {
-            console.log('this:::::::::::::', this);
             _router.navigate(['/welcome']);
         });
     }

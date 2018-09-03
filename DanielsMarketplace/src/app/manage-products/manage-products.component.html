@@ -1,0 +1,28 @@
+
+<div class="container">
+    <h4><u><b>All Items In Your Inventory</b></u></h4>
+    <div *ngFor="let item of allItems" class="row">
+        <h5><b>{{item.name}}</b></h5>
+        <div id="item-image-wrapper" class="col s2 row">
+            <img class="col s12" src="{{item.img_url}}" alt="{{item.name}}">
+        </div>
+        <div id="item-content-wrapper" class="col s8">
+            <div id="item-info-wrapper" class="row">
+                <div class="col s6">
+                    <p><b>Type:</b>{{ item.itemType }}</p>
+                    <p><b>Price:</b>{{ item.price }}</p>
+                </div>
+                <div class="col s6">
+                    <p><b>Date Created:</b>{{ item.createdAt.split('T')[0] }}</p>
+                    <p><b>Last Updated:</b>{{ item.updatedAt.split('T')[0] }}</p>
+                </div>
+            </div>
+            <div id="item-description-wrapper">
+                <p>{{ item.description }}</p>
+            </div>
+        </div>
+        <div id="item-action-wrapper" class="col s2">
+            <a class="btn" [routerLink]="[{ outlets: { popup: ['edit-item', item._id] } }]">Edit Item</a>
+        </div>
+    </div>
+</div>
