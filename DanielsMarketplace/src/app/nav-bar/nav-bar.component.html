@@ -36,6 +36,12 @@
     <li *ngIf="_httpService.currentUser.admin">
         <a [routerLink]="['/new-item']" class="button">Add New Item</a>
     </li>
+    <li *ngIf="_httpService.currentUser.admin">
+        <a [routerLink]="['/manage-users']" class="button">Manage Users</a>
+    </li>
+    <li *ngIf="_httpService.currentUser.admin">
+        <a [routerLink]="['/manage-products']" class="button">Manage Products</a>
+    </li>
     <li>
         <a (click)="logOut()" class="button">Logout</a>
     </li>

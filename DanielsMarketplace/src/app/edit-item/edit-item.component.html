@@ -1,0 +1,31 @@
+<div (click)="closePopup()" id="fade-background"></div>
+
+
+<div id="product-details-frame">
+    <div id="product-image-frame">
+        <img src="{{item.img_url}}" alt="{{item.name}}">
+    </div>
+    <div id="product-details">
+        <div class="product-description">
+            <p>Name</p>
+            <input id="item-name" type="text" name="item.name" value="item.name" [(ngModel)]="item.name">
+            <p>Type</p>
+            <input id="item-type" type="text" name="item.itemType" value="item.itemType" [(ngModel)]="item.itemType">
+            <p>Price</p>
+            <input id="item-price" type="number" name="item.price" value="item.price" [(ngModel)]="item.price">
+            <p>Image Url</p>
+            <input id="item-imgUrl" type="text" name="item.img_url" value="item.img_url" [(ngModel)]="item.img_url">
+            <p>Description</p>
+            <textarea id="item-description" type="text" name="item.description" value="item.description" [(ngModel)]="item.description" cols="50" rows="8"></textarea>
+        </div>
+        <div class="product-interface">
+            <button (click)="saveChanges()" class="save-btn btn">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- <ul>  TODO:
+    <li>has admin options like delete and edit</li>
+    <li>needs size,color and add to cart.</li>
+</ul> -->

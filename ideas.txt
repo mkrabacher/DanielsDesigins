@@ -1,13 +1,9 @@
 quantity control for admin users that can display out of stock info.
 \
-do i need 'descriptioon and 'price' in the browse items section
-\
 httpService is getting big. create separate service for loggged in user.
 \
 need ta be able to upload photos n shit in product creation
 \
 item types need to be standardized so that filter can work properly
 \
-item adding feature needs design touch up.
-\
-cart not functioning properly unless logged in
+a 'new' flair tag for items added under a week ago

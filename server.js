@@ -118,7 +118,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 //end DB stuff
 
 //routes
-    //log-reg routes
+    //user routes
         app.post('/loginUser', function (req, res) {
             console.log('looking for user in DB')
             User.findOne({email:req.body.email},function(err, user) {
@@ -225,7 +225,12 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             })
             
         })
-    //end log-reg routes
+
+        app.post('/logoutUser', function(req, res) {
+            req.session.currentUser = null;
+            res.json({message: 'user logged out.'})
+        });
+    //end user routes
 
     //marketplace routes
         app.post('/getAllItems', function (req, res) {
@@ -252,20 +257,44 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/addItem', function(req, res) {
             console.log("creating new item in server", req.body)
-            newItem = new Item()
-            newItem.itemType = req.body.type
-            newItem.name = req.body.name
-            newItem.description = req.body.description
-            newItem.price = req.body.price
-            newItem.img_url = req.body.imgUrl
-            newItem._user = req.body.userID
-            console.log('newItem', newItem)
+            newItem = new Item();
+            newItem.itemType = req.body.type;
+            newItem.name = req.body.name;
+            newItem.description = req.body.description;
+            newItem.price = req.body.price;
+            newItem.img_url = req.body.imgUrl;
+            newItem._user = req.body.userID;
+            console.log('newItem', newItem);
             newItem.save(function(err) {
                 if(err){
                     console.log('item creation error')
                     res.json({err})
                 }else{
                     res.json({message:`${newItem.name} item added`})
+                }
+            })
+        })
+
+        app.post('/editItem', function (req, res) {
+            Item.findOne({_id:req.body.item._id},function(err, editItem) {
+                if(err){
+                    console.log("e0rr0r with editing:", err);
+                }else{
+                    editItem.itemType = req.body.item.itemType;
+                    editItem.name = req.body.item.name;
+                    editItem.description = req.body.item.description;
+                    editItem.price = req.body.item.price;
+                    editItem.img_url = req.body.item.img_url;
+                    editItem._user = req.body.item.userID;
+                    console.log('edited Item: ', editItem);
+                    editItem.save(function(err) {
+                        if(err){
+                            console.log('item edit error');
+                            res.json({err});
+                        }else{
+                            res.json({message:`${editItem.name} item edited`, item: editItem});
+                        }
+                    })
                 }
             })
         })

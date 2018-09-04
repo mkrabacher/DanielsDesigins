@@ -28,14 +28,11 @@ export class NavBarComponent implements OnInit {
     }
 
     logOut() {
-        this._httpService.currentUser = {
-            _id: 'guest',
-            admin: false,
-            cart: {
-                current: [],
-            },
-        };
-        this._router.navigate(['/welcome']);
+        const observable = this._httpService.logOutInService();
+        const _router = this._router;
+        observable.subscribe(function(data) {
+            _router.navigate(['/welcome']);
+        });
     }
 
     toggleCart() {

@@ -8,11 +8,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { NewItemComponent } from './new-item/new-item.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { EditItemComponent } from './edit-item/edit-item.component';
 
 const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
     { path: 'log-reg', component: LogRegComponent, outlet: 'popup' },
     { path: 'marketplace', component: MarketplaceComponent},
+    { path: 'manage-users', component: ManageUsersComponent},
+    { path: 'manage-products', component: ManageProductsComponent},
+    { path: 'edit-item/:id', component: EditItemComponent, outlet: 'popup' },
     { path: 'new-item', component: NewItemComponent},
     { path: 'profile/:id', component: ProfileComponent},
     { path: 'product-page/:id', component: ProductPageComponent, outlet: 'popup'},

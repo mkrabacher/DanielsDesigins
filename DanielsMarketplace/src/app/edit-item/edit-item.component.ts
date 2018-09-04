@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import { Router, ActivatedRoute, Params } from '../../../node_modules/@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
-    selector: 'app-product-page',
-    templateUrl: './product-page.component.html',
-    styleUrls: ['./product-page.component.scss']
+    selector: 'app-edit-item',
+    templateUrl: './edit-item.component.html',
+    styleUrls: ['./edit-item.component.scss']
 })
-export class ProductPageComponent implements OnInit {
+export class EditItemComponent implements OnInit {
     adminPrivileges: boolean;
     item;
 
@@ -35,22 +35,17 @@ export class ProductPageComponent implements OnInit {
     retrieveItem(id) {
         const observable = this._httpService.getItemInService(id);
         observable.subscribe(data => {
+            console.log(data['item']);
             this.item = data['item'];
         });
     }
 
-    addToCart(item, $event) {
-        // gets desired quanitity from number selector
-        const quantity = $event.path[1].childNodes[0].valueAsNumber;
-        this._httpService.addItemToCartInService(item, quantity);
-
-        // unhides 'added' note
-        console.log($event);
-        $event.path[0].children[1].hidden = false;
-    }
-
-    editProduct(id) {
-        this._router.navigate([{ outlets: { popup: 'edit-item/' + id }}]);
+    saveChanges() {
+        console.log('saving changes of item with id ', this.item);
+        const observable = this._httpService.editItemInService(this.item);
+        observable.subscribe(data => {
+            console.log(data);
+        });
     }
 
     closePopup() {
