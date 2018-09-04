@@ -32,43 +32,41 @@
         overflow: scroll;
         max-height: 500px;
         
-        div {
-            .cart-item {
-                border-top: 1px solid grey;
-                margin: 10px;
-                padding-top: 10px;
+        .cart-item {
+            border-top: 1px solid grey;
+            margin: 10px;
+            padding-top: 10px;
 
-                .item-image {
-                    width: 154px;
+            .item-image {
+                width: 154px;
+                img {
+                    display: flex;
+                    margin: auto;
+                    max-height: 100px;
+                }
+            }
+
+            .item-details {
+                float: right;
+                width: 314px;
+
+                img {
+                    max-width: 100px;
+                }
+
+                .item-header {
+                    h6, img {
+                        display: inline-block
+                    }
+                    
                     img {
-                        display: flex;
-                        margin: auto;
-                        max-height: 100px;
+                        float: right;
+                        width: 20px;
                     }
                 }
 
-                .item-details {
-                    float: right;
-                    width: 314px;
-
-                    img {
-                        max-width: 100px;
-                    }
-
-                    .item-header {
-                        h6, img {
-                            display: inline-block
-                        }
-                        
-                        img {
-                            float: right;
-                            width: 20px;
-                        }
-                    }
-
-                    .quantity-adjust {
-                        width: 10px;
-                    }
+                .quantity-adjust {
+                    width: 10px;
                 }
             }
         }
