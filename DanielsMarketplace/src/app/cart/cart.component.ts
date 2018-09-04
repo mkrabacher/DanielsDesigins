@@ -21,7 +21,15 @@ export class CartComponent implements OnInit, OnChanges {
         };
     }
 
-    ngOnChanges() { }
+    ngOnChanges() {
+        this._httpService.currentUser.cart.totalPrice = function() {
+            let total = 0;
+            for (let i = 0; i < this.current.length; i++) {
+                total += this.current[i].price * this.current[i].quantity;
+            }
+            return total;
+        };
+    }
 
     updateCurrentUser() {
         this._httpService.updateCurrentUserInServer();
