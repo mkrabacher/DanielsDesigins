@@ -28,6 +28,7 @@
         </ul>
     </div>
 </nav>
+
 <ul id="dropdown" class="dropdown-content" style="top: 90px">
     <h5><u>{{_httpService.currentUser.firstName}} {{_httpService.currentUser.lastName}}</u></h5>
     <li>
@@ -47,6 +48,6 @@
     </li>
 </ul>
 
-<div>
-    <router-outlet id="cart-frame" name='cart'></router-outlet>
+<div id="cart-frame">
+    <router-outlet name='cart'></router-outlet>
 </div>
