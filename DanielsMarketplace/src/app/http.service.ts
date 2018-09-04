@@ -114,4 +114,9 @@ export class HttpService {
         console.log('placeing order in service');
         return this._http.post('/placeOrder', this.currentUser);
     }
+
+    editItemInService(item) {
+        console.log('editing item in service with id ', item);
+        return this._http.post('/editItem', {item: item});
+    }
 }

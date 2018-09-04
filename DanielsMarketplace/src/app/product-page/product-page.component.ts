@@ -46,7 +46,11 @@ export class ProductPageComponent implements OnInit {
 
         // unhides 'added' note
         console.log($event);
-        $event.path[2].children[1].hidden = false;
+        $event.path[0].children[1].hidden = false;
+    }
+
+    editProduct(id) {
+        this._router.navigate([{ outlets: { popup: 'edit-item/' + id }}]);
     }
 
     closePopup() {

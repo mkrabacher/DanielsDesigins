@@ -1,6 +1,6 @@
 
 <div class="container">
-    <h4><u><b>All Items In Your Inventory</b></u></h4>
+    <h4><u><b>All Items In Marketplace Inventory</b></u></h4>
     <div *ngFor="let item of allItems" class="row">
         <h5><b>{{item.name}}</b></h5>
         <div id="item-image-wrapper" class="col s2 row">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div id="item-action-wrapper" class="col s2">
-            <a class="btn" [routerLink]="[{ outlets: { popup: ['edit-item', item._id] } }]">Edit Item</a>
+            <a class="btn" (click)="editProduct(item._id)">Edit Item</a>
         </div>
     </div>
 </div>

@@ -16,7 +16,11 @@
                 <h6>Quantity:</h6>
                 <input type="number" value="1">
             </div>
-            <button class="cart-btn btn"><img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart">Add to Cart</button>
+            <button class="cart-btn btn" onclick="M.toast({html: 'Item added'})" (click)="addToCart(item, $event)">
+                <img class="cart-btn-icon" src="..\..\assets\img\shopping-cart-solid.svg" alt="cart">Add to Cart
+                <span class="added" hidden>added</span>
+            </button>
+            <button class="edit-btn btn" *ngIf="_httpService.currentUser.admin" (click)="editProduct(item._id)">Edit Item</button>
         </div>
     </div>
 </div>

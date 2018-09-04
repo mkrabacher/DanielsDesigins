@@ -21,6 +21,7 @@ export class ManageProductsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._router.navigate([{ outlets: { popup: null } }]);
         this.allItems = [];
         this.getAllItems();
     }
@@ -35,4 +36,7 @@ export class ManageProductsComponent implements OnInit {
         });
     }
 
+    editProduct(id) {
+        this._router.navigate([{ outlets: { popup: 'edit-item/' + id }}]);
+    }
 }
