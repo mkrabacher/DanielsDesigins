@@ -27,15 +27,12 @@
 #marketplace-display {
     width: $marketplace-width;
     vertical-align: top;
-
-    .item-display-frame {
+    
+    .item-display {
         width: 250px;
         height: 300px;
         margin: 5px;
         padding: 10px;
-    }
-    
-    .item-display {
         
         .item-subheader, h6 {
             margin: 0;
