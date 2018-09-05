@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '../../../node_modules/@angular/router';
+import { GuestUser } from '../guest-template';
 
 @Component({
     selector: 'app-cart',
@@ -82,10 +83,19 @@ export class CartComponent implements OnInit, OnChanges {
     }
 
     placeOrder() {
-        const observable = this._httpService.placeOrderInService();
-        observable.subscribe(data => {
-            console.log(data);
-        });
+        console.log('preorder current user template', this._httpService.currentUser);
+        if (this._httpService.currentUser._id === 'guest') {
+            console.log('order placed with guest user: ');
+            this._httpService.currentUser = new GuestUser;
+        } else {
+            const observable = this._httpService.placeOrderInService();
+            observable.subscribe(data => {
+                console.log('order placed with logged in user: ', data);
+                this._httpService.currentUser = data['currentUser'];
+            });
+        }
+        this.closeCart();
+        console.log('post order guest user template', this._httpService.currentUser);
     }
 
     closeCart() {

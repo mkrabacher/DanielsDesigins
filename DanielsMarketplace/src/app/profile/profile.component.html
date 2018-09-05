@@ -21,24 +21,26 @@
                         <h6 *ngIf="_httpService.currentUser.orders.current.length == 0">You don't have any current orders</h6>
                         <span *ngIf="_httpService.currentUser.orders.current.length != 0">
                             <div class="order-frame" *ngFor="let order of _httpService.currentUser.orders.current">
-                                <h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0] }}</u></h5>
-                                <h6><u>Status:</u><span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span></h6>
-                                <table>
-                                    <thead>
-                                        <td><h6><strong>Item Name</strong></h6></td>
-                                        <td><h6><strong>Item Price</strong></h6></td>
-                                        <td><h6><strong>Quantity</strong></h6></td>
-                                        <td><h6><strong>Lump Price</strong></h6></td>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of order.items">
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.price }}</td>
-                                            <td>{{ item.quantity }}</td>
-                                            <td>{{ item.quantity * item.price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="orders-table container">
+                                    <h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0] }} at {{ order.dateOrdered.split('T')[1] }}</u></h5>
+                                    <h6><u>Status:</u><span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span></h6>
+                                    <table>
+                                        <thead class="row">
+                                            <td class="item-name"><h6><u><strong>Item Name</strong></u></h6></td>
+                                            <td class="item-price"><h6><u><strong>Item Price</strong></u></h6></td>
+                                            <td class="item-quantity"><h6><u><strong>Quantity</strong></u></h6></td>
+                                            <td class="lump-price"><h6><u><strong>Lump Price</strong></u></h6></td>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of order.items">
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.price }}</td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td>{{ item.quantity * item.price }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
                                 <h6>Total Order Cost: {{ getOrderPrice(order) }}</h6>
                             </div>
                         </span>

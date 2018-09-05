@@ -219,7 +219,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                         console.log('err0r err0r does not compute', err);
                     }else{
                         console.log('user after purchase', user);
-                        res.json({message:`${user.firstName} ${user.lastName} updated`, user})
+                        res.json({message:`${user.firstName} ${user.lastName} updated`, 'currentUser': user})
                     }
                 })
             })

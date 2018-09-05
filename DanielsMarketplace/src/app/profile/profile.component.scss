@@ -9,6 +9,19 @@
     }
 }
 
+.orders-table {
+    margin: 0;
+    width: 100%;
+}
+
+.item-name {
+    width: 40%;
+}
+
+.item-price, .item-quantity, .lump-price {
+    width: 20%;
+}
+
 td {
     padding: 0;
 }

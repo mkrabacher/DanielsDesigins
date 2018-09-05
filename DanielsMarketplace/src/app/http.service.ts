@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GuestUser } from './guest-template';
 
 @Injectable()
 export class HttpService {
@@ -10,13 +11,7 @@ export class HttpService {
         private _route: ActivatedRoute,
         private _router: Router
     ) {
-        this.currentUser = {
-            _id: 'guest',
-            admin: false,
-            cart: {
-                current: [],
-            },
-        };
+        this.currentUser = new GuestUser;
     }
 
     loginInService(loginUser) {
@@ -26,13 +21,7 @@ export class HttpService {
 
     logOutInService() {
         console.log('logging out through service');
-        this.currentUser = {
-            _id: 'guest',
-            admin: false,
-            cart: {
-                current: [],
-            },
-        };
+        this.currentUser = new GuestUser;
         return this._http.post('/logoutUser', null);
     }
 
