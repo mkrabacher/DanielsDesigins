@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
+import {MaterializeDirective} from 'angular2-materialize';
+import * as Materialize from 'angular2-materialize';
 
 @Component({
     selector: 'app-new-item',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NewItemComponent implements OnInit {
     newItem;
-    userItems;
+    typesArray;
     currentUser;
     constructor(
         private _httpService: HttpService,
@@ -19,9 +21,11 @@ export class NewItemComponent implements OnInit {
         if (this.currentUser._id === 'guest') {
             _router.navigate(['/welcome']);
         }
+        this.typesArray = [];
     }
 
     ngOnInit() {
+        this.getItemTypes();
         this.newItem = {
             type: '',
             name: '',
@@ -30,6 +34,17 @@ export class NewItemComponent implements OnInit {
             imgUrl: '',
             userID: this.currentUser['_id'],
         };
+    }
+
+    getItemTypes() {
+        const observable = this._httpService.getItemsInService();
+        observable.subscribe(data => {
+            data['items'].forEach(item => {
+                if (!this.typesArray.includes(item.itemType)) {
+                    this.typesArray.push(item.itemType);
+                }
+            });
+        });
     }
 
     addItemThroughService() {

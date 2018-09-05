@@ -12,20 +12,18 @@ export class MarketplaceComponent implements OnInit {
     displayItems;
     searchTerm;
     typeFilter;
+    typesArray;
     adminPrivileges;
     constructor(private _httpService: HttpService, private _router: Router) {
         this.searchTerm = '';
-        this.typeFilter = {
-            Raincoat: false,
-            DryBags: false,
-            SunProtection: false,
-        };
+        this.typeFilter = {};
     }
 
     ngOnInit() {
         this._router.navigate([{ outlets: { popup: null }}]);
         this.allItems = [];
         this.displayItems = [];
+        this.typesArray = [];
         this.getAllItemsThroughService();
         this.retrieveCurrentUserLevel();
     }
@@ -39,7 +37,17 @@ export class MarketplaceComponent implements OnInit {
         observable.subscribe(data => {
             console.log('got back: ', data);
             this.allItems = data['items'];
+            this.makeItemTypesArray();
             this.displayItems = this.allItems;
+        });
+    }
+
+    makeItemTypesArray() {
+        this.allItems.forEach(item => {
+            if (this.typeFilter[item.itemType] === undefined) {
+                this.typeFilter[item.itemType] = false;
+                this.typesArray.push(item.itemType);
+            }
         });
     }
 
@@ -58,27 +66,18 @@ export class MarketplaceComponent implements OnInit {
 
     filter() {
         this.displayItems = [];
-        if (!this.typeFilter.Raincoat && !this.typeFilter.DryBags && !this.typeFilter.SunProtection) {
-            this.displayItems = this.allItems;
-        } else {
-            for (let i = 0; i < this.allItems.length; i++) {
-                if (this.allItems[i].itemType === 'Raincoat' && this.typeFilter.Raincoat) {
-                    this.displayItems.push(this.allItems[i]);
-                } else if (this.allItems[i].itemType === 'Dry Bag' && this.typeFilter.DryBags) {
-                    this.displayItems.push(this.allItems[i]);
-                } else if (this.allItems[i].itemType === 'Sun Protection' && this.typeFilter.SunProtection) {
-                    this.displayItems.push(this.allItems[i]);
-                }
+        for (let i = 0; i < this.allItems.length; i++) {
+            if (this.typeFilter[this.allItems[i].itemType]) {
+                this.displayItems.push(this.allItems[i]);
             }
+        }
+        if (this.displayItems.length === 0) {
+            this.displayItems = this.allItems;
         }
     }
 
     resetFilter() {
-        this.typeFilter = {
-            Raincoat: false,
-            DryBags: false,
-            SunProtection: false,
-        };
+        this.typeFilter = {};
         this.filter();
     }
 

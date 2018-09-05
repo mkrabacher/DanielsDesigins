@@ -3,13 +3,25 @@
     <div id="new-item-details-frame">
         <div id="new-item-image-frame">
             <img src="{{newItem.imgUrl}}" alt="{{newItem.name}}">
-        </div>  
+        </div>
         <div id="new-item-details">
+            {{ newItem | json }}
             <input id="new-item-name" placeholder="Write item name here" type="text" name="newItem.name" [(ngModel)]="newItem.name">
-            <input id="new-item-type" placeholder="Item type" type="text" name="newItem.type" [(ngModel)]="newItem.type">
+            <div>
+                <h5>Select Item Type</h5>
+                <p class="type-radio-btn" *ngFor="let type of typesArray">
+                    <label>
+                        <input id="{{type}}" class="new-item-type" name="{{type}}" value="{{type}}" [(ngModel)]="newItem.type" type="radio" />
+                        <span>{{ type }}</span>
+                    </label>
+                </p>
+                <h6>or create a new item type</h6>
+                <input id="new-item-type" placeholder="Item type" type="text" name="newItem.type" [(ngModel)]="newItem.type">
+            </div>
             <input id="new-item-price" placeholder="Price" type="number" name="newItem.price" [(ngModel)]="newItem.price">
             <input id="new-item-imgUrl" placeholder="Paste item image url here" type="text" name="newItem.imgUrl" [(ngModel)]="newItem.imgUrl">
-            <textarea id="new-item-description" type="text" placeholder="Write the item description here. " name="newItem.description" [(ngModel)]="newItem.description" cols="50" rows="8"></textarea>
+            <textarea id="new-item-description" type="text" placeholder="Write the item description here. " name="newItem.description"
+                [(ngModel)]="newItem.description" cols="50" rows="8"></textarea>
         </div>
         <a class="btn" (click)="addItemThroughService()">Create New Item</a>
     </div>

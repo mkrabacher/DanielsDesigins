@@ -8,23 +8,10 @@
             <h6>Filter by Type</h6>
             <form action="">
                 <div>
-                    <p>
-                        <label for="checkbox-Raincoat">
-                            <input class="filled-in" type="checkbox" name="Raincoat" id="checkbox-Raincoat" [(ngModel)]="typeFilter.Raincoat" />
-                            <span>Raincoat</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label for="checkbox-DryBags">
-                            <input class="filled-in" type="checkbox" name="DryBags" id="checkbox-DryBags" [(ngModel)]="typeFilter.DryBags" />
-                            <span>Dry Bags</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label for="checkbox-SunProtection">
-                            <input class="filled-in" type="checkbox" name="SunProtection" id="checkbox-SunProtection" [(ngModel)]="typeFilter.SunProtection"
-                            />
-                            <span>Sun Protection</span>
+                    <p *ngFor="let type of typesArray">
+                        <label for="{{type}}">
+                            <input class="filled-in" type="checkbox" name="{{type}}" id="{{type}}" [(ngModel)]="typeFilter[type]" />
+                            <span>{{type}}</span>
                         </label>
                     </p>
                 </div>
