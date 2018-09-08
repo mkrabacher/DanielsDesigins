@@ -52,6 +52,11 @@ export class HttpService {
         return this.currentUser.admin;
     }
 
+    getAllUsersInService() {
+        console.log('getting all users in service');
+        return this._http.post('/retrieveAllUsers', null);
+    }
+
     getItemInService(id) {
         console.log('getting item in service with id:', id);
         return this._http.post('/getItem', {id: id});

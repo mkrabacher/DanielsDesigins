@@ -175,6 +175,17 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             }
         })
 
+        app.post('/retrieveAllUsers', function(req, res) {
+            console.log('getting users in server')
+            User.find({},function(err, users) {
+                if(err){
+                    console.log("e0rr0r",)
+                }else{
+                    res.json({message:'All Users', users: users})
+                }
+            })
+        })
+
         app.post('/updateUser', function (req, res) {
             console.log('upating user in server with id:', req.body._id)
             console.log('number of orders in user:', req.body.cart.current.length)

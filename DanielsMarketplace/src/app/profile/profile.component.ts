@@ -16,23 +16,11 @@ export class ProfileComponent implements OnInit {
     ) {
         this.currentUser = this._httpService.currentUser;
         if (this.currentUser._id === 'guest') {
-            _router.navigate(['/welcome']);
+            this._router.navigate(['/welcome']);
         }
     }
 
     ngOnInit() {
-    }
-
-    getCurrentUser() {
-        console.log('getting user now');
-        const observable = this._httpService.retrieveCurrentUserInService();
-        observable.subscribe(data => {
-            console.log(data);
-            this.currentUser = data['currentUser'];
-            if (this.currentUser == null) {
-                this._router.navigate(['welcome']);
-            }
-        });
     }
 
     getOrderPrice(order) {

@@ -7,3 +7,9 @@ need ta be able to upload photos n shit in product creation
 item types need to be standardized so that filter can work properly
 \
 a 'new' flair tag for items added under a week ago
+\
+add a quantity feature for the admin's to state how many items are in stock and to automate when the site says something is out of stock.
+\
+get a metrics section going for admin users that tracks whose looking at what, how much.
+\
+add search/sort function to the manage items section

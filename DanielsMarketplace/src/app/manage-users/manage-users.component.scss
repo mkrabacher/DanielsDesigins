@@ -1,0 +1,47 @@
+.order-frame {
+    border: 2px solid black;
+    padding: 0 10px;
+
+    .processing {
+        padding: 5px;
+        margin-left: 10px;
+        color: red;
+    }
+}
+
+.orders-table {
+    margin: 0;
+    width: 100%;
+}
+
+.item-name {
+    width: 40%;
+}
+
+.item-price, .item-quantity, .lump-price {
+    width: 20%;
+}
+
+td {
+    padding: 0;
+}
+
+
+.collapsible-body {
+    background-color: white;
+}
+
+.user-collapsible {
+    background-color: lightgrey;
+
+    .user-details-table {
+        width: 50%;
+        display: inline-block;
+    }
+
+    .user-actions-table {
+        width: 50%;
+        display: inline-block;
+    }
+
+}
