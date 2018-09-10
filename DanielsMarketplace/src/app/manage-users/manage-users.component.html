@@ -45,7 +45,7 @@
                                                 <h6>
                                                     <u>Status:</u>
                                                     <span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span>
-                                                    <a class="btn" (click)="setOrderStatusToShipped(order._id)">Set Status to Shipped</a>
+                                                    <a class="btn" (click)="setOrderStatusToShipped(user._id, order)">Set Status to Shipped</a>
                                                     <a class="btn" (click)="markItemDelivered(order._id)">Mark Item as Delievered</a>
                                                 </h6>
                                                 <table>

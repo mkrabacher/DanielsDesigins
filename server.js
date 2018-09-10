@@ -252,7 +252,35 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                     res.json({message:`User deleted`, obj: obj})
                 }
             })           
-        })
+        });
+
+        app.post('/updateOrder', function(req, res) {
+            console.log('updating order in server', req.body);
+            User.findOne({_id: req.body.userID}, function(err, user) {
+                if (err) {
+                    console.log('order update error: ', err);
+                } else {
+                    console.log('found the user: ', user)
+                    for (let i = 0; i < user.orders.current.length; i++) {
+                        console.log('i: ', user.orders.current[i].dateOrdered)
+                        console.log('r: ', req.body.order.dateOrdered.toString())
+                        if (user.orders.current[i].dateOrdered == req.body.order.dateOrdered.toString()) {
+                            console.log('found the order');
+                            user.orders.current[i] = req.body.order;
+                            user.save(function (err) {
+                                if(err){
+                                    console.error(err)
+                                    res.json({message: 'error while updating order', err: err})
+                                }else{
+                                    console.error('update in server successful.')
+                                    res.json({message:`${user.firstName}s order updated`, user})
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        });
     //end user routes
 
     //marketplace routes

@@ -118,4 +118,12 @@ export class HttpService {
         console.log('editing item in service with id ', item);
         return this._http.post('/editItem', {item: item});
     }
+
+    updateOrdersInService(userID, order) {
+        console.log('updating order in service');
+        return this._http.post('/updateOrder', {
+            userID: userID,
+            order: order
+        });
+    }
 }
