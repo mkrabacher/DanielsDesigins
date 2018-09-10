@@ -42,8 +42,27 @@ export class ManageUsersComponent implements OnInit {
         return total;
     }
 
-    removeUser(id) {
-        alert('just kidding');
+    deleteUser(user) {
+        console.log('deleting user');
+        const observable = this._httpService.deleteUserInService(user);
+        if (confirm('Deleting users is permenant. Are you sure you want to remove this users?')) {
+            if (this.currentUser.admin) {
+                observable.subscribe(data => {
+                    if (!data['err']) {
+                        for (let i = 0; i < this.allUsers.length; i++) {
+                            if (this.allUsers[i]._id === user._id) {
+                                this.allUsers.splice(i, 1);
+                            }
+                        }
+                    }
+                    console.log(data);
+                });
+            } else {
+                alert('you don\'t have privillages to do that. How\'d you get here?');
+                this._router.navigate(['/welcome']);
+            }
+        }
+
     }
 
     setOrderStatusToShipped(id) {

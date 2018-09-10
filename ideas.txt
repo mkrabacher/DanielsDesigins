@@ -13,3 +13,5 @@ add a quantity feature for the admin's to state how many items are in stock and 
 get a metrics section going for admin users that tracks whose looking at what, how much.
 \
 add search/sort function to the manage items and manage users section
+\
+create ban/disable list instead of just delete option

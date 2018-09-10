@@ -241,6 +241,18 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
             req.session.currentUser = null;
             res.json({message: 'user logged out.'})
         });
+
+        app.post('/deleteUser', function(req, res) {
+            console.log('deleteing User in server', req.body)
+            User.findOneAndRemove({_id: req.body.user._id}, function(err, obj) {
+                if(err){
+                    console.log("user deletion error",)
+                    res.json({message:`User not deleted because: e0rr0r`, err: err})
+                }else{
+                    res.json({message:`User deleted`, obj: obj})
+                }
+            })           
+        })
     //end user routes
 
     //marketplace routes
@@ -312,7 +324,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/deleteItem', function(req, res) {
             console.log('deleteing item in server', req.body)
-            Item.remove({_id: req.body._id}, function(err, user) {
+            Item.remove({_id: req.body._id}, function(err, item) {
                 if(err){
                     console.log("deleteing error",)
                 }else{

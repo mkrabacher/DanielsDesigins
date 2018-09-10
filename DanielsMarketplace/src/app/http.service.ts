@@ -57,6 +57,11 @@ export class HttpService {
         return this._http.post('/retrieveAllUsers', null);
     }
 
+    deleteUserInService(user) {
+        console.log('deleting users in service');
+        return this._http.post('/deleteUser', {user: user});
+    }
+
     getItemInService(id) {
         console.log('getting item in service with id:', id);
         return this._http.post('/getItem', {id: id});
