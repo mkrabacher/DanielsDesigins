@@ -260,11 +260,11 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 if (err) {
                     console.log('order update error: ', err);
                 } else {
-                    console.log('found the user: ', user)
+                    console.log('found the user: ')
                     for (let i = 0; i < user.orders.current.length; i++) {
-                        console.log('i: ', user.orders.current[i].dateOrdered)
-                        console.log('r: ', req.body.order.dateOrdered.toString())
-                        if (user.orders.current[i].dateOrdered == req.body.order.dateOrdered.toString()) {
+                        console.log('i: ', user.orders.current[i]._id)
+                        console.log('r: ', req.body.order._id)
+                        if (user.orders.current[i]._id == req.body.order._id) {
                             console.log('found the order');
                             user.orders.current[i] = req.body.order;
                             user.save(function (err) {
