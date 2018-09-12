@@ -74,17 +74,23 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 targetAddress: String,
                 dateOrdered: Date
             }],
-            past: [{ //copy the above current schema here when doing past but add date delieverd
-                _id: String,
-                itemType: String,
-                name: String,
-                description: String,
-                price: Number,
-                img_url: String,
-                createdAt: String,
-                updatedAt: String,
-                quantity: Number,
-            }]
+            past: [{
+                items: [{
+                    _id: String,
+                    itemType: String,
+                    name: String,
+                    description: String,
+                    price: Number,
+                    img_url: String,
+                    createdAt: String,
+                    updatedAt: String,
+                    quantity: Number,
+                }],
+                status: String,
+                targetAddress: String,
+                dateOrdered: Date,
+                dateDelivered: Date
+            }],
         },
         password: String,
     }, { timestamps: true })
@@ -220,7 +226,7 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
                 let newOrder = {
                     items: user.cart.current,
                     // targetAddress: // insert address fucntion here
-                    status: 'Processing',
+                    status: 'processing',
                     dateOrdered: new Date(),
                 }
                 user.cart.current = [];
@@ -256,28 +262,57 @@ app.use(express.static( __dirname + '/DanielsMarketplace/dist/DanielsMarketplace
 
         app.post('/updateOrder', function(req, res) {
             console.log('updating order in server', req.body);
-            User.findOne({_id: req.body.userID}, function(err, user) {
+            User.findOne({_id: req.body.userID}, function(err, user) {  // find the user with the order
                 if (err) {
                     console.log('order update error: ', err);
                 } else {
-                    console.log('found the user: ')
-                    for (let i = 0; i < user.orders.current.length; i++) {
-                        console.log('i: ', user.orders.current[i]._id)
-                        console.log('r: ', req.body.order._id)
-                        if (user.orders.current[i]._id == req.body.order._id) {
-                            console.log('found the order');
-                            user.orders.current[i] = req.body.order;
-                            user.save(function (err) {
-                                if(err){
-                                    console.error(err)
-                                    res.json({message: 'error while updating order', err: err})
-                                }else{
-                                    console.error('update in server successful.')
-                                    res.json({message:`${user.firstName}s order updated`, user})
+                    console.log('found the user')
+                    for (let i = 0; i < user.orders.current.length; i++) { // find the order in question
+                        if (user.orders.current[i]._id == req.body.order._id) { // found the order
+                            console.log('found order')
+                            
+                            if (req.body.order.status.toLowerCase() != 'delivered') { // what to do if not completing the order
+                                console.log('updateing order')
+
+                                user.orders.current[i] = req.body.order;
+                                user.save(function (err) {
+                                    if(err){
+                                        console.error(err)
+                                        res.json({message: 'error while updating order', err: err})
+                                    }else{
+                                        console.error('update in server successful.')
+                                        res.json({message:`${user.firstName}'s order updated`, user})
+                                    }
+                                });
+
+                            } else { // what to do if completing the order
+                                console.log('completeing order')
+                                const completeOrder = {
+                                    items: req.body.order.items,
+                                    // deliveryAddress: req.body.order.targetAddress // enable once addresses are figured out.
+                                    status: req.body.order.status,
+                                    dateDelivered: new Date(),
+                                    dateOrdered: req.body.order.dateOrdered,
+                                    _id: req.body.order._id
                                 }
-                            });
+                                user.orders.current.splice(i, 1);
+                                
+                                console.error(completeOrder)
+                                user.orders.past.push(completeOrder)
+                                user.save(function (err) {
+                                    if(err){
+                                        console.error(err)
+                                        res.json({message: 'error while delivering order', err: err})
+                                    }else{
+                                        console.error('delivery in server successful.')
+                                        res.json({message:`${user.firstName}'s order completed`, user})
+                                    }
+                                });
+                                
+                            }
                         }
                     }
+                    console.log('no order found', user)
                 }
             });
         });

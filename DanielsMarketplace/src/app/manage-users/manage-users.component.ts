@@ -67,17 +67,10 @@ export class ManageUsersComponent implements OnInit {
 
     setOrderStatusToShipped(userID, order) {
         console.log('setting order status to shipped');
-        order.status = 'Shipped';
+        order.status = 'shipped';
         const observable = this._httpService.updateOrdersInService(userID, order);
         if (this.currentUser.admin) {
             observable.subscribe(data => {
-                if (!data['err']) {
-                    for (let i = 0; i < this.allUsers.length; i++) {
-                        // if (this.allUsers[i]._id === user._id) {
-                        //     this.allUsers.splice(i, 1);
-                        // }
-                    }
-                }
                 console.log(data);
             });
         } else {
@@ -87,8 +80,35 @@ export class ManageUsersComponent implements OnInit {
 
     }
 
-    markItemDelivered(id) {
-        alert('jk bud');
+    markItemDelivered(userID, order) {
+        console.log('setting order status to delivered');
+        order.status = 'delivered';
+        const observable = this._httpService.updateOrdersInService(userID, order);
+        if (this.currentUser.admin) {
+            observable.subscribe(data => {
+                console.log(data);
+                this.getAllUsers();
+            });
+        } else {
+            alert('you don\'t have privillages to do that. How\'d you get here?');
+            this._router.navigate(['/welcome']);
+        }
+
     }
 
+    setOrderStatusToProcessing(userID, order) {
+        console.log('setting order status to delivered');
+        order.status = 'processing';
+        const observable = this._httpService.updateOrdersInService(userID, order);
+        if (this.currentUser.admin) {
+            observable.subscribe(data => {
+                console.log(data);
+                this.getAllUsers();
+            });
+        } else {
+            alert('you don\'t have privillages to do that. How\'d you get here?');
+            this._router.navigate(['/welcome']);
+        }
+
+    }
 }

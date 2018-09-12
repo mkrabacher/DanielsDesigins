@@ -14,6 +14,7 @@ export class HttpService {
         this.currentUser = new GuestUser;
     }
 
+    // log and reg routes
     loginInService(loginUser) {
         console.log('logging in through service');
         return this._http.post('/loginUser', loginUser);
@@ -43,7 +44,9 @@ export class HttpService {
             this._http.post('/updateUser', this.currentUser).subscribe();
         }
     }
+    // end log and reg routes
 
+    // user control and access routes
     retrieveCurrentUserInService() {
         return this._http.post('/retrieveUser', this.currentUser);
     }
@@ -61,7 +64,9 @@ export class HttpService {
         console.log('deleting users in service');
         return this._http.post('/deleteUser', {user: user});
     }
+    // end user control and access routes
 
+    // item control and access routes
     getItemInService(id) {
         console.log('getting item in service with id:', id);
         return this._http.post('/getItem', {id: id});
@@ -81,6 +86,13 @@ export class HttpService {
         return this._http.post('/deleteItem', item);
     }
 
+    editItemInService(item) {
+        console.log('editing item in service with id ', item);
+        return this._http.post('/editItem', {item: item});
+    }
+    // end item control and access routes
+
+    // order and cart routes
     addItemToCartInService(item, quantity) {
         let alreadyAdded = false;
         for (let i = 0; i < this.currentUser.cart.current.length; i++) {
@@ -114,11 +126,6 @@ export class HttpService {
         return this._http.post('/placeOrder', this.currentUser);
     }
 
-    editItemInService(item) {
-        console.log('editing item in service with id ', item);
-        return this._http.post('/editItem', {item: item});
-    }
-
     updateOrdersInService(userID, order) {
         console.log('updating order in service');
         return this._http.post('/updateOrder', {
@@ -126,4 +133,5 @@ export class HttpService {
             order: order
         });
     }
+    // end order and cart routes
 }

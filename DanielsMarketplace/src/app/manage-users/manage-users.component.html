@@ -1,7 +1,8 @@
 <ul materialize="collapsible" class="collapsible">
     <li *ngFor="let user of allUsers">
         <div class="collapsible-header">{{ user.firstName }} {{ user.lastName }} joined on {{ user.createdAt.split('T')[0]
-            }}</div>
+            }}
+        </div>
         <div class="collapsible-body user-collapsible">
 
             <table class="user-details-table">
@@ -32,21 +33,25 @@
                 <li>
                     <div class="collapsible-header">Manage Their Orders</div>
                     <div id="order-history" class="collapsible-body">
-                        <h6 *ngIf="user.orders.current.length == 0 && user.orders.past.length == 0">They haven't ordered anything. Ever.</h6>
+                        <h6 *ngIf="user.orders.current.length == 0 && user.orders.past.length == 0">They haven't ordered
+                            anything. Ever.</h6>
                         <ul *ngIf="user.orders.current.length != 0 || user.orders.past.length != 0" materialize="collapsible" class="collapsible">
                             <li>
                                 <div class="collapsible-header">Their Active Orders</div>
                                 <div class="collapsible-body">
                                     <h6 *ngIf="user.orders.current.length == 0">They don't have any current orders</h6>
+
                                     <span *ngIf="user.orders.current.length != 0">
                                         <div class="order-frame" *ngFor="let order of user.orders.current">
                                             <div class="orders-table container">
-                                                <h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0] }} at {{ order.dateOrdered.split('T')[1] }}</u></h5>
+                                                <h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0]
+                                                        }} at {{ order.dateOrdered.split('T')[1] }}</u></h5>
                                                 <h6>
                                                     <u>Status:</u>
-                                                    <span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span>
-                                                    <a class="btn" (click)="setOrderStatusToShipped(user._id, order)">Set Status to Shipped</a>
-                                                    <a class="btn" (click)="markItemDelivered(order._id)">Mark Item as Delievered</a>
+                                                    <span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase()}} </span>
+                                                    <a class="btn" *ngIf="order.status != 'processing'" (click)="setOrderStatusToProcessing(user._id, order)">Set Status to Processing</a>
+                                                    <a class="btn" *ngIf="order.status != 'shipped'" (click)="setOrderStatusToShipped(user._id, order)">Set Status to Shipped</a>
+                                                    <a class="btn" *ngIf="order.status != 'delivered'" (click)="markItemDelivered(user._id, order)">Mark Item as Delievered</a>
                                                 </h6>
                                                 <table>
                                                     <thead class="row">
@@ -75,6 +80,7 @@
                                             </div>
                                             <h6>Total Order Cost: {{ getOrderPrice(order) }}</h6>
                                         </div>
+
                                     </span>
                                 </div>
                             </li>
@@ -82,7 +88,44 @@
                                 <div class="collapsible-header">Their Order History</div>
                                 <div class="collapsible-body">
                                     <h6 *ngIf="user.orders.past.length == 0">They don't have any completed orders.</h6>
-                                    <span *ngIf="user.orders.past.length != 0">Lorem ipsum dolor sit amet.</span>
+                                    <span *ngIf="user.orders.past.length != 0">
+
+                                        <div class="order-frame" *ngFor="let order of user.orders.past">
+                                            <div class="orders-table container"><h5><u>{{ order.length }} Items ordered on {{ order.dateOrdered.split('T')[0] }} at {{ order.dateOrdered.split('T')[1] }}</u></h5>
+                                                <h5><u>{{ order.length }} Items delivered on {{ order.dateDelivered.split('T')[0] }} at {{ order.dateDelivered.split('T')[1] }}</u></h5>
+                                                <h6>
+                                                    <u>Status:</u>
+                                                    <span class="{{ order.status.toLowerCase() }}"> {{ order.status.toUpperCase() }} </span>
+                                                </h6>
+                                                <table>
+                                                    <thead class="row">
+                                                        <td class="item-name">
+                                                            <h6><u><strong>Item Name</strong></u></h6>
+                                                        </td>
+                                                        <td class="item-price">
+                                                            <h6><u><strong>Item Price</strong></u></h6>
+                                                        </td>
+                                                        <td class="item-quantity">
+                                                            <h6><u><strong>Quantity</strong></u></h6>
+                                                        </td>
+                                                        <td class="lump-price">
+                                                            <h6><u><strong>Lump Price</strong></u></h6>
+                                                        </td>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of order.items">
+                                                            <td>{{ item.name }}</td>
+                                                            <td>{{ item.price }}</td>
+                                                            <td>{{ item.quantity }}</td>
+                                                            <td>{{ item.quantity * item.price }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <h6>Total Order Cost: {{ getOrderPrice(order) }}</h6>
+                                        </div>
+
+                                    </span>
                                 </div>
                             </li>
                         </ul>
