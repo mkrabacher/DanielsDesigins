@@ -21,6 +21,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EditItemComponent } from './edit-item/edit-item.component';
     ProductPageComponent,
     ManageProductsComponent,
     ManageUsersComponent,
-    EditItemComponent
+    EditItemComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

@@ -11,9 +11,11 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
+    { path: 'about', component: AboutComponent },
     { path: 'log-reg', component: LogRegComponent, outlet: 'popup' },
     { path: 'marketplace', component: MarketplaceComponent},
     { path: 'manage-users', component: ManageUsersComponent},
