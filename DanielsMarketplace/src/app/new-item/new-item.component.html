@@ -5,7 +5,6 @@
             <img src="{{newItem.imgUrl}}" alt="{{newItem.name}}">
         </div>
         <div id="new-item-details">
-            {{ newItem | json }}
             <input id="new-item-name" placeholder="Write item name here" type="text" name="newItem.name" [(ngModel)]="newItem.name">
             <div>
                 <h5>Select Item Type</h5>
