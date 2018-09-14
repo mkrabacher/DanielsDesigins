@@ -8,7 +8,7 @@
             <h6>Filter by Type</h6>
             <form action="">
                 <div>
-                    <p *ngFor="let type of typesArray">
+                    <p class="checkbox-wrapper" *ngFor="let type of typesArray">
                         <label for="{{type}}">
                             <input class="filled-in" type="checkbox" name="{{type}}" id="{{type}}" [(ngModel)]="typeFilter[type]" />
                             <span>{{type}}</span>

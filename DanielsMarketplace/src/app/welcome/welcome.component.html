@@ -1,4 +1,36 @@
-<div id="img-frame">
-    <h1 id="splash-title">SeamSmith</h1>
-    <img src="assets/img/hoodie-splash-img.jpg" alt="splash img">
+<!-- <div id="img-frame">
+</div> -->
+<div id="carousel" materialize="carousel" [materializeActions]="actions" [materializeParams]="options" class="carousel carousel-slider center">
+    <div class="carousel-fixed-item">
+        <a class="left next-btn" (click)="moveLeft()"><img src="assets/img/left-btn.png" alt="left button"></a>
+    </div>
+    <div class="carousel-fixed-item right">
+        <a class="right next-btn" (click)="moveRight()"><img src="assets/img/right-btn.png" alt="right button"></a>
+    </div>
+    <div class="carousel-item" href="#one!">
+        <img class="photo " src="assets/img/hoodie-splash-img.jpg" alt="splash img">
+        <div class="title-wrapper">
+            <h1>SeamSmith</h1>
+            <a class="btn splash-btn" [routerLink]="['/marketplace']">Click Here To Check Out<br>Sweet Sun Hoodies And More!</a>
+        </div>
+    </div>
+    <div class="carousel-item" href="#two!">
+        <img class="photo" src="assets/img/climbing.jpg" alt="splash img">
+        <div class="adventure-wrapper">
+            <h2>Active Wear For Your<br>Next Adventure</h2>
+            <a class="btn splash-btn" [routerLink]="['/marketplace']">Shop for technical gear</a>
+        </div>
+    </div>
+    <div class="carousel-item" href="#three!">
+        <img class="photo" src="assets/img/about img.jpg" alt="splash img">
+        <div class="crafting-wrapper">
+            <h2>Our Clothing Is Crafted By Adventurers For Adventurers</h2>
+        </div>
+    </div>
+    <div class="carousel-item" href="#four!">
+        <img class="photo" src="assets/img/workspace.jpg" alt="splash img">
+        <div class="workshop-wrapper">
+            <h2>The Workshop and the<br>Assistant</h2>
+        </div>
+    </div>
 </div>
