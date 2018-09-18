@@ -6,7 +6,6 @@
     </div>
 
     <div id="register">
-        {{registerUser | json}}
         <h4>Register Here</h4>
         <div class="row">
             <form class="col s12" materialize (submit)="registerThroughService()">
@@ -59,7 +58,6 @@
     </div>
 
     <div id="login">
-        {{login | json}}
         <h4>Login Here</h4>
         <form (submit)="loginThroughService()">
             <label for="login.email">Email:
